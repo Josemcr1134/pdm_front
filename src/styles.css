@@ -1,1 +1,16 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.text-primary {
+  color: #6c69e9;
+}
+
+.text-gray {
+  color: #cfcfcf;
+}
+
+.text-dark {
+  color: black;
+}
