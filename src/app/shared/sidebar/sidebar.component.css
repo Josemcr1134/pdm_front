@@ -1,0 +1,10 @@
+.sidebar {
+  @apply flex grow flex-col gap-y-5 transition-all duration-300 ease-in-out overflow-y-auto  px-6 pb-4;
+  background: linear-gradient(90deg, #3280e4 0%, #4b75e6 32%, #646be8 64%, #6e68e9 100%);
+
+}
+
+.active {
+  background: rgba(255, 255, 255, 0.101961);
+  border-radius: .875rem;
+}
