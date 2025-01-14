@@ -14,3 +14,13 @@
 .text-dark {
   color: black;
 }
+
+.badge-primary{
+  background-color: #6c69e9;
+  color:white;
+}
+
+.badge-green{
+  background: #03dbb2;
+  color: #fff;
+}

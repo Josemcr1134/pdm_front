@@ -1,11 +1,11 @@
-<div>
+<div class="h-full min-h-max">
   <app-sidebar (close)="toCollapse($event)"></app-sidebar>
   <div class="h-full" [ngClass]="{'lg:pl-72': !isCollapse, 'lg:pl-20':  isCollapse}">
    <app-header></app-header>
 
-    <main  class="py-10 transition-all duration-300">
+    <main  class="py-10 h-full transition-all duration-300 bg-blue-700/20 min-h-max" >
       <div class="px-4 sm:px-6 lg:px-8">
-        <!-- Your content -->
+        <router-outlet></router-outlet>
       </div>
     </main>
   </div>

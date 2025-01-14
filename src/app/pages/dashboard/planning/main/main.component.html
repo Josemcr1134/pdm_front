@@ -1,0 +1,136 @@
+<div class="mx-auto  px-4 sm:px-6 lg:px-8 h-full">
+  <div class="overflow-x-auto whitespace-nowrap p-4 h-full">
+    <ul class="flex space-x-4 h-full">
+      <!-- MUNICIPALITY PLANNING -->
+      <li class="h-full bg-white rounded-2xl shadow-md p-4 min-w-80">
+        <p class="text-primary text-[17px] font-black  ">Planeación Municipal</p>
+
+        <p>Selecciona tu categoría de preferencia</p>
+
+        <div class="grid grid-cols-2 gap-2 mt-5">
+            <button (click)="categoryTypeSelected = 1" [ngClass]="{'badge-primary': categoryTypeSelected == 1}" class="text-primary text-sm py-1.5 text-center rounded-xl">Líneas Estratégicas</button>
+            <button (click)="categoryTypeSelected = 2" [ngClass]="{'badge-primary': categoryTypeSelected == 2}" class="text-primary font-medium text-sm py-1.5 text-center rounded-xl ">Metas Producto</button>
+            <button class="badge-green  text-sm py-1.5 text-center rounded-2xl ">Descargar reporte</button>
+        </div>
+        <ul *ngIf="categoryTypeSelected == 1" class="strategicLinesList w-full">
+          <li *ngFor="let sL of strategicLines" (click)="chooseStrategicLine(sL.id)" [ngClass]="{'strategicLineActive':  sL.id == strategicLine }" class="strategicLine">
+              {{sL.name}}
+          </li>
+        </ul>
+        <ul *ngIf="categoryTypeSelected == 2" class="productGoalsList w-full">
+          <li *ngFor="let pG of productGoals" (click)="chooseProductGoal(pG.name)" class="productGoal">
+              {{pG.name}}
+              <hr class="my-1">
+             <span>
+               Consecutivo de la meta:
+               {{pG.consecutive}}
+             </span>
+          </li>
+        </ul>
+      </li>
+
+      <!-- SECTORS LIST  -->
+      <li *ngIf="categoryTypeSelected == 1 && strategicLine.length" class="h-full bg-white rounded-2xl shadow-md p-4 min-w-80">
+        <p class="text-primary text-[17px] font-black  ">Sectores</p>
+        <hr class=" border-[3px] rounded-xl my-2 border-[#ebebff]"/>
+
+        <ul  class="strategicLinesList w-full">
+          <li *ngFor="let s of sectors" (click)="chooseSector(s.id)" [ngClass]="{'strategicLineActive':  s.id == sector }"  class="strategicLine">
+              {{s.name}}
+          </li>
+        </ul>
+      </li>
+
+      <!-- CODE LIST  -->
+      <li *ngIf="categoryTypeSelected == 1 && strategicLine.length && sector.length" class="h-full bg-white rounded-2xl shadow-md p-4 min-w-80">
+        <p class="text-primary text-[17px] font-black  ">Códigos - programa</p>
+        <hr class=" border-[3px] rounded-xl my-2 border-[#ebebff]"/>
+
+        <ul  class="strategicLinesList w-full">
+          <li *ngFor="let s of programCodes" (click)="chooseCode(s.id)" [ngClass]="{'strategicLineActive':  s.id == code }"  class="strategicLine">
+              {{s.name}}
+          </li>
+        </ul>
+      </li>
+
+      <!-- INDICATORS LIST  -->
+      <li *ngIf="categoryTypeSelected == 1 && strategicLine.length && sector.length && code.length" class="h-full bg-white rounded-2xl shadow-md p-4 min-w-80">
+        <p class="text-primary text-[17px] font-black  ">Indicadores</p>
+        <hr class=" border-[3px] rounded-xl my-2 border-[#ebebff]"/>
+        <p class="text-primary text-[16px] font-semibold  ">Programa del plan del Desarrollo: </p>
+        <p class="text-wrap">Promoción y acceso efectivo a procesos culturales y artísticos </p>
+        <ul  class="strategicLinesList w-full">
+          <li *ngFor="let s of indicators" (click)="chooseIndicator(s.id)" [ngClass]="{'strategicLineActive':  s.id == indicator }" class="strategicLine">
+              {{s.id}} {{s.name}}
+          </li>
+        </ul>
+      </li>
+
+      <!-- INDICATORS OF WELFARE    -->
+      <li *ngIf="categoryTypeSelected == 1 && strategicLine.length && code.length && sector.length && indicator.length" class="h-full bg-white rounded-2xl shadow-md p-4 min-w-80">
+        <p class="text-primary text-[17px] font-black  ">Indicador de Bienestar</p>
+        <hr class=" border-[3px] rounded-xl my-2 border-[#ebebff]"/>
+        <p class="text-primary text-[16px] font-semibold  ">Indicador de Bienestar </p>
+        <p class="text-wrap">Acceso de la población colombiana a espacios culturales </p>
+        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
+        <p class="text-primary text-[16px] font-semibold text-wrap  ">Unidad de Medida (Número o porcentaje): </p>
+        <p class="text-wrap">Porcentaje </p>
+        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
+        <p>Línea base:</p>
+        <p class="text-primary text-[16px] font-semibold  "> Definición Operacional: </p>
+        <p class="text-wrap">0 </p>
+        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
+        <p class="text-primary text-[16px] font-semibold  ">Meta del Cuatrienio: </p>
+        <p class="text-wrap">12 </p>
+        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
+        <p class="text-primary text-[16px] font-semibold  ">Metas Producto: </p>
+        <ul  class="strategicLinesList w-full">
+          <li *ngFor="let s of productGoals" class="productGoal">
+              {{s.name}}s
+          </li>
+        </ul>
+      </li>
+
+      <!-- PRODUCT GOALS -->
+       <li *ngIf="categoryTypeSelected == 2 && productGoal.length" class="h-full bg-white rounded-2xl shadow-md p-4 min-w-80">
+        <p class="text-primary text-[17px] font-black  ">Meta de producto</p>
+        <hr class=" border-[3px] rounded-xl my-2 border-[#ebebff]"/>
+
+        <p class="text-primary text-[17px] font-black  ">Meta de producto</p>
+        <p class="text-wrap">Servicio de circulación artística y cultural </p>
+        <hr class=" border-[3px] rounded-xl my-2 border-[#ebebff]"/>
+        <p class="text-primary text-[16px] font-semibold  ">Tipo de Meta: </p>
+        <p class="text-wrap">No acumulada </p>
+        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
+        <p class="text-primary text-[16px] font-semibold text-wrap  ">Línea Base: </p>
+        <p class="text-wrap">- </p>
+        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
+        <p>Línea base:</p>
+        <p class="text-primary text-[16px] font-semibold  "> Responsable: </p>
+        <p class="text-wrap">- </p>
+        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
+        <p class="text-primary text-[16px] font-semibold  ">Código de Producto MGA: </p>
+        <p class="text-wrap">3301073 </p>
+        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
+        <p class="text-primary text-[16px] font-semibold  ">Producto de la MGA:</p>
+        <p class="text-wrap">Servicio de circulación artística y cultural </p>
+        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
+        <p class="text-primary text-[16px] font-semibold  ">Indicador de Producto MGA:</p>
+        <p class="text-wrap">Producciones artísticas en circulación </p>
+        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
+        <p class="text-primary text-[16px] font-semibold  ">Unidad de Medida:</p>
+        <p class="text-wrap">Número </p>
+        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
+        <p class="text-primary text-[16px] font-semibold  ">Meta del Cuatrienio:</p>
+        <p class="text-wrap">100 </p>
+        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
+        <p class="text-primary text-[16px] font-semibold  ">Consecutivo de la Meta:</p>
+        <p class="text-wrap">5 </p>
+        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
+        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
+        <p class="text-primary text-[16px] font-semibold  ">Consultar alineaciones de la meta:</p>
+      </li>
+    </ul>
+  </div>
+</div>
+
