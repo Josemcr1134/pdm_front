@@ -1,0 +1,58 @@
+<div class="mx-auto  px-4 sm:px-6 lg:px-8 h-full">
+  <div class="overflow-x-auto whitespace-nowrap p-4 h-full">
+    <ul class="flex space-x-4 h-full">
+      <li  class="h-full bg-white rounded-2xl shadow-md p-4 w-80">
+        <p class="text-primary text-[17px] font-black  ">Lineamientos Transversales</p>
+        <p class="text-sm">Consulta los proyectos y leyes de preferencia</p>
+        <hr class=" border-[3px] rounded-xl my-2 border-[#ebebff]"/>
+
+        <ul  class="strategicLinesList w-full">
+          <li *ngFor="let s of guidelines" (click)="chooseGuideline(s.id)" [ngClass]="{'strategicLineActive':  s.id == guidelineSelected }"  class="strategicLine">
+              {{s.name}}
+          </li>
+        </ul>
+      </li>
+      <li *ngIf="guidelineSelected.length"  class="h-full bg-white rounded-2xl shadow-md p-4 w-80">
+        <p class="text-primary text-[17px] font-black  ">DANE</p>
+        <p class="text-sm">Clasificación Central de Productos</p>
+        <hr class=" border-[3px] rounded-xl my-2 border-[#ebebff]"/>
+
+        <ul  class="strategicLinesList w-full">
+          <li *ngFor="let s of products" (click)="chooseProduct(s.id)" [ngClass]="{'strategicLineActive':  s.id == productSelected }"  class="strategicLine">
+              <span class="text-wrap">
+                {{s.name}}
+              </span>
+              <span class="text-wrap">
+              Subclase: {{s.subclass}}
+              </span>
+          </li>
+        </ul>
+      </li>
+      <li *ngIf="guidelineSelected.length && productSelected.length"  class="h-full bg-white rounded-2xl shadow-md p-4 w-80">
+        <p class="text-primary text-[17px] font-black  ">DANE</p>
+        <p class="text-sm">Trigo, semilla</p>
+        <hr class=" border-[3px] rounded-xl my-2 border-[#ebebff]"/>
+
+        <ul  class="strategicLinesList w-full">
+          <p class="text-primary text-[17px] font-black  ">Título:</p>
+          <p class="text-wrap">Trigo, semilla </p>
+          <hr class=" border-[3px] rounded-xl my-2 border-[#ebebff]"/>
+          <p class="text-primary text-[16px] font-semibold  ">Sub Clase: </p>
+          <p class="text-wrap">01111</p>
+          <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
+          <p class="text-primary text-[16px] font-semibold text-wrap  ">Clase: </p>
+          <p class="text-wrap"> 0111 - Trigo</p>
+          <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
+          <p class="text-primary text-[16px] font-semibold  "> Grupo: </p>
+          <p class="text-wrap">011 - Cereales </p>
+          <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
+          <p class="text-primary text-[16px] font-semibold  ">División: </p>
+          <p class="text-wrap"> DIVISIÓN 01 - AGRICULTURA, SILVICULTURA Y PRODUCTOS DE LA PESCA </p>
+          <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
+          <p class="text-primary text-[16px] font-semibold  ">Sección:</p>
+          <p class="text-wrap">SECCIÓN 0 - AGRICULTURA, SILVICULTURA Y PRODUCTOS DE LA PESCA </p>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
