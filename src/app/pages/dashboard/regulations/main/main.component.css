@@ -1,0 +1,35 @@
+.strategicLine{
+  cursor: pointer;
+  background-color: #f8f8f8;
+  margin: 1rem 0;
+  padding: 1rem;
+  border-radius: 10px;
+  border: 1px solid #d8d8d8;
+  color: #707070;
+  text-decoration: none;
+  text-wrap: wrap;
+}
+
+.strategicLineActive{
+  cursor: pointer;
+   background-color: rgba(108,105,233,0.439216);
+  margin: 1rem 0;
+  padding: 1rem;
+  border-radius: 10px;
+  border: 1px solid #d8d8d8;
+  color: white;
+  text-decoration: none;
+  text-wrap: wrap;
+}
+
+.productGoal{
+  background-color: rgba(3, 219, 178, 0.2);
+  border-radius: 10px;
+  border: 1px solid #03dbb2;
+  color: #707070;
+  margin: .5rem 0;
+  padding: 1rem;
+  text-decoration: none;
+  font-weight: 600;
+  text-wrap: wrap;
+}
