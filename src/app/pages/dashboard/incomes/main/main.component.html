@@ -1,1 +1,103 @@
-<p>main works!</p>
+<div>
+  <div class="block bg-white p-3 rounded-xl">
+    <div class="flex items-center gap-5 flex-wrap">
+      <div class="flex items-center gap-2">
+          <p class="text-black font-bold text-base">Ingresos</p>
+          <div class="grid grid-cols-1">
+            <select aria-label="Select a tab" class="col-start-1 row-start-1 w-24 appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-gray-900  outline-none ">
+              <option selected>2020</option>
+            </select>
+            <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end fill-gray-500" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
+              <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+            </svg>
+          </div>
+      </div>
+      <nav class="flex space-x-4" aria-label="Tabs">
+        <!-- Current: "bg-gray-200 text-gray-800", Default: "text-gray-600 hover:text-gray-800" -->
+        <a [ngClass]="{'active': categorySelected == 1}"  (click)="chooseCategory(1)" class="cursor-pointer uppercase rounded-md px-3 py-2 text-sm font-medium text-gray-600 hover:text-gray-800">Oficina</a>
+        <a [ngClass]="{'active': categorySelected == 2}"  (click)="chooseCategory(2)"  class="cursor-pointer uppercase rounded-md px-3 py-2 text-sm font-medium text-gray-600 hover:text-gray-800">Personeria</a>
+        <a [ngClass]="{'active': categorySelected == 3}"  (click)="chooseCategory(3)" class="cursor-pointer uppercase rounded-md px-3 py-2 text-sm font-medium text-gray-600 hover:text-gray-800">Concejo</a>
+        <a [ngClass]="{'active': categorySelected == 4}"  (click)="chooseCategory(4)" class="cursor-pointer uppercase rounded-md px-3 py-2 text-sm font-medium text-gray-600 hover:text-gray-800">Alcaldia</a>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+<div class="bg-white rounded-xl mt-10 p-3 py-5">
+
+  <div class=" flow-root">
+    <div class=" overflow-x-auto mb-4">
+      <div class="inline-block min-w-full py-2 align-middle ">
+        <table class="min-w-full divide-y divide-gray-300">
+          <thead>
+            <tr>
+              <th scope="col" class="text-nowrap py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-primary sm:pl-0">Código</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Nombre Cuenta</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Tercero</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Programa</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Situación</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Apropiación inicial</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Adiciones</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Reducciones</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Aplazamiento</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Adiciones</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Reducciones</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Aplazamiento</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Desplazamiento</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Disponibilidad</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Total Apropiado</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Disponibilidad</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Compromisos / mes</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Compromisos Acumulados</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Saldo por ejecutar</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Pagos anteriores</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Pagos / mes</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Pagos acumulados</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Obligaciones por pagar</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Saldo</th>
+              <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
+                <span class="sr-only">Edit</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200">
+            <tr>
+              <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-primary sm:pl-0">xxxx</td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">xxxx</td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">xxxx</td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">xxxx</td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">xxxx</td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">xxxx</td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">xxxx</td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">xxxx</td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">xxxx</td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">xxxx</td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">xxxx</td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">xxxx</td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">xxxx</td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">xxxx</td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">xxxx</td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">xxxx</td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">xxxx</td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">xxxx</td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">xxxx</td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">xxxx</td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">xxxx</td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">xxxx</td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">xxxx</td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">xxxx</td>
+              <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit<span class="sr-only">, Lindsay Walton</span></a>
+              </td>
+            </tr>
+
+            <!-- More people... -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <app-pagination></app-pagination>
+  </div>
+</div>
+

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl:'',
+  baseUrl:'https://7d6mb1etgf.planeacionydesarrollo.com.co/api',
 };
 
 /*

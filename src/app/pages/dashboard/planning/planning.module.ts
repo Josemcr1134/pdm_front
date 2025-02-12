@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { PlanningRoutingModule } from './planning-routing.module';
 import { MainComponent } from './main/main.component';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { LoaderComponent } from '../../../shared/loader/loader.component';
 
 
 @NgModule({
@@ -11,7 +13,9 @@ import { MainComponent } from './main/main.component';
   ],
   imports: [
     CommonModule,
-    PlanningRoutingModule
+    PlanningRoutingModule,
+    AlertComponent,
+    LoaderComponent
   ]
 })
 export class PlanningModule { }

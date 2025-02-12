@@ -31,11 +31,7 @@ export class SidebarComponent implements OnInit {
       icon:'assets/icons/national-planning.svg',
       route:"/dashboard/national-planning"
     },
-    {
-      label:'Proyectos',
-      icon:'assets/icons/projects.svg',
-      route:"/dashboard/projects"
-    },
+
     {
       label:'Informes Nacionales',
       icon:'assets/icons/national-reports.svg',
@@ -77,12 +73,7 @@ export class SidebarComponent implements OnInit {
       icon:'assets/icons/incomes.svg',
       route:"/dashboard/incomes"
     },
-    {
-      label:'J.A.C',
-      icon:'assets/icons/jac.svg',
-      route:"/dashboard/jac"
 
-    },
   ];
 
 

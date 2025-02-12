@@ -1,18 +1,7 @@
 import { Component } from '@angular/core';
-interface StrategicLine {
-  id: string;
-  name: string;
-}
+import { StrategicLine } from '../../../../core/models/strategic-line.model';
+import { ProgramCode } from '../../../../core/models/program-code.model';
 
-interface ProgramCode {
-  id: string;
-  name: string;
-}
-
-interface Indicator {
-  id: string;
-  name: string;
-}
 
 @Component({
   selector: 'app-main',
@@ -24,7 +13,6 @@ export class MainComponent {
   public strategicLine:string = '';
   public productGoal:string = '';
   public sector:string = '';
-  public indicator:string = '';
   public code:string = '';
 
   public strategicLines: StrategicLine[] = [
@@ -64,42 +52,30 @@ export class MainComponent {
     { id: 'P005', name: 'Educational Excellence' },
   ];
 
-  public  indicators: Indicator[] = [
-    { id: 'I001', name: 'Carbon Footprint Reduction' },
-    { id: 'I002', name: 'Employee Satisfaction Rate' },
-    { id: 'I003', name: 'Customer Retention Rate' },
-    { id: 'I004', name: 'Revenue Growth Percentage' },
-    { id: 'I005', name: 'Graduation Rate Improvement' },
-  ];
+
 
   chooseStrategicLine(value:string){
     this.strategicLine = value;
     this.sector = '';
-    this.indicator = '';
     this.code = '';
     this.productGoal = '';
   };
 
   chooseSector(value:string){
     this.sector = value;
-    this.indicator = '';
     this.code = '';
   };
 
   chooseCode(value:string){
     this.code = value;
-    this.indicator = '';
   };
 
-  chooseIndicator(value:string){
-    this.indicator = value;
-  };
+
 
   chooseProductGoal(value:string){
     this.productGoal = value;
     this.strategicLine = '';
     this.sector = '';
-    this.indicator = '';
     this.code = '';
   }
 }
