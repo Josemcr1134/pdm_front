@@ -20,4 +20,10 @@ export class IncomesService {
   };
 
 
+  deleteSourceFinancing(incomeId:string, sourceId:string){
+    const url = `${this.authSvc.baseUrl}/incomes/${incomeId}/delete_source_financing/?source_id=${sourceId}`;
+    return this.http.delete(url, this.authSvc.header);
+  };
+
+
 }

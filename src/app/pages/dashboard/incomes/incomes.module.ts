@@ -7,6 +7,7 @@ import { PaginationComponent } from '../../../shared/pagination/pagination.compo
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoaderComponent } from '../../../shared/loader/loader.component';
 import { DetailComponent } from './detail/detail.component';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { DetailComponent } from './detail/detail.component';
     PaginationComponent,
     FormsModule,
     LoaderComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AlertComponent
   ]
 })
 export class IncomesModule { }

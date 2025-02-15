@@ -43,6 +43,11 @@ export class MainComponent implements OnInit{
     this.incomeDetail = data;
     this.showIncomeDetail = !this.showIncomeDetail;
     console.log(data);
-  }
+  };
+
+  refresh(){
+    this.showIncomeDetail = false;
+    this.getIncomes();
+  };
 
 }

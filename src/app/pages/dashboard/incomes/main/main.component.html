@@ -134,10 +134,10 @@
     <div class="flex justify-center items-center py-5" *ngIf="isLoading">
       <app-loader></app-loader>
     </div>
-    <app-pagination></app-pagination>
+
   </div>
 </div>
 
 
 <!-- INCOME DETAIL -->
- <app-detail *ngIf="showIncomeDetail" [data]="incomeDetail" ></app-detail>
+ <app-detail (close)="refresh()"  *ngIf="showIncomeDetail" [data]="incomeDetail" ></app-detail>

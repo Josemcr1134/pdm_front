@@ -1,0 +1,220 @@
+<div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+
+  <div class="fixed inset-0 bg-gray-500/75 transition-opacity" aria-hidden="true"></div>
+
+  <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+    <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+      <div class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-md sm:p-6">
+        <div>
+          <div class="mx-auto flex size-12 items-center justify-center rounded-full bg-blue-100">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-blue-600">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+          </div>
+          <div class="mt-3  sm:mt-5">
+            <div class="mt-2 ">
+              <h3 class="text-base text-center font-semibold text-gray-900 mb-5" id="modal-title">Detalle de ingreso</h3>
+              <div class="mb-5">
+                <div class="w-full">
+                  <label for="text" class="block text-sm/6 font-medium text-primary">Fuentes de financiamiento</label>
+                  <div class="flex items-start w-full gap-2 mb-3" *ngIf="sourceSelected == undefined">
+                    <div class="w-full">
+                      <input type="text" name="text" [(ngModel)]="searchSources"   id="text" autocomplete="off" placeholder="Buscar"  class="block mb-3 w-full rounded-2xl bg-gray-100 px-3 py-1.5 text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                      <div class="flex gap-3 items-center">
+                          <div class="flex h-6 shrink-0 items-center">
+                            <div class="group grid size-4 grid-cols-1">
+                              <input id="filter-by-homologation" [(ngModel)]="filterByHomologation" aria-describedby="filter-by-homologation-description" name="filter-by-homologation" type="checkbox" checked class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-indigo-600 checked:bg-indigo-600 indeterminate:border-indigo-600 indeterminate:bg-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto">
+                              <svg class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-[:disabled]:stroke-gray-950/25" viewBox="0 0 14 14" fill="none">
+                                <path class="opacity-0 group-has-[:checked]:opacity-100" d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                <path class="opacity-0 group-has-[:indeterminate]:opacity-100" d="M3 7H11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                              </svg>
+                            </div>
+                          </div>
+                          <div class="text-xs">
+                            <label for="filter-by-homologation" class="font-normal text-gray-900 text-nowrap">Filtar por homologación</label>
+                          </div>
+                      </div>
+                    </div>
+                    <div>
+                      <button (click)="getSourceFinancing()" type="button" class="inline-flex w-full justify-center rounded-2xl bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2">Buscar</button>
+                    </div>
+                  </div>
+
+                  <ul *ngIf="sources.length && !isLoading" class="w-full bg-gray-50 rounded-2xl shadow-md max-h-72 overflow-y-auto ">
+                    <li *ngFor="let s of sources" (click)="selectSource(s)" class="hover:bg-purple-700/20 p-2 rounded-2xl text-sm border-b border-gray-100 text-pruple-700 "> {{s.code}} - {{s.name}} </li>
+                  </ul>
+                  <app-alert *ngIf="searchSources.length && !isLoading && !sources.length && sourceSelected == undefined" [msg]="'No encontramos fuentes de financiamiento'" ></app-alert>
+                  <span  *ngIf="sourceSelected !== undefined" class="flex justify-between p-3 mb-3 items-center bg-purple-700/20  rounded-2xl text-sm border-b border-gray-100 text-pruple-700">
+
+                    <p >{{sourceSelected.name}} </p>
+                    <button (click)="deleteOperatingExpense(null)" [disabled]="isLoading">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-red-500 hover:text-red-700">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                      </svg>
+                    </button>
+                  </span>
+                  <div class="grid grid-cols-2 gap-3">
+                    <span  *ngFor="let s of sourcesSelected" class="flex justify-between p-2 items-center bg-purple-500/10  rounded-2xl text-xs text-pruple-500">
+                      {{s.source_financing.name}}
+                      <button (click)="deleteOperatingExpense(s.source_financing.id)" [disabled]="isLoading">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-red-500 hover:text-red-700">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                        </svg>
+                      </button>
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+
+              <form [formGroup]="expenseForm" class="grid grid-cols-3 gap-4">
+                <!-- Fila 1 -->
+                <div class="col-span-1">
+                  <label class="block text-sm font-medium text-primary">Aprobación inicial</label>
+                  <input
+                    type="number"
+                    formControlName="initial_approval"
+                    placeholder="Ingresa la aprobación inicial"
+                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1.5 text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                  >
+                </div>
+                <div class="col-span-1">
+                  <label class="block text-sm font-medium text-primary">Adiciones</label>
+                  <input
+                    type="number"
+                    formControlName="additions"
+                    placeholder="Ingresa la adición"
+                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1.5 text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                  >
+                </div>
+                <div class="col-span-1">
+                  <label class="block text-sm font-medium text-primary">Reducciones</label>
+                  <input
+                    type="number"
+                    formControlName="reductions"
+                    placeholder="Ingresa la reducción"
+                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1.5 text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                  >
+                </div>
+                <div class="col-span-1">
+                  <label class="block text-sm font-medium text-primary">Aplazamientos</label>
+                  <input
+                    type="number"
+                    formControlName="deferrals"
+                    placeholder="Ingresa el aplazamiento"
+                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1.5 text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                  >
+                </div>
+
+                <!-- Fila 2 -->
+                <div class="col-span-1">
+                  <label class="block text-sm font-medium text-primary">Desplazamiento</label>
+                  <input
+                    type="number"
+                    formControlName="displacement"
+                    placeholder="Ingresa el desplazamiento"
+                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1.5 text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                  >
+                </div>
+                <div class="col-span-1">
+                  <label class="block text-sm font-medium text-primary">Disponibilidad</label>
+                  <input
+                    type="number"
+                    formControlName="availability"
+                    placeholder="Ingresa la disponibilidad"
+                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1.5 text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                  >
+                </div>
+                <div class="col-span-1">
+                  <label class="block text-sm font-medium text-primary">Compromisos/mes</label>
+                  <input
+                    type="number"
+                    formControlName="commitments_month"
+                    placeholder="Ingresa los compromisos/mes"
+                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1.5 text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                  >
+                </div>
+                <div class="col-span-1">
+                  <label class="block text-sm font-medium text-primary">Compromisos acumulados</label>
+                  <input
+                    type="number"
+                    formControlName="cumulative_commitments"
+                    placeholder="Ingresa el compromisos acumulados"
+                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1.5 text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                  >
+                </div>
+
+                <!-- Fila 3 -->
+                <div class="col-span-1">
+                  <label class="block text-sm font-medium text-primary">Saldo ejecutado</label>
+                  <input
+                    type="number"
+                    formControlName="executed_balance"
+                    placeholder="Ingresa el saldo ejecutado"
+                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1.5 text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                  >
+                </div>
+                <div class="col-span-1">
+                  <label class="block text-sm font-medium text-primary">Pagos anteriores</label>
+                  <input
+                    type="number"
+                    formControlName="previous_payments"
+                    placeholder="Ingresa los pagos anteriores"
+                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1.5 text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                  >
+                </div>
+                <div class="col-span-1">
+                  <label class="block text-sm font-medium text-primary">Pagos del mes</label>
+                  <input
+                    type="number"
+                    formControlName="payments_month"
+                    placeholder="Ingresa los pagos del mes"
+                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1.5 text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                  >
+                </div>
+                <div class="col-span-1">
+                  <label class="block text-sm font-medium text-primary">Total aprobado</label>
+                  <input
+                    type="number"
+                    formControlName="total_approval"
+                    placeholder="Ingresa el total de pagos"
+                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1.5 text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                  >
+                </div>
+
+                <!-- Fila 4 -->
+                <div class="col-span-3">
+                  <label class="block text-sm font-medium text-primary">Obligaciones </label>
+                  <input
+                    type="number"
+                    formControlName="obligations"
+                    placeholder="Ingresa las obligaciones"
+                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1.5"
+                  >
+                </div>
+                <div class="col-span-3">
+                  <label class="block text-sm font-medium text-primary">Saldo</label>
+                  <input
+                    type="number"
+                    formControlName="balance"
+                    placeholder="Ingresa el saldo"
+                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1.5"
+                  >
+                </div>
+              </form>
+
+
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!isLoading" class="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
+          <button (click)="updateExpense()" type="button" class="inline-flex w-full justify-center rounded-2xl bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2">Guardar</button>
+          <button (click)="goAway()" type="button" class="mt-3 inline-flex w-full justify-center rounded-2xl bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0">Cancelar</button>
+        </div>
+        <div class="flex justify-center items-center py-6" *ngIf="isLoading">
+          <app-loader></app-loader>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
