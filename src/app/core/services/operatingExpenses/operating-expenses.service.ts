@@ -24,4 +24,22 @@ export class OperatingExpensesService {
     return this.http.delete(url, this.authSvc.header);
   };
 
+  getInvestmentsExpenses(year:string, limit:number, offset:number){
+    const url = `${this.authSvc.baseUrl}/investment-expenses/?year=${year}&limit=${limit}&offset=${offset}`;
+    return this.http.get(url, this.authSvc.header);
+  };
+
+  addInvestmentsExpenseDetail(data:{}, id:string){
+    const url = `${this.authSvc.baseUrl}/investment-expenses/${id}/add_investment_expense_details/`;
+    return this.http.post(url, data, this.authSvc.header);
+  };
+
+  deleteInvestmentsExpenseSource(investmentsId:string, sourceId:string){
+    const url = `${this.authSvc.baseUrl}/investment-expenses/${investmentsId}/delete_source_financing/?source_id=${sourceId}`;
+    return this.http.delete(url, this.authSvc.header);
+  };
+
+
+
+
 }

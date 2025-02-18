@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IncomesService } from '../../../../core/services/incomes/incomes.service';
-import { AlertsService } from '../../../../core/services/alerts/alerts.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { SourceFinancingService } from '../../../../core/services/sourceFinancing/source-financing.service';
+import { AlertsService } from '../../../../../core/services/alerts/alerts.service';
+import { IncomesService } from '../../../../../core/services/incomes/incomes.service';
+import { SourceFinancingService } from '../../../../../core/services/sourceFinancing/source-financing.service';
+import { OperatingExpensesService } from '../../../../../core/services/operatingExpenses/operating-expenses.service';
 
 @Component({
   selector: 'app-detail',
@@ -25,11 +26,10 @@ export class DetailComponent implements OnInit {
     code:string,
     name:string
   }[] = [];
-  public sourcesSelected:any[] =[];
-  public incomeForm!: FormGroup;
-  public situation:number = 1;
+  public expenseForm!: FormGroup;
+  public sourcesSelected:any[] = [];
   ngOnInit(): void {
-    this.incomeForm = new FormGroup({
+    this.expenseForm = new FormGroup({
       year: new FormControl(2024, [
         Validators.required,
         Validators.pattern('^[0-9]+$')
@@ -54,7 +54,23 @@ export class DetailComponent implements OnInit {
         Validators.required,
         Validators.pattern('^[0-9]+$')
       ]),
+      transfer_with_credit: new FormControl(null, [
+        Validators.required,
+        Validators.pattern('^[0-9]+$')
+      ]),
+      credit_transfer: new FormControl(null, [
+        Validators.required,
+        Validators.pattern('^[0-9]+$')
+      ]),
+      total_approval: new FormControl(null, [
+        Validators.required,
+        Validators.pattern('^[0-9]+$')
+      ]),
       availability: new FormControl(null, [
+        Validators.required,
+        Validators.pattern('^[0-9]+$')
+      ]),
+      previous_commitments: new FormControl(null, [
         Validators.required,
         Validators.pattern('^[0-9]+$')
       ]),
@@ -62,11 +78,11 @@ export class DetailComponent implements OnInit {
         Validators.required,
         Validators.pattern('^[0-9]+$')
       ]),
-      commitments_total: new FormControl(null, [
+      cumulative_commitments: new FormControl(null, [
         Validators.required,
         Validators.pattern('^[0-9]+$')
       ]),
-      balance_executed: new FormControl(null, [
+      executed_balance: new FormControl(null, [
         Validators.required,
         Validators.pattern('^[0-9]+$')
       ]),
@@ -76,50 +92,50 @@ export class DetailComponent implements OnInit {
       ]),
       payments_month: new FormControl(null, [
         Validators.required,
-        Validators.pattern('^[0-9]+$')
       ]),
-      total_payments: new FormControl(null, [
+      accumulated_payments: new FormControl(1, [
         Validators.required,
         Validators.pattern('^[0-9]+$')
       ]),
-      obligations_payable: new FormControl(null, [
+      obligations: new FormControl(1, [
         Validators.required,
         Validators.pattern('^[0-9]+$')
       ]),
-      balance: new FormControl(null, [
+      balance: new FormControl(1, [
         Validators.required,
         Validators.pattern('^[0-9]+$')
       ]),
-      source_financing: new FormControl(null, [
+      source_financing: new FormControl(1, [
         Validators.required,
-      ]),
-      situation: new FormControl(1, [
-        Validators.required,
-        Validators.pattern('^[0-9]+$')
       ]),
     });
     this.loadForm();
   }
 
-  constructor(private incomesSvc:IncomesService, private alertSvc:AlertsService, private sourceFinancingSvc:SourceFinancingService){}
+  constructor(private expensesSvc:OperatingExpensesService, private alertSvc:AlertsService, private sourceFinancingSvc:SourceFinancingService){}
 
   loadForm(){
-    this.incomeForm.get('initial_approval')?.setValue(this.data.total_attributes.initial_approval);
-    this.incomeForm.get('additions')?.setValue(this.data.total_attributes.additions);
-    this.incomeForm.get('reductions')?.setValue(this.data.total_attributes.reductions);
-    this.incomeForm.get('deferrals')?.setValue(this.data.total_attributes.deferrals);
-    this.incomeForm.get('displacement')?.setValue(this.data.total_attributes.displacement);
-    this.incomeForm.get('availability')?.setValue(this.data.total_attributes.availability);
-    this.incomeForm.get('commitments_month')?.setValue(this.data.total_attributes.commitments_month);
-    this.incomeForm.get('commitments_total')?.setValue(this.data.total_attributes.commitments_total);
-    this.incomeForm.get('balance_executed')?.setValue(this.data.total_attributes.balance_executed);
-    this.incomeForm.get('previous_payments')?.setValue(this.data.total_attributes.previous_payments);
-    this.incomeForm.get('payments_month')?.setValue(this.data.total_attributes.payments_month);
-    this.incomeForm.get('total_payments')?.setValue(this.data.total_attributes.total_payments);
-    this.incomeForm.get('obligations_payable')?.setValue(this.data.total_attributes.obligations_payable);
-    this.incomeForm.get('balance')?.setValue(this.data.total_attributes.balance);
+    this.expenseForm.get('initial_approval')?.setValue(this.data.total_attributes.initial_approval);
+    this.expenseForm.get('additions')?.setValue(this.data.total_attributes.additions);
+    this.expenseForm.get('reductions')?.setValue(this.data.total_attributes.reductions);
+    this.expenseForm.get('deferrals')?.setValue(this.data.total_attributes.deferrals);
+    this.expenseForm.get('displacement')?.setValue(this.data.total_attributes.displacement);
+    this.expenseForm.get('transfer_with_credit')?.setValue(this.data.total_attributes.transfer_with_credit);
+    this.expenseForm.get('credit_transfer')?.setValue(this.data.total_attributes.credit_transfer);
+    this.expenseForm.get('total_approval')?.setValue(this.data.total_attributes.total_approval);
+    this.expenseForm.get('availability')?.setValue(this.data.total_attributes.availability);
+    this.expenseForm.get('previous_commitments')?.setValue(this.data.total_attributes.previous_commitments);
+    this.expenseForm.get('commitments_month')?.setValue(this.data.total_attributes.commitments_month);
+    this.expenseForm.get('cumulative_commitments')?.setValue(this.data.total_attributes.cumulative_commitments);
+    this.expenseForm.get('executed_balance')?.setValue(this.data.total_attributes.executed_balance);
+    this.expenseForm.get('previous_payments')?.setValue(this.data.total_attributes.previous_payments);
+    this.expenseForm.get('payments_month')?.setValue(this.data.total_attributes.payments_month);
+    this.expenseForm.get('accumulated_payments')?.setValue(this.data.total_attributes.accumulated_payments);
+    this.expenseForm.get('obligations')?.setValue(this.data.total_attributes.obligations);
+    this.expenseForm.get('balance')?.setValue(this.data.total_attributes.balance);
     this.sourcesSelected = this.data.sources_financing;
-    this.incomeForm.get('source_financing')?.setValue(this.sourceSelected?.id);
+    this.expenseForm.get('source_financing')?.setValue(this.sourceSelected?.id);
+    console.log(this.expenseForm.get('source_financing')?.value)
   };
 
   goAway(){
@@ -145,20 +161,21 @@ export class DetailComponent implements OnInit {
 
   selectSource(s:any){
     this.sourceSelected = s;
-    this.incomeForm.get('source_financing')?.setValue(s.id)
+    this.expenseForm.get('source_financing')?.setValue(s.id)
     this.sources = [];
   };
 
 
-  updateIncome(){
+  updateExpense(){
     this.isLoading = !this.isLoading;
-    this.incomesSvc.updateIncomeDetail(this.data.id, this.incomeForm.value)
+    this.expensesSvc.addOperatingExpenseDetail( this.expenseForm.value, this.data.id)
         .subscribe({
           error:(err:any) => {
             this.isLoading = !this.isLoading;
             this.alertSvc.handleErrors(err);
           },
           next:(resp:any) => {
+            console.log(resp)
             this.alertSvc.currentAlert('Éxito', 'Ingreso actualizado', 'success');
             this.goAway();
             this.isLoading = !this.isLoading;
@@ -166,10 +183,11 @@ export class DetailComponent implements OnInit {
         });
   };
 
-  deleteSourceFinancing(sourceId:any){
+  deleteOperatingExpense(sourceId:any){
+    console.log()
     if (sourceId !== null) {
       this.isLoading = !this.isLoading;
-      this.incomesSvc.deleteSourceFinancing(this.data.id, sourceId )
+      this.expensesSvc.deleteOperatingExpenseSource(this.data.id, sourceId )
             .subscribe({
               error:(err:any) => {
                 this.alertSvc.handleErrors(err);
@@ -177,8 +195,8 @@ export class DetailComponent implements OnInit {
               },
               next:(resp:any) => {
                 this.sourceSelected = undefined;
-                this.alertSvc.currentAlert('Éxito', 'Fuente de financiamiento eliminada', 'success');
                 this.sourcesSelected = this.sourcesSelected.filter(source => source.source_financing.id !== sourceId);
+                this.alertSvc.currentAlert('Éxito', 'Fuente de financiamiento eliminada', 'success');
                 this.isLoading = !this.isLoading;
               }
             });
@@ -186,4 +204,6 @@ export class DetailComponent implements OnInit {
       this.sourceSelected = undefined;
     }
   };
+
+
 }

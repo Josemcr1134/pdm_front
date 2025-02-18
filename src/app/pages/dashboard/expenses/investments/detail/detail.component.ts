@@ -1,16 +1,15 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AlertsService } from '../../../../core/services/alerts/alerts.service';
-import { IncomesService } from '../../../../core/services/incomes/incomes.service';
-import { SourceFinancingService } from '../../../../core/services/sourceFinancing/source-financing.service';
-import { OperatingExpensesService } from '../../../../core/services/operatingExpenses/operating-expenses.service';
+import { AlertsService } from '../../../../../core/services/alerts/alerts.service';
+import { OperatingExpensesService } from '../../../../../core/services/operatingExpenses/operating-expenses.service';
+import { SourceFinancingService } from '../../../../../core/services/sourceFinancing/source-financing.service';
 
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
   styleUrl: './detail.component.css'
 })
-export class DetailComponent implements OnInit {
+export class DetailComponent implements OnInit{
   @Input() data!:any;
   @Output() close = new EventEmitter<boolean>();
   public filterByHomologation:boolean = false;
@@ -115,24 +114,24 @@ export class DetailComponent implements OnInit {
   constructor(private expensesSvc:OperatingExpensesService, private alertSvc:AlertsService, private sourceFinancingSvc:SourceFinancingService){}
 
   loadForm(){
-    this.expenseForm.get('initial_approval')?.setValue(this.data.total_attributes.initial_approval);
-    this.expenseForm.get('additions')?.setValue(this.data.total_attributes.additions);
-    this.expenseForm.get('reductions')?.setValue(this.data.total_attributes.reductions);
-    this.expenseForm.get('deferrals')?.setValue(this.data.total_attributes.deferrals);
-    this.expenseForm.get('displacement')?.setValue(this.data.total_attributes.displacement);
-    this.expenseForm.get('transfer_with_credit')?.setValue(this.data.total_attributes.transfer_with_credit);
-    this.expenseForm.get('credit_transfer')?.setValue(this.data.total_attributes.credit_transfer);
-    this.expenseForm.get('total_approval')?.setValue(this.data.total_attributes.total_approval);
-    this.expenseForm.get('availability')?.setValue(this.data.total_attributes.availability);
-    this.expenseForm.get('previous_commitments')?.setValue(this.data.total_attributes.previous_commitments);
-    this.expenseForm.get('commitments_month')?.setValue(this.data.total_attributes.commitments_month);
-    this.expenseForm.get('cumulative_commitments')?.setValue(this.data.total_attributes.cumulative_commitments);
-    this.expenseForm.get('executed_balance')?.setValue(this.data.total_attributes.executed_balance);
-    this.expenseForm.get('previous_payments')?.setValue(this.data.total_attributes.previous_payments);
-    this.expenseForm.get('payments_month')?.setValue(this.data.total_attributes.payments_month);
-    this.expenseForm.get('accumulated_payments')?.setValue(this.data.total_attributes.accumulated_payments);
-    this.expenseForm.get('obligations')?.setValue(this.data.total_attributes.obligations);
-    this.expenseForm.get('balance')?.setValue(this.data.total_attributes.balance);
+    this.expenseForm.get('initial_approval')?.setValue(this.data.totals.initial_approval);
+    this.expenseForm.get('additions')?.setValue(this.data.totals.additions);
+    this.expenseForm.get('reductions')?.setValue(this.data.totals.reductions);
+    this.expenseForm.get('deferrals')?.setValue(this.data.totals.deferrals);
+    this.expenseForm.get('displacement')?.setValue(this.data.totals.displacement);
+    this.expenseForm.get('transfer_with_credit')?.setValue(this.data.totals.transfer_with_credit);
+    this.expenseForm.get('credit_transfer')?.setValue(this.data.totals.credit_transfer);
+    this.expenseForm.get('total_approval')?.setValue(this.data.totals.total_approval);
+    this.expenseForm.get('availability')?.setValue(this.data.totals.availability);
+    this.expenseForm.get('previous_commitments')?.setValue(this.data.totals.previous_commitments);
+    this.expenseForm.get('commitments_month')?.setValue(this.data.totals.commitments_month);
+    this.expenseForm.get('cumulative_commitments')?.setValue(this.data.totals.cumulative_commitments);
+    this.expenseForm.get('executed_balance')?.setValue(this.data.totals.executed_balance);
+    this.expenseForm.get('previous_payments')?.setValue(this.data.totals.previous_payments);
+    this.expenseForm.get('payments_month')?.setValue(this.data.totals.payments_month);
+    this.expenseForm.get('accumulated_payments')?.setValue(this.data.totals.accumulated_payments);
+    this.expenseForm.get('obligations')?.setValue(this.data.totals.obligations);
+    this.expenseForm.get('balance')?.setValue(this.data.totals.balance);
     this.sourcesSelected = this.data.sources_financing;
     this.expenseForm.get('source_financing')?.setValue(this.sourceSelected?.id);
     console.log(this.expenseForm.get('source_financing')?.value)
@@ -153,7 +152,6 @@ export class DetailComponent implements OnInit {
           },
           next:(resp:any) => {
             this.isLoading = !this.isLoading;
-            console.log(resp)
             this.sources = resp.results;
           }
         });
@@ -168,7 +166,7 @@ export class DetailComponent implements OnInit {
 
   updateExpense(){
     this.isLoading = !this.isLoading;
-    this.expensesSvc.addOperatingExpenseDetail( this.expenseForm.value, this.data.id)
+    this.expensesSvc.addInvestmentsExpenseDetail( this.expenseForm.value, this.data.id)
         .subscribe({
           error:(err:any) => {
             this.isLoading = !this.isLoading;
@@ -176,7 +174,7 @@ export class DetailComponent implements OnInit {
           },
           next:(resp:any) => {
             console.log(resp)
-            this.alertSvc.currentAlert('Éxito', 'Ingreso actualizado', 'success');
+            this.alertSvc.currentAlert('Éxito', 'Inversión actualizada', 'success');
             this.goAway();
             this.isLoading = !this.isLoading;
           }
@@ -187,7 +185,7 @@ export class DetailComponent implements OnInit {
     console.log()
     if (sourceId !== null) {
       this.isLoading = !this.isLoading;
-      this.expensesSvc.deleteOperatingExpenseSource(this.data.id, sourceId )
+      this.expensesSvc.deleteInvestmentsExpenseSource(this.data.id, sourceId )
             .subscribe({
               error:(err:any) => {
                 this.alertSvc.handleErrors(err);
@@ -204,6 +202,5 @@ export class DetailComponent implements OnInit {
       this.sourceSelected = undefined;
     }
   };
-
 
 }

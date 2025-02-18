@@ -1,10 +1,10 @@
 <div>
   <div class="block bg-white p-3 rounded-xl">
     <div class="flex items-center gap-5 flex-wrap">
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-4">
           <p class="text-black font-bold text-base">Gastos</p>
           <div class="grid grid-cols-1">
-            <select [(ngModel)]="year" (change)="getExpenses()" aria-label="Select a tab" class="col-start-1 row-start-1 w-24 appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600">
+            <select (change)="handleYearChange()" [(ngModel)]="year"  aria-label="Select a tab" class="col-start-1 row-start-1 w-24 appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600">
               <option value=2022>2022</option>
               <option value=2023>2023</option>
               <option value=2024>2024</option>
@@ -14,138 +14,12 @@
               <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
             </svg>
           </div>
+          <button [routerLink]="['/dashboard/expenses/investments', this.year]" routerLinkActive="active"  class="bg-purple-50 border border-purple-400 text-purple-400 rounded-lg py-1.5 px-4">Inversiones</button>
+          <button [routerLink]="['/dashboard/expenses/functionality', this.year]" routerLinkActive="active" class="bg-purple-50 border border-purple-400 text-purple-400 rounded-lg py-1.5 px-4">Funcionalidad</button>
       </div>
 
     </div>
   </div>
 </div>
 
-
-<div class="bg-white rounded-xl mt-10 p-3 py-5">
-
-  <div class=" flow-root">
-    <div class=" overflow-x-auto mb-4">
-      <div *ngIf="!isLoading" class="inline-block min-w-full py-2 align-middle ">
-        <table class="min-w-full divide-y divide-gray-300">
-          <thead>
-            <tr>
-              <th scope="col" class="text-nowrap py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-primary sm:pl-0">Cod. Sector</th>
-              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Sector</th>
-              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Pagos acumulados</th>
-              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Adiciones</th>
-              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Disponibilidad</th>
-              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Saldo</th>
-              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Disponibilidad/mes</th>
-              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Transferencia crédito</th>
-              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Compromisos acumulados</th>
-              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Aplazamiento</th>
-              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Desplazamiento</th>
-              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Saldo ejecutado</th>
-              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Apropiación Inicial</th>
-              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Obligaciones</th>
-              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Pagos / mes</th>
-              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Compromisos anteriores</th>
-              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Pagos anteriores</th>
-              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Reducciones</th>
-              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Total aprobado</th>
-              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Transferencia con crédito</th>
-              <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
-                <span class="sr-only">Edit</span>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <ng-container *ngFor="let item of expenses">
-              <tr class="cursor-pointer hover:bg-gray-100" (click)="toggleItem(item)">
-                <td class="whitespace-nowrap py-4 px-3 text-sm text-primary">
-                  <span *ngIf="item.children?.length" class="mr-2">
-                    <span *ngIf="item.expanded">▼</span>
-                    <span *ngIf="!item.expanded">▶</span>
-                  </span>
-                  {{ item.entity.code }}
-                </td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.entity.name }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.accumulated_payments }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.additions }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.availability }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.balance }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.commitments_month }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.credit_transfer }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.cumulative_commitments }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.deferrals }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.displacement }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.executed_balance }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.initial_approval }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.obligations }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.payments_month }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.previous_commitments }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.previous_payments }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.reductions }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.total_approval }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.transfer_with_credit }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">
-                  <button *ngIf="!item.children.length" class="text-blue-600 hover:text-blue-900">✏️</button>
-                </td>
-              </tr>
-              <!-- Renderizar hijos -->
-              <ng-container *ngIf="item.children?.length && item.expanded">
-                <ng-container *ngTemplateOutlet="recursiveItems; context: { children: item.children, level: 1 }"></ng-container>
-              </ng-container>
-            </ng-container>
-          </tbody>
-        </table>
-
-        <ng-template #recursiveItems let-children="children" let-level="level">
-          <ng-container *ngFor="let child of children">
-            <tr class="cursor-pointer hover:bg-gray-100" (click)="$event.stopPropagation(); toggleItem(child)">
-              <td  class="whitespace-nowrap py-4 text-sm"
-              [ngClass]="[
-                level === 1 ? 'text-blue-600' : '',
-                level === 2 ? 'text-green-600' : '',
-                level === 3 ? 'text-red-600' : ''
-              ]"
-              [style.paddingLeft.px]="level * 20">
-                <span *ngIf="child.children?.length" class="mr-2">
-                  <span *ngIf="child.expanded">▼</span>
-                  <span *ngIf="!child.expanded">▶</span>
-                </span>
-                {{ child.code }}
-              </td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.entity.name }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.accumulated_payments }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.additions }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.availability }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.balance }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.commitments_month }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.credit_transfer }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.cumulative_commitments }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.deferrals }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.displacement }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.executed_balance }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.initial_approval }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.obligations }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.payments_month }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.previous_commitments }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.previous_payments }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.reductions }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.total_approval }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.transfer_with_credit }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">
-                <button (click)="selectItem(child)" *ngIf="!child.children.length" class="text-blue-600 hover:text-blue-900">✏️</button>
-              </td>
-            </tr>
-            <!-- Recursividad para subniveles -->
-            <ng-container *ngIf="child.children?.length && child.expanded">
-              <ng-container *ngTemplateOutlet="recursiveItems; context: { children: child.children, level: level + 1 }"></ng-container>
-            </ng-container>
-          </ng-container>
-        </ng-template>
-      </div>
-      <div class="flex justify-center items-center py-7" *ngIf="isLoading">
-        <app-loader></app-loader>
-      </div>
-    </div>
-  </div>
-</div>
-
-<app-detail [data]="expenseSelected" (close)="refresh()" *ngIf="showExpenseDetail"></app-detail>
+<router-outlet></router-outlet>
