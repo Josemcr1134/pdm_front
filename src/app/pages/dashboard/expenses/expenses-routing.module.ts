@@ -17,7 +17,7 @@ const routes: Routes = [
       },
       {
         path:'**',
-        redirectTo:'investments',
+        redirectTo:'investments/2024',
         pathMatch:'full'
       }
     ]

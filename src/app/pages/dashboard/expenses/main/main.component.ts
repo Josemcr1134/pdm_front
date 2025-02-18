@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrl: './main.component.css'
 })
 export class MainComponent implements OnInit {
-  public year:string = '2024';
+  public year:string = '2025';
   public investmentSelected:any;
   constructor(private router:Router){}
 
