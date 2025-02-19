@@ -1,13 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ChangePasswordComponent } from '../change-password/change-password.component';
+import { MobileMenuComponent } from '../mobile-menu/mobile-menu.component';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [
     CommonModule,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    MobileMenuComponent
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'

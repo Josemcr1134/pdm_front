@@ -44,3 +44,5 @@
 </div>
 
 <app-change-password *ngIf="showChangePasswordModal" (close)="showChangePasswordModal = false"></app-change-password>
+
+<app-mobile-menu (close)="closeMobileMenu($event)"  *ngIf="showMobileMenu" ></app-mobile-menu>

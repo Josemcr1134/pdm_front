@@ -1,0 +1,54 @@
+ <!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
+ <div class="relative z-50 lg:hidden" role="dialog" aria-modal="true">
+
+  <div class="fixed inset-0 bg-gray-900/80" aria-hidden="true"></div>
+
+  <div class="fixed inset-0 flex">
+
+    <div class="relative mr-16 flex w-full max-w-xs flex-1">
+
+      <div class="absolute left-full top-0 flex w-16 justify-center pt-5">
+        <button (click)="closeMenu()" type="button" class="-m-2.5 p-2.5">
+          <span class="sr-only">Close sidebar</span>
+          <svg class="size-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class=" sidebar">
+        <div class="flex items-center justify-between">
+
+          <div class="flex h-16 shrink-0 items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 162 207" class="h-8 w-auto"><rect width="22" height="40" y="74" fill="#fff" data-name="Rectangle 138" rx="8"></rect><rect width="22" height="105" x="28" y="46" fill="#fff" data-name="Rectangle 139" rx="8"></rect><rect width="22" height="105" x="56" y="28" fill="#fff" data-name="Rectangle 140" rx="8"></rect><rect width="22" height="22" x="56" fill="#fff3f3" data-name="Rectangle 141" opacity="0.62" rx="8"></rect><rect width="22" height="105" x="84" y="72" fill="#fff" data-name="Rectangle 135" rx="8"></rect><rect width="22" height="22" x="84" y="185" fill="#fff" data-name="Rectangle 136" opacity="0.62" rx="8"></rect><rect width="22" height="64" x="112" y="59" fill="#fff" data-name="Rectangle 137" rx="8"></rect><rect width="22" height="22" x="140" y="82" fill="#fff" data-name="Rectangle 142" rx="8"></rect></svg>
+          </div>
+          <p  class="text-white text-center text-sm font-bold">Planeación para el desarrollo</p>
+
+        </div>
+        <nav class="flex flex-1 flex-col">
+          <ul role="list" class="flex flex-1 flex-col gap-y-7">
+            <li>
+              <ul role="list" class="-mx-2 space-y-1">
+                <li *ngFor="let mI of menuItems">
+                  <!-- Current: "bg-indigo-700 text-white", Default: "text-indigo-200 hover:text-white hover:bg-indigo-700" -->
+                  <a [routerLink]="mI.route" routerLinkActive="active" class="group flex gap-x-3 rounded-md  p-2 text-sm/6 font-semibold text-white">
+                    <img class="size-6 shrink-0 text-white" [src]="mI.icon" alt="">
+                    <span class=""  >{{mI.label}}</span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="mt-auto">
+              <a  class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-indigo-200 hover:bg-indigo-700 hover:text-white">
+                <span class="text-center"  >
+                  © 2022 LAMAC S.A.S Todos los derechos reservados
+                </span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
