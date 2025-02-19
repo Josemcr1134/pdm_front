@@ -32,11 +32,11 @@ export class SidebarComponent implements OnInit {
       route:"/dashboard/national-planning"
     },
 
-    {
-      label:'Informes Nacionales',
-      icon:'assets/icons/national-reports.svg',
-      route:"/dashboard/national-reports"
-    },
+    // {
+    //   label:'Informes Nacionales',
+    //   icon:'assets/icons/national-reports.svg',
+    //   route:"/dashboard/national-reports"
+    // },
     {
       label:'Lineamientos',
       icon:'assets/icons/guidelines.svg',
@@ -53,16 +53,16 @@ export class SidebarComponent implements OnInit {
       icon:'assets/icons/departamental-planning.svg',
       route:"/dashboard/departamental-planning"
     },
-    {
-      label:'P.T.S',
-      icon:'assets/icons/pts.svg',
-      route:"/dashboard/pts"
-    },
-    {
-      label:'P.D.T.V',
-      icon:'assets/icons/pdtv.svg',
-      route:"/dashboard/pdtv"
-    },
+    // {
+    //   label:'P.T.S',
+    //   icon:'assets/icons/pts.svg',
+    //   route:"/dashboard/pts"
+    // },
+    // {
+    //   label:'P.D.T.V',
+    //   icon:'assets/icons/pdtv.svg',
+    //   route:"/dashboard/pdtv"
+    // },
     {
       label:'Gastos',
       icon:'assets/icons/expenses.svg',

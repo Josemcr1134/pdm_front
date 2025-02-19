@@ -16,9 +16,10 @@
               <h3 class="text-base text-center font-semibold text-gray-900 mb-5" id="modal-title">Detalle de ingreso</h3>
               <div class="mb-5">
                 <div class="w-full">
-                  <label for="text" class="block text-sm/6 font-medium text-primary">Fuentes de financiamiento</label>
+                  <label for="text" class="block text-xs mb-2 md:text-sm font-medium text-primary">Fuentes de financiamiento</label>
                   <div class="flex items-center w-full gap-2 mb-3" *ngIf="sourceSelected == undefined">
-                    <input type="text" name="text" [(ngModel)]="searchSources" (keyup)="getSourceFinancing()"  id="text" autocomplete="off" placeholder="Buscar"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1.5 text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                    <input type="text" name="text" [(ngModel)]="searchSources" (keyup)="getSourceFinancing()"  id="text" autocomplete="off" placeholder="Buscar"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+>
                     <div class="flex gap-3 items-center">
                       <div class="flex h-6 shrink-0 items-center">
                         <div class="group grid size-4 grid-cols-1">
@@ -63,87 +64,101 @@
 
               <form [formGroup]="incomeForm" class="grid grid-cols-2 gap-3" >
                 <div>
-                  <label for="text" class="block text-sm/6 font-medium text-primary">Aprobación inicial</label>
+                  <label for="text" class="block text-xs mb-2 md:text-sm font-medium text-primary">Aprobación inicial</label>
                   <div class="mt-2">
-                    <input type="number" name="text" formControlName="initial_approval"  id="text" autocomplete="off" placeholder="Ingresa la aprobación inicial del ingreso"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1.5 text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                    <input type="number" name="text" formControlName="initial_approval"  id="text" autocomplete="off" placeholder="Ingresa la aprobación inicial del ingreso"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+>
                   </div>
                 </div>
                 <div>
-                  <label for="text" class="block text-sm/6 font-medium text-primary">Adiciones</label>
+                  <label for="text" class="block text-xs mb-2 md:text-sm font-medium text-primary">Adiciones</label>
                   <div class="mt-2">
-                    <input type="number" name="additions" formControlName="additions"  id="additions" autocomplete="off" placeholder="Ingresa la adición del ingreso"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1.5 text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                    <input type="number" name="additions" formControlName="additions"  id="additions" autocomplete="off" placeholder="Ingresa la adición del ingreso"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+>
                   </div>
                 </div>
                 <div>
-                  <label for="text" class="block text-sm/6 font-medium text-primary">Reducciones</label>
+                  <label for="text" class="block text-xs mb-2 md:text-sm font-medium text-primary">Reducciones</label>
                   <div class="mt-2">
-                    <input type="number" name="reductions" formControlName="reductions"  id="reductions" autocomplete="off" placeholder="Ingresa la reducción del ingreso"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1.5 text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                    <input type="number" name="reductions" formControlName="reductions"  id="reductions" autocomplete="off" placeholder="Ingresa la reducción del ingreso"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+>
                   </div>
                 </div>
                 <div>
-                  <label for="text" class="block text-sm/6 font-medium text-primary">Aplazamientos</label>
+                  <label for="text" class="block text-xs mb-2 md:text-sm font-medium text-primary">Aplazamientos</label>
                   <div class="mt-2">
-                    <input type="number" name="deferrals" formControlName="deferrals"  id="deferrals" autocomplete="off" placeholder="Ingresa el aplazamiento del ingreso"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1.5 text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                    <input type="number" name="deferrals" formControlName="deferrals"  id="deferrals" autocomplete="off" placeholder="Ingresa el aplazamiento del ingreso"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+>
                   </div>
                 </div>
                 <div>
-                  <label for="text" class="block text-sm/6 font-medium text-primary">Desplazamiento</label>
+                  <label for="text" class="block text-xs mb-2 md:text-sm font-medium text-primary">Desplazamiento</label>
                   <div class="mt-2">
-                    <input type="number" name="displacement" formControlName="displacement"  id="displacement" autocomplete="off" placeholder="Ingresa el desplazamiento del ingreso"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1.5 text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                    <input type="number" name="displacement" formControlName="displacement"  id="displacement" autocomplete="off" placeholder="Ingresa el desplazamiento del ingreso"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+>
                   </div>
                 </div>
                 <div>
-                  <label for="text" class="block text-sm/6 font-medium text-primary">Disponibilidad</label>
+                  <label for="text" class="block text-xs mb-2 md:text-sm font-medium text-primary">Disponibilidad</label>
                   <div class="mt-2">
-                    <input type="number" name="availability" formControlName="availability"  id="availability" autocomplete="off" placeholder="Ingresa la disponibilidad del ingreso"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1.5 text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                    <input type="number" name="availability" formControlName="availability"  id="availability" autocomplete="off" placeholder="Ingresa la disponibilidad del ingreso"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+>
                   </div>
                 </div>
                 <div>
-                  <label for="text" class="block text-sm/6 font-medium text-primary">Compromisos/mes</label>
+                  <label for="text" class="block text-xs mb-2 md:text-sm font-medium text-primary">Compromisos/mes</label>
                   <div class="mt-2">
-                    <input type="number" name="commitments_month" formControlName="commitments_month"  id="commitments_month" autocomplete="off" placeholder="Ingresa los compromisos/mes del ingreso"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1.5 text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                    <input type="number" name="commitments_month" formControlName="commitments_month"  id="commitments_month" autocomplete="off" placeholder="Ingresa los compromisos/mes del ingreso"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+>
                   </div>
                 </div>
                 <div>
-                  <label for="text" class="block text-sm/6 font-medium text-primary">Total de compromisos</label>
+                  <label for="text" class="block text-xs mb-2 md:text-sm font-medium text-primary">Total de compromisos</label>
                   <div class="mt-2">
-                    <input type="number" name="commitments_total" formControlName="commitments_total"  id="commitments_total" autocomplete="off" placeholder="Ingresa el total de comprommisos del ingreso"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1.5 text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                    <input type="number" name="commitments_total" formControlName="commitments_total"  id="commitments_total" autocomplete="off" placeholder="Ingresa el total de comprommisos del ingreso"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+>
                   </div>
                 </div>
                 <div>
-                  <label for="text" class="block text-sm/6 font-medium text-primary">Saldo ejecutado</label>
+                  <label for="text" class="block text-xs mb-2 md:text-sm font-medium text-primary">Saldo ejecutado</label>
                   <div class="mt-2">
-                    <input type="number" name="balance_executed" formControlName="balance_executed"  id="balance_executed" autocomplete="off" placeholder="Ingresa el balance ejecutado del ingreso"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1.5 text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                    <input type="number" name="balance_executed" formControlName="balance_executed"  id="balance_executed" autocomplete="off" placeholder="Ingresa el balance ejecutado del ingreso"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+>
                   </div>
                 </div>
                 <div>
-                  <label for="text" class="block text-sm/6 font-medium text-primary">Pagos anteriores</label>
+                  <label for="text" class="block text-xs mb-2 md:text-sm font-medium text-primary">Pagos anteriores</label>
                   <div class="mt-2">
-                    <input type="number" name="previous_payments" formControlName="previous_payments"  id="previous_payments" autocomplete="off" placeholder="Ingresa los pagos anteriores del ingreso"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1.5 text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                    <input type="number" name="previous_payments" formControlName="previous_payments"  id="previous_payments" autocomplete="off" placeholder="Ingresa los pagos anteriores del ingreso"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+>
                   </div>
                 </div>
                 <div>
-                  <label for="text" class="block text-sm/6 font-medium text-primary">Pagos del mes</label>
+                  <label for="text" class="block text-xs mb-2 md:text-sm font-medium text-primary">Pagos del mes</label>
                   <div class="mt-2">
-                    <input type="number" name="payments_month" formControlName="payments_month"  id="payments_month" autocomplete="off" placeholder="Ingresa los pagos del mes del ingreso"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1.5 text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                    <input type="number" name="payments_month" formControlName="payments_month"  id="payments_month" autocomplete="off" placeholder="Ingresa los pagos del mes del ingreso"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+>
                   </div>
                 </div>
                 <div>
-                  <label for="text" class="block text-sm/6 font-medium text-primary">Total pagos</label>
+                  <label for="text" class="block text-xs mb-2 md:text-sm font-medium text-primary">Total pagos</label>
                   <div class="mt-2">
-                    <input type="number" name="total_payments" formControlName="total_payments"  id="total_payments" autocomplete="off" placeholder="Ingresa los pagos totales del ingreso"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1.5 text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                    <input type="number" name="total_payments" formControlName="total_payments"  id="total_payments" autocomplete="off" placeholder="Ingresa los pagos totales del ingreso"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+>
                   </div>
                 </div>
                 <div>
-                  <label for="text" class="block text-sm/6 font-medium text-primary">Obligaciones pagables</label>
+                  <label for="text" class="block text-xs mb-2 md:text-sm font-medium text-primary">Obligaciones pagables</label>
                   <div class="mt-2">
-                    <input type="number" name="obligations_payable" formControlName="obligations_payable"  id="obligations_payable" autocomplete="off" placeholder="Ingresa las obligaciones pagables del ingreso"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1.5 text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                    <input type="number" name="obligations_payable" formControlName="obligations_payable"  id="obligations_payable" autocomplete="off" placeholder="Ingresa las obligaciones pagables del ingreso"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+>
                   </div>
                 </div>
                 <div>
-                  <label for="text" class="block text-sm/6 font-medium text-primary">Saldo</label>
+                  <label for="text" class="block text-xs mb-2 md:text-sm font-medium text-primary">Saldo</label>
                   <div class="mt-2">
-                    <input type="number" name="balance" formControlName="balance"  id="balance" autocomplete="off" placeholder="Ingresa el saldo del ingreso"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1.5 text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                    <input type="number" name="balance" formControlName="balance"  id="balance" autocomplete="off" placeholder="Ingresa el saldo del ingreso"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+>
                   </div>
                 </div>
               </form>
@@ -152,8 +167,8 @@
           </div>
         </div>
         <div *ngIf="!isLoading" class="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
-          <button (click)="updateIncome()" type="button" class="inline-flex w-full justify-center rounded-2xl bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2">Guardar</button>
-          <button (click)="goAway()" type="button" class="mt-3 inline-flex w-full justify-center rounded-2xl bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0">Cancelar</button>
+          <button (click)="updateIncome()" type="button" class="inline-flex w-full justify-center rounded-2xl bg-indigo-600 px-3 md:py-2 py-1 md:text-sm text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2">Guardar</button>
+          <button (click)="goAway()" type="button" class="mt-3 inline-flex w-full justify-center rounded-2xl bg-white px-3 md:py-2 py-1 md:text-sm text-xs font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0">Cancelar</button>
         </div>
         <div class="flex justify-center items-center py-6" *ngIf="isLoading">
           <app-loader></app-loader>

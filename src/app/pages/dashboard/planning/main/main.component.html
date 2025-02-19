@@ -1,19 +1,19 @@
-<div class="mx-auto  px-4 sm:px-6 lg:px-8 h-full">
+<div class="mx-auto   sm:px-6 lg:px-8 h-full">
   <div class="overflow-x-auto whitespace-nowrap p-4 h-full">
     <ul class="flex space-x-4 h-full" *ngIf="!isLoading">
       <!-- MUNICIPALITY PLANNING -->
-      <li class="h-full bg-white rounded-2xl shadow-md p-4 max-w-80">
-        <p class="text-primary text-[17px] font-black  ">Planeación Municipal</p>
+      <li class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:min-w-96  ">
+        <p class="text-primary text-sm text-wrap md:text-[17px] font-black  ">Planeación Municipal</p>
 
-        <p>Selecciona tu categoría de preferencia</p>
+        <p class="text-wrap md:text-sm text-xs">Selecciona tu categoría de preferencia</p>
 
-        <div class="grid grid-cols-2 gap-2 mt-5">
-            <button (click)="categoryTypeSelected = 1" [ngClass]="{'badge-primary': categoryTypeSelected == 1}" class="text-primary text-sm py-1.5 text-center rounded-xl">Líneas Estratégicas</button>
-            <button (click)="getGeneralGoals() " [ngClass]="{'badge-primary': categoryTypeSelected == 2}" class="text-primary font-medium text-sm py-1.5 text-center rounded-xl ">Metas Producto</button>
-            <button class="badge-green  text-sm py-1.5 text-center rounded-2xl ">Descargar reporte</button>
+        <div class="grid md:grid-cols-2 gap-2 mt-5">
+            <button (click)="categoryTypeSelected = 1" [ngClass]="{'badge-primary': categoryTypeSelected == 1}" class="text-primary px-3  text-xs md:text-sm py-1.5 text-center rounded-xl">Líneas Estratégicas</button>
+            <button (click)="getGeneralGoals() " [ngClass]="{'badge-primary': categoryTypeSelected == 2}" class="text-primary font-medium px-3  text-xs md:text-sm py-1.5 text-center rounded-xl ">Metas Producto</button>
+            <button class="badge-green text-xs md:text-sm py-1.5 text-center rounded-2xl ">Descargar reporte</button>
         </div>
         <ul *ngIf="categoryTypeSelected == 1" class="strategicLinesList w-full">
-          <li *ngFor="let sL of strategicLines" (click)="chooseStrategicLine(sL.id)" [ngClass]="{'strategicLineActive':  sL.id == strategicLine }" class="strategicLine text-wrap">
+          <li *ngFor="let sL of strategicLines" (click)="chooseStrategicLine(sL.id)" [ngClass]="{'strategicLineActive':  sL.id == strategicLine }" class="strategicLine text-wrap md:text-base text-xs">
               {{sL.name}}
           </li>
         </ul>
@@ -30,24 +30,24 @@
       </li>
 
       <!-- SECTORS LIST  -->
-      <li *ngIf="categoryTypeSelected == 1 && strategicLine.length" class="h-full bg-white rounded-2xl shadow-md p-4 min-w-80">
-        <p class="text-primary text-[17px] font-black  ">Sectores</p>
+      <li *ngIf="categoryTypeSelected == 1 && strategicLine.length" class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:min-w-96 ">
+        <p class="text-primary text-sm text-wrap md:text-[17px] font-black  ">Sectores</p>
         <hr class=" border-[3px] rounded-xl my-2 border-[#ebebff]"/>
 
         <ul  class="strategicLinesList w-full">
-          <li *ngFor="let s of sectors" (click)="chooseSector(s.id)" [ngClass]="{'strategicLineActive':  s.id == sector }"  class="strategicLine text-wrap">
+          <li *ngFor="let s of sectors" (click)="chooseSector(s.id)" [ngClass]="{'strategicLineActive':  s.id == sector }"  class="strategicLine text-wrap md:text-base text-xs">
               {{s.name}}
           </li>
         </ul>
       </li>
 
       <!-- CODE LIST  -->
-      <li *ngIf="categoryTypeSelected == 1 && strategicLine.length && sector.length" class="h-full bg-white rounded-2xl shadow-md p-4 min-w-80">
-        <p class="text-primary text-[17px] font-black  ">Códigos - programa</p>
+      <li *ngIf="categoryTypeSelected == 1 && strategicLine.length && sector.length" class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:min-w-96 ">
+        <p class="text-primary text-sm text-wrap md:text-[17px] font-black  ">Códigos - programa</p>
         <hr class=" border-[3px] rounded-xl my-2 border-[#ebebff]"/>
 
         <ul  class="strategicLinesList w-full">
-          <li *ngFor="let s of programCodes" (click)="chooseCode(s.id)" [ngClass]="{'strategicLineActive':  s.id == code }"  class="strategicLine text-wrap">
+          <li *ngFor="let s of programCodes" (click)="chooseCode(s.id)" [ngClass]="{'strategicLineActive':  s.id == code }"  class="strategicLine text-wrap md:text-base text-xs">
               {{s.name}}
           </li>
         </ul>
@@ -55,45 +55,45 @@
 
 
       <!-- INDICATORS OF WELFARE    -->
-      <li *ngIf="categoryTypeSelected == 1 && strategicLine.length && code.length && sector.length " class="h-full bg-white rounded-2xl shadow-md p-4 min-w-80">
-        <p class="text-primary text-[17px] font-black  ">Metas Producto: </p>
+      <li *ngIf="categoryTypeSelected == 1 && strategicLine.length && code.length && sector.length " class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:min-w-96 ">
+        <p class="text-primary text-sm text-wrap md:text-[17px] font-black  ">Metas Producto: </p>
 
         <ul  class="strategicLinesList w-full max-h-[600px] overflow-y-auto">
-          <li *ngFor="let s of productGoals" (click)="chooseProductGoal(s)" class="productGoal text-wrap cursor-pointer">
-              {{s.name}}s
+          <li *ngFor="let s of productGoals" (click)="chooseProductGoal(s)" class="productGoal  text-wrap md:text-base text-xs cursor-pointer">
+              {{s.name}}
           </li>
         </ul>
       </li>
 
       <!-- PRODUCT GOALS -->
-       <li *ngIf=" productGoal !== undefined" class="h-full bg-white rounded-2xl shadow-md p-4 min-w-80">
-        <p class="text-primary text-[17px] font-black text-wrap  ">{{productGoal.name}}</p>
+       <li *ngIf=" productGoal !== undefined" class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:min-w-96 ">
+        <p class="text-primary text-sm text-wrap md:text-[17px] font-black   ">{{productGoal.name}}</p>
         <hr class=" border-[3px] rounded-xl my-2 border-[#ebebff]"/>
 
 
-        <p class="text-primary text-[16px] font-semibold  ">Tipo de Meta: </p>
-        <p class="text-wrap">{{productGoal.goal_type}} </p>
+        <p class="text-primary text-sm md:text-[16px] font-semibold  ">Tipo de Meta: </p>
+        <p class="text-wrap md:text-sm text-xs">{{productGoal.goal_type}} </p>
         <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
-        <p class="text-primary text-[16px] font-semibold  ">Código de Producto MGA: </p>
-        <p class="text-wrap">{{productGoal.code_indicator_product_mga}} </p>
+        <p class="text-primary text-sm md:text-[16px] font-semibold  ">Código de Producto MGA: </p>
+        <p class="text-wrap md:text-sm text-xs">{{productGoal.code_indicator_product_mga}} </p>
         <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
-        <p class="text-primary text-[16px] font-semibold  ">Producto de la MGA:</p>
-        <p class="text-wrap">{{productGoal.product_mga}} </p>
+        <p class="text-primary text-sm md:text-[16px] font-semibold  ">Producto de la MGA:</p>
+        <p class="text-wrap md:text-sm text-xs">{{productGoal.product_mga}} </p>
         <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
-        <p class="text-primary text-[16px] font-semibold  ">Indicador de Producto MGA:</p>
-        <p class="text-wrap">{{productGoal.indicator_product_mga}} </p>
+        <p class="text-primary text-sm md:text-[16px] font-semibold  ">Indicador de Producto MGA:</p>
+        <p class="text-wrap md:text-sm text-xs">{{productGoal.indicator_product_mga}} </p>
         <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
-        <p class="text-primary text-[16px] font-semibold  ">Unidad de Medida:</p>
-        <p class="text-wrap">{{productGoal.unit_measurement.name}} </p>
+        <p class="text-primary text-sm md:text-[16px] font-semibold  ">Unidad de Medida:</p>
+        <p class="text-wrap md:text-sm text-xs">{{productGoal.unit_measurement.name}} </p>
         <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
-        <p class="text-primary text-[16px] font-semibold  ">Meta del Cuatrienio:</p>
-        <p class="text-wrap">{{productGoal.goal_four_years}} </p>
+        <p class="text-primary text-sm md:text-[16px] font-semibold  ">Meta del Cuatrienio:</p>
+        <p class="text-wrap md:text-sm text-xs">{{productGoal.goal_four_years}} </p>
         <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
-        <p class="text-primary text-[16px] font-semibold  ">Consecutivo de la Meta:</p>
-        <p class="text-wrap">{{productGoal.consecutive}} </p>
+        <p class="text-primary text-sm md:text-[16px] font-semibold  ">Consecutivo de la Meta:</p>
+        <p class="text-wrap md:text-sm text-xs">{{productGoal.consecutive}} </p>
         <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
-        <p class="text-primary text-[16px] font-semibold  ">Bpin</p>
-        <p class="text-wrap">{{productGoal.bpin || '-' }} </p>
+        <p class="text-primary text-sm md:text-[16px] font-semibold  ">Bpin</p>
+        <p class="text-wrap md:text-sm text-xs">{{productGoal.bpin || '-' }} </p>
         <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
       </li>
     </ul>
