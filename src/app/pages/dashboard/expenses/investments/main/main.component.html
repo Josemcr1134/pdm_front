@@ -1,7 +1,7 @@
 <div class="mx-auto  h-full mt-5">
   <div class="overflow-x-auto whitespace-nowrap lg:p-4 h-full">
     <ul *ngIf="!isLoading" class="flex space-x-4 h-full" >
-      <li  class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:min-w-96">
+      <li  class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:max-w-[380px]">
         <p class="text-primary text-sm md:text-[17px] font-black  ">Lineas estratégicas</p>
         <hr class=" border-[3px] rounded-xl my-2 border-[#ebebff]"/>
 
@@ -10,82 +10,79 @@
               <span class="md:text-base text-sm">{{s.strategic_line}}</span>
               <hr class="my-3">
               <div class="grid grid-cols-2 gap-3 ">
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Aprobación inicial </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.initial_approval}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">1. Aprobación inicial  </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.initial_approval}} </p>
                 </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Adiciones </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.additions}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">2. Adiciones </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.additions}} </p>
                 </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Reducciones </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.reductions}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">3. Reducciones </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.reductions}} </p>
                 </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Aplazamientos </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.displacement}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">4. Aplazamientos </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.displacement}} </p>
                 </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Desplazamientos </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.deferrals}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">5. Desplazamientos </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.deferrals}} </p>
                 </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Traslado crédito </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.credit_transfer}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">6. Traslado crédito </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.credit_transfer}} </p>
                 </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Traslado con crédito </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.transfer_with_credit}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">7. Traslado con crédito </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.transfer_with_credit}} </p>
                 </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Total apropiado </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.total_approval}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">8. Total apropiado </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.total_approval}} </p>
                 </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Disponibilidades </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.availability}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">9. Disponibilidades </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.availability}} </p>
                 </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Compromisos anteriores </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.previous_commitments}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Pagos acumulados </p>
-                  <p class="text-wrap text-[9px]" >{{s.total_attributes.accumulated_payments}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Compromisos/mes </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.commitments_month}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Compromisos acumulados </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.cumulative_commitments}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Saldo ejecutado </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.executed_balance}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Pagos anteriores </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.previous_payments}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Pagos/mes </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.payments_month}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Pagos acumulados </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.accumulated_payments}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">10. Compromisos anteriores </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.previous_commitments}} </p>
                 </div>
 
-                  <div class="flex items-center justify-between ">
-                    <p class="text-primary text-[11px] font-semibold truncate  ">Obligaciones </p>
-                    <p class="text-wrap text-[9px]">{{s.total_attributes.obligations}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">11. Compromisos/mes </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.commitments_month}} </p>
+                </div>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">12. Compromisos acumulados </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.cumulative_commitments}} </p>
+                </div>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">13. Saldo ejecutado </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.executed_balance}} </p>
+                </div>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">14. Pagos anteriores </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.previous_payments}} </p>
+                </div>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">15. Pagos/mes </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.payments_month}} </p>
+                </div>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">16. Pagos acumulados </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.accumulated_payments}} </p>
+                </div>
+
+                  <div class="flex items-start flex-col ">
+                    <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">17. Obligaciones </p>
+                    <p class="text-wrap text-[10px]">{{s.total_attributes.obligations}} </p>
                   </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Saldo </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.balance}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">18. Saldo </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.balance}} </p>
                 </div>
 
 
@@ -99,7 +96,7 @@
           (onPageChange)="handlePageChange($event)">
         </app-pagination>
       </li>
-      <li  *ngIf="investmentSelected !== undefined" class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:min-w-96">
+      <li  *ngIf="investmentSelected !== undefined" class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:max-w-[380px]">
         <p class="text-primary text-sm md:text-[17px] font-black  ">Sectores</p>
         <hr class=" border-[3px] rounded-xl my-2 border-[#ebebff]"/>
 
@@ -108,170 +105,88 @@
               <span class="md:text-base text-sm">{{s.sector}}</span>
               <hr class="my-3">
               <div class="grid grid-cols-2 gap-3 ">
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Aprobación inicial </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.initial_approval}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">1. Aprobación inicial </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.initial_approval}} </p>
                 </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Adiciones </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.additions}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">2. Adiciones </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.additions}} </p>
                 </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Reducciones </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.reductions}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">3. Reducciones </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.reductions}} </p>
                 </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Aplazamientos </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.displacement}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">4. Aplazamientos </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.displacement}} </p>
                 </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Desplazamientos </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.deferrals}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">5. Desplazamientos </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.deferrals}} </p>
                 </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Traslado crédito </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.credit_transfer}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">6. Traslado crédito </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.credit_transfer}} </p>
                 </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Traslado con crédito </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.transfer_with_credit}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">7. Traslado con crédito </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.transfer_with_credit}} </p>
                 </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Total apropiado </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.total_approval}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">8. Total apropiado </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.total_approval}} </p>
                 </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Disponibilidades </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.availability}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">9. Disponibilidades </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.availability}} </p>
                 </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Compromisos anteriores </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.previous_commitments}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Pagos acumulados </p>
-                  <p class="text-wrap text-[9px]" >{{s.total_attributes.accumulated_payments}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Compromisos/mes </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.commitments_month}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Compromisos acumulados </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.cumulative_commitments}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Saldo ejecutado </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.executed_balance}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Pagos anteriores </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.previous_payments}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Pagos/mes </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.payments_month}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Pagos acumulados </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.accumulated_payments}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">10. Compromisos anteriores </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.previous_commitments}} </p>
                 </div>
 
-                  <div class="flex items-center justify-between ">
-                    <p class="text-primary text-[11px] font-semibold truncate  ">Obligaciones </p>
-                    <p class="text-wrap text-[9px]">{{s.total_attributes.obligations}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">11. Compromisos/mes </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.commitments_month}} </p>
+                </div>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">12. Compromisos acumulados </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.cumulative_commitments}} </p>
+                </div>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">13. Saldo ejecutado </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.executed_balance}} </p>
+                </div>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">14. Pagos anteriores </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.previous_payments}} </p>
+                </div>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">15. Pagos/mes </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.payments_month}} </p>
+                </div>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">16. Pagos acumulados </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.accumulated_payments}} </p>
+                </div>
+
+                  <div class="flex items-start flex-col ">
+                    <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">17. Obligaciones </p>
+                    <p class="text-wrap text-[10px]">{{s.total_attributes.obligations}} </p>
                   </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Saldo </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.balance}} </p>
-                </div>
-
-
-              </div><div class="grid grid-cols-2 gap-3 ">
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Aprobación inicial </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.initial_approval}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Adiciones </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.additions}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Reducciones </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.reductions}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Aplazamientos </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.displacement}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Desplazamientos </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.deferrals}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Traslado crédito </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.credit_transfer}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Traslado con crédito </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.transfer_with_credit}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Total apropiado </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.total_approval}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Disponibilidades </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.availability}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Compromisos anteriores </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.previous_commitments}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Pagos acumulados </p>
-                  <p class="text-wrap text-[9px]" >{{s.total_attributes.accumulated_payments}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Compromisos/mes </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.commitments_month}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Compromisos acumulados </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.cumulative_commitments}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Saldo ejecutado </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.executed_balance}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Pagos anteriores </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.previous_payments}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Pagos/mes </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.payments_month}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Pagos acumulados </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.accumulated_payments}} </p>
-                </div>
-
-                  <div class="flex items-center justify-between ">
-                    <p class="text-primary text-[11px] font-semibold truncate  ">Obligaciones </p>
-                    <p class="text-wrap text-[9px]">{{s.total_attributes.obligations}} </p>
-                  </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Saldo </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.balance}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">18. Saldo </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.balance}} </p>
                 </div>
 
 
               </div>
+
           </li>
         </ul>
       </li>
-      <li  *ngIf="sectorSelected !== undefined" class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:min-w-96">
+      <li  *ngIf="sectorSelected !== undefined" class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:max-w-[380px]">
         <p class="text-primary text-sm md:text-[17px] font-black  ">Códigos y programas</p>
         <hr class=" border-[3px] rounded-xl my-2 border-[#ebebff]"/>
 
@@ -280,82 +195,79 @@
               <span class="md:text-base text-sm">{{s.program}}</span>
               <hr class="my-3">
               <div class="grid grid-cols-2 gap-3 ">
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Aprobación inicial </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.initial_approval}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">1. Aprobación inicial </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.initial_approval}} </p>
                 </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Adiciones </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.additions}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">2. Adiciones </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.additions}} </p>
                 </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Reducciones </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.reductions}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">3. Reducciones </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.reductions}} </p>
                 </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Aplazamientos </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.displacement}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">4. Aplazamientos </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.displacement}} </p>
                 </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Desplazamientos </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.deferrals}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">5. Desplazamientos </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.deferrals}} </p>
                 </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Traslado crédito </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.credit_transfer}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">6. Traslado crédito </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.credit_transfer}} </p>
                 </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Traslado con crédito </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.transfer_with_credit}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">7. Traslado con crédito </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.transfer_with_credit}} </p>
                 </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Total apropiado </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.total_approval}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">8. Total apropiado </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.total_approval}} </p>
                 </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Disponibilidades </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.availability}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">9. Disponibilidades </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.availability}} </p>
                 </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Compromisos anteriores </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.previous_commitments}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Pagos acumulados </p>
-                  <p class="text-wrap text-[9px]" >{{s.total_attributes.accumulated_payments}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Compromisos/mes </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.commitments_month}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Compromisos acumulados </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.cumulative_commitments}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Saldo ejecutado </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.executed_balance}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Pagos anteriores </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.previous_payments}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Pagos/mes </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.payments_month}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Pagos acumulados </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.accumulated_payments}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">10. Compromisos anteriores </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.previous_commitments}} </p>
                 </div>
 
-                  <div class="flex items-center justify-between ">
-                    <p class="text-primary text-[11px] font-semibold truncate  ">Obligaciones </p>
-                    <p class="text-wrap text-[9px]">{{s.total_attributes.obligations}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">11. Compromisos/mes </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.commitments_month}} </p>
+                </div>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">12. Compromisos acumulados </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.cumulative_commitments}} </p>
+                </div>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">13. Saldo ejecutado </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.executed_balance}} </p>
+                </div>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">14. Pagos anteriores </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.previous_payments}} </p>
+                </div>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">15. Pagos/mes </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.payments_month}} </p>
+                </div>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">16. Pagos acumulados </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.accumulated_payments}} </p>
+                </div>
+
+                  <div class="flex items-start flex-col ">
+                    <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">17. Obligaciones </p>
+                    <p class="text-wrap text-[10px]">{{s.total_attributes.obligations}} </p>
                   </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Saldo </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.balance}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">18. Saldo </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.balance}} </p>
                 </div>
 
 
@@ -363,7 +275,7 @@
           </li>
         </ul>
       </li>
-      <li  *ngIf="codeSelected !== undefined" class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:min-w-96">
+      <li  *ngIf="codeSelected !== undefined" class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:max-w-[380px]">
         <p class="text-primary text-sm md:text-[17px] font-black  ">Metas</p>
         <hr class=" border-[3px] rounded-xl my-2 border-[#ebebff]"/>
         <ul  class="strategicLinesList w-full">
@@ -371,82 +283,79 @@
               <span class="md:text-base text-sm">{{s.goal}}</span>
               <hr class="my-3">
             <div class="grid grid-cols-2 gap-3 ">
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Aprobación inicial </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.initial_approval}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">1. Aprobación inicial </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.initial_approval}} </p>
                 </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Adiciones </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.additions}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">2. Adiciones </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.additions}} </p>
                 </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Reducciones </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.reductions}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">3. Reducciones </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.reductions}} </p>
                 </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Aplazamientos </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.displacement}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">4. Aplazamientos </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.displacement}} </p>
                 </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Desplazamientos </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.deferrals}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">5. Desplazamientos </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.deferrals}} </p>
                 </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Traslado crédito </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.credit_transfer}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">6. Traslado crédito </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.credit_transfer}} </p>
                 </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Traslado con crédito </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.transfer_with_credit}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">7. Traslado con crédito </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.transfer_with_credit}} </p>
                 </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Total apropiado </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.total_approval}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">8. Total apropiado </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.total_approval}} </p>
                 </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Disponibilidades </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.availability}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">9. Disponibilidades </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.availability}} </p>
                 </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Compromisos anteriores </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.previous_commitments}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Pagos acumulados </p>
-                  <p class="text-wrap text-[9px]" >{{s.total_attributes.accumulated_payments}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Compromisos/mes </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.commitments_month}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Compromisos acumulados </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.cumulative_commitments}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Saldo ejecutado </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.executed_balance}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Pagos anteriores </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.previous_payments}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Pagos/mes </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.payments_month}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Pagos acumulados </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.accumulated_payments}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">10. Compromisos anteriores </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.previous_commitments}} </p>
                 </div>
 
-                  <div class="flex items-center justify-between ">
-                    <p class="text-primary text-[11px] font-semibold truncate  ">Obligaciones </p>
-                    <p class="text-wrap text-[9px]">{{s.total_attributes.obligations}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">11. Compromisos/mes </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.commitments_month}} </p>
+                </div>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">12. Compromisos acumulados </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.cumulative_commitments}} </p>
+                </div>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">13. Saldo ejecutado </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.executed_balance}} </p>
+                </div>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">14. Pagos anteriores </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.previous_payments}} </p>
+                </div>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">15. Pagos/mes </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.payments_month}} </p>
+                </div>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">16. Pagos acumulados </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.accumulated_payments}} </p>
+                </div>
+
+                  <div class="flex items-start flex-col ">
+                    <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">17. Obligaciones </p>
+                    <p class="text-wrap text-[10px]">{{s.total_attributes.obligations}} </p>
                   </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Saldo </p>
-                  <p class="text-wrap text-[9px]">{{s.total_attributes.balance}} </p>
+                <div class="flex items-start flex-col ">
+                  <p class="text-primary text-[13px] mb-1 font-semibold truncate text-wrap  ">18. Saldo </p>
+                  <p class="text-wrap text-[10px]">{{s.total_attributes.balance}} </p>
                 </div>
 
 
@@ -454,110 +363,83 @@
           </li>
         </ul>
       </li>
-      <li  *ngIf="goalSelected !== undefined" class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:min-w-96">
+      <li  *ngIf="goalSelected !== undefined" class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[100%] flex-shrink-0 md:max-w-[480px]">
         <p class="text-primary text-sm md:text-[17px] font-black  ">Rubricos</p>
         <hr class=" border-[3px] rounded-xl my-2 border-[#ebebff]"/>
 
-        <ul  class="strategicLinesList w-full">
-          <li *ngFor="let s of goalSelected.rubrics"    class="strategicLine text-wrap max-h-[300px] overflow-y-auto">
-              <div class="flex justify-between gap-3 items-center">
-                <span class="md:text-base text-sm">
-                  {{s.code}} &nbsp;
-                  {{s.description}}
-                </span>
-                <button (click)="chooseRubric(s)">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 text-primary">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
-                  </svg>
-                </button>
-              </div>
-              <hr class="my-3">
-              <div class="grid grid-cols-2 gap-3 " *ngFor="let sf of s.sources_financing">
-                <div class="flex items-center flex-wrap justify-between gap-2 col-span-2">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Fuente de financiamiento </p>
-                  <p class="text-wrap text-[9px]" >{{sf.source_financing?.name}} - {{sf.source_financing?.code}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Aprobación inicial </p>
-                  <p class="text-wrap text-[9px]">{{sf.initial_approval}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Adiciones </p>
-                  <p class="text-wrap text-[9px]">{{sf.additions}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Reducciones </p>
-                  <p class="text-wrap text-[9px]">{{sf.reductions}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Aplazamientos </p>
-                  <p class="text-wrap text-[9px]">{{sf.displacement}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Desplazamientos </p>
-                  <p class="text-wrap text-[9px]">{{sf.deferrals}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Traslado crédito </p>
-                  <p class="text-wrap text-[9px]">{{sf.credit_transfer}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Traslado con crédito </p>
-                  <p class="text-wrap text-[9px]">{{sf.transfer_with_credit}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Total apropiado </p>
-                  <p class="text-wrap text-[9px]">{{sf.total_approval}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Disponibilidades </p>
-                  <p class="text-wrap text-[9px]">{{sf.availability}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Compromisos anteriores </p>
-                  <p class="text-wrap text-[9px]">{{sf.previous_commitments}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Pagos acumulados </p>
-                  <p class="text-wrap text-[9px]" >{{sf.accumulated_payments}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Compromisos/mes </p>
-                  <p class="text-wrap text-[9px]">{{sf.commitments_month}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Compromisos acumulados </p>
-                  <p class="text-wrap text-[9px]">{{sf.cumulative_commitments}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Saldo ejecutado </p>
-                  <p class="text-wrap text-[9px]">{{sf.executed_balance}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Pagos anteriores </p>
-                  <p class="text-wrap text-[9px]">{{sf.previous_payments}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Pagos/mes </p>
-                  <p class="text-wrap text-[9px]">{{sf.payments_month}} </p>
-                </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Pagos acumulados </p>
-                  <p class="text-wrap text-[9px]">{{sf.accumulated_payments}} </p>
-                </div>
+        <ul class="strategicLinesList w-full">
+          <li *ngFor="let s of goalSelected.rubrics" class="strategicLine text-wrap max-h-[300px] overflow-y-auto">
+            <div class="flex justify-between gap-3 items-center">
+              <span class="md:text-base text-sm">
+                {{s.code}} &nbsp;
+                {{s.description}}
+              </span>
+              <button (click)="chooseRubric(s)">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 text-primary">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                </svg>
+              </button>
+            </div>
+            <hr class="my-3">
 
-                  <div class="flex items-center justify-between ">
-                    <p class="text-primary text-[11px] font-semibold truncate  ">Obligaciones </p>
-                    <p class="text-wrap text-[9px]">{{sf.obligations}} </p>
+            <div class="grid grid-cols-1 gap-3">
+              <!-- Iterar sobre los indicadores -->
+              <div *ngFor="let indicator of [
+                { title: 'Aprobación inicial', key: 'initial_approval' },
+                { title: 'Adiciones', key: 'additions' },
+                { title: 'Reducciones', key: 'reductions' },
+                { title: 'Aplazamientos', key: 'displacement' },
+                { title: 'Desplazamientos', key: 'deferrals' },
+                { title: 'Traslado crédito', key: 'credit_transfer' },
+                { title: 'Traslado con crédito', key: 'transfer_with_credit' },
+                { title: 'Total apropiado', key: 'total_approval' },
+                { title: 'Disponibilidades', key: 'availability' },
+                { title: 'Compromisos anteriores', key: 'previous_commitments' },
+                { title: 'Compromisos/mes', key: 'commitments_month' },
+                { title: 'Compromisos acumulados', key: 'cumulative_commitments' },
+                { title: 'Saldo ejecutado', key: 'executed_balance' },
+                { title: 'Pagos anteriores', key: 'previous_payments' },
+                { title: 'Pagos/mes', key: 'payments_month' },
+                { title: 'Pagos acumulados', key: 'accumulated_payments' },
+                { title: 'Obligaciones', key: 'obligations' },
+                { title: 'Saldo', key: 'balance' }
+              ]; let i = index" class="col-span-1">
+                <div class="flex items-start justify-between">
+                  <div class="mb-1 flex items-center flex-nowrap gap-x-2 justify-start">
+                    <!-- Botón de colapsar/expandir -->
+                    <button *ngIf="s.sources_financing.length > 0" (click)="toggleCollapse(s, i)" class="text-primary">
+                      <span *ngIf="isCollapsed(s, i)">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                      </span>
+                      <span *ngIf="!isCollapsed(s, i)">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                      </span>
+                    </button>
+                    <p class="text-primary text-[13px] font-semibold truncate text-wrap">{{indicator.title}}</p>
                   </div>
-                <div class="flex items-center justify-between ">
-                  <p class="text-primary text-[11px] font-semibold truncate  ">Saldo </p>
-                  <p class="text-wrap text-[9px]">{{sf.balance}} </p>
+                  <p class="text-wrap text-[10px]">{{s.totals[indicator.key]}}</p>
                 </div>
 
+                <!-- Fuentes de financiamiento (colapsable) -->
+                <div *ngIf="!isCollapsed(s, i)">
+                  <p *ngIf="s.sources_financing.length > 0" class="text-primary text-[10px] font-semibold truncate text-wrap">Fuente de financiamiento</p>
+                  <ul role="list" class="mt-2">
+                    <li *ngFor="let sf of s.sources_financing" class="w-full flex rounded-md justify-between bg-white shadow-sm mb-2">
+                      <div class="flex w-auto shrink-0 items-center justify-center rounded-l-md bg-purple-600 px-2 text-xs font-medium text-white">{{sf.source_financing.code}}</div>
+                      <a class="font-medium text-xs text-gray-900 align-middle hover:text-gray-600">{{sf.source_financing.name}}</a>
+                      <p class="text-gray-500 text-xs pr-2 align-middle">{{sf[indicator.key]}}</p>
+                    </li>
+                  </ul>
+                </div>
               </div>
+            </div>
           </li>
         </ul>
+
       </li>
     </ul>
     <div *ngIf="isLoading" class="flex justify-center items-center py-4">

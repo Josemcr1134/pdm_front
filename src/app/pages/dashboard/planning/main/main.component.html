@@ -2,7 +2,7 @@
   <div class="overflow-x-auto whitespace-nowrap p-4 h-full">
     <ul class="flex space-x-4 h-full" *ngIf="!isLoading">
       <!-- MUNICIPALITY PLANNING -->
-      <li class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:min-w-96  ">
+      <li class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:max-w-[350px]  ">
         <p class="text-primary text-sm text-wrap md:text-[17px] font-black  ">Planeación Municipal</p>
 
         <p class="text-wrap md:text-sm text-xs">Selecciona tu categoría de preferencia</p>
@@ -30,7 +30,7 @@
       </li>
 
       <!-- SECTORS LIST  -->
-      <li *ngIf="categoryTypeSelected == 1 && strategicLine.length" class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:min-w-96 ">
+      <li *ngIf="categoryTypeSelected == 1 && strategicLine.length" class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:max-w-[350px] ">
         <p class="text-primary text-sm text-wrap md:text-[17px] font-black  ">Sectores</p>
         <hr class=" border-[3px] rounded-xl my-2 border-[#ebebff]"/>
 
@@ -42,7 +42,7 @@
       </li>
 
       <!-- CODE LIST  -->
-      <li *ngIf="categoryTypeSelected == 1 && strategicLine.length && sector.length" class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:min-w-96 ">
+      <li *ngIf="categoryTypeSelected == 1 && strategicLine.length && sector.length" class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:max-w-[350px] ">
         <p class="text-primary text-sm text-wrap md:text-[17px] font-black  ">Códigos - programa</p>
         <hr class=" border-[3px] rounded-xl my-2 border-[#ebebff]"/>
 
@@ -55,7 +55,7 @@
 
 
       <!-- INDICATORS OF WELFARE    -->
-      <li *ngIf="categoryTypeSelected == 1 && strategicLine.length && code.length && sector.length " class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:min-w-96 ">
+      <li *ngIf="categoryTypeSelected == 1 && strategicLine.length && code.length && sector.length " class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:max-w-[350px] ">
         <p class="text-primary text-sm text-wrap md:text-[17px] font-black  ">Metas Producto: </p>
 
         <ul  class="strategicLinesList w-full max-h-[600px] overflow-y-auto">
@@ -66,7 +66,7 @@
       </li>
 
       <!-- PRODUCT GOALS -->
-       <li *ngIf=" productGoal !== undefined" class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:min-w-96 ">
+       <li *ngIf=" productGoal !== undefined" class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:max-w-[350px] ">
         <p class="text-primary text-sm text-wrap md:text-[17px] font-black   ">{{productGoal.name}}</p>
         <hr class=" border-[3px] rounded-xl my-2 border-[#ebebff]"/>
 
