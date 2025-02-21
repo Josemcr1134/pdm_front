@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { OperatingExpensesService } from '../../../../../core/services/operatingExpenses/operating-expenses.service';
 import { ActivatedRoute } from '@angular/router';
+import { PlanningService } from '../../../../../core/services/planning/planning.service';
 
 @Component({
   selector: 'app-main',
@@ -19,18 +20,12 @@ export class MainComponent implements OnInit {
   public rubricSelected:any;
   public showRubricDetail:any;
   public offset: number = 0;
-  rubricSections = [
-    { key: 'initial_approval', label: '1. Aprobación inicial' },
-    { key: 'additions', label: '2. Adiciones' },
-    { key: 'reductions', label: '3. Reducciones' },
-    { key: 'displacement', label: '4. Aplazamientos' },
-    { key: 'deferrals', label: '5. Desplazamientos' },
-    { key: 'credit_transfer', label: '6. Traslado crédito' },
-    { key: 'transfer_with_credit', label: '7. Traslado con crédito' }
-  ];
   public itemSelected:number = 0;
+  public collapsedStates = new Map<string, boolean>(); // Para rastrear el estado de cada sección
 
-  constructor(private expensesSvc:OperatingExpensesService, private activatedRoute:ActivatedRoute ){}
+
+
+  constructor(private expensesSvc:OperatingExpensesService, private activatedRoute:ActivatedRoute, private pdmSvc:PlanningService ){}
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params:any) => {
@@ -106,14 +101,15 @@ export class MainComponent implements OnInit {
     this.refresh();
   };
 
-  collapsedStates = new Map<string, boolean>(); // Para rastrear el estado de cada sección
 
   toggleCollapse(s: any, index: number) {
     const key = `${s.code}-${index}`; // Identificador único para cada rúbrica e indicador
     this.collapsedStates.set(key, !this.collapsedStates.get(key));
-  }
+  };
 
   isCollapsed(s: any, index: number): boolean {
     return this.collapsedStates.get(`${s.code}-${index}`) ?? true; // Por defecto colapsado
-  }
+  };
+
+
 }

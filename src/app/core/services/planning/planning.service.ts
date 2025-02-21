@@ -39,4 +39,12 @@ export class PlanningService {
   };
 
 
+  getYears(){
+    const url = `${this.authSvc.baseUrl}/pdm/development-plan/years-of-plan-execution/`;
+    return this.http.get(url, this.authSvc.header);
+  };
+
+
+
+
 }
