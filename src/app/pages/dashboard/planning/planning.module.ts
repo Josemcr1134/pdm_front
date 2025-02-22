@@ -5,17 +5,23 @@ import { PlanningRoutingModule } from './planning-routing.module';
 import { MainComponent } from './main/main.component';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { LoaderComponent } from '../../../shared/loader/loader.component';
+import { RouterModule } from '@angular/router';
+import { DetailComponent } from './detail/detail.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
-    MainComponent
+    MainComponent,
+    DetailComponent
   ],
   imports: [
     CommonModule,
     PlanningRoutingModule,
     AlertComponent,
-    LoaderComponent
+    LoaderComponent,
+    RouterModule,
+    FormsModule
   ]
 })
 export class PlanningModule { }

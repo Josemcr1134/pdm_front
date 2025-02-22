@@ -11,12 +11,14 @@ import { ActivatedRoute } from '@angular/router';
 export class MainComponent implements OnInit {
   public isLoading:boolean = false;
   public expenses:any[] = [];
-  public year:string = '2024';
+  public year:string = '';
+  public executionCode:string = '';
   public expenseSelected:any;
   public showExpenseDetail:boolean = false;
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params:any) => {
       this.year = params.year;
+      this.executionCode = params.executionCode;
       this.getExpenses();
     })
   }
@@ -25,14 +27,14 @@ export class MainComponent implements OnInit {
 
   getExpenses(){
     this.isLoading = !this.isLoading;
-    this.expensesSvc.getOperatingExpenses('16', this.year)
+    this.expensesSvc.getOperatingExpenses(this.executionCode, this.year)
         .subscribe({
           error:(err:any) => {
-            console.log(err);
             this.isLoading = !this.isLoading;
           },
           next:(resp:any) => {
             this.expenses = resp.operating_expenses;
+            console.log(this.expenses)
             this.isLoading = !this.isLoading;
           }
         })
@@ -43,7 +45,6 @@ export class MainComponent implements OnInit {
   };
 
   selectItem(child:any){
-    console.log(child);
     this.expenseSelected = child;
     this.showExpenseDetail = true;
   };

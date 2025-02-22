@@ -1,0 +1,62 @@
+<div class="px-4 sm:px-6 lg:px-8">
+
+  <div class="mt-8 flow-root">
+    <div *ngIf="!isLoading" class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+        <table class="min-w-full divide-y divide-gray-300">
+          <thead>
+            <tr>
+              <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-primary text-nowrap sm:pl-0">Enfoque Diferencial</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-primary text-nowrap">Sexo</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-primary text-nowrap">Primera Infancia (0-5 años)</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-primary text-nowrap"> Infancia (6-11 años)</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-primary text-nowrap"> Adolescentes (12-14 años)</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-primary text-nowrap"> Juventud (14-26 años)</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-primary text-nowrap"> Adultez (27-59 años)</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-primary text-nowrap"> Vejez (Más de 60)</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-primary text-nowrap">Total por grupo</th>
+
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200">
+            <tr *ngFor="let c of coverages">
+              <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-primary text-nowrap sm:pl-0">{{c.differential_approach}}</td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{c.gender}}</td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                <input (keyup)="update(c)" type="number" [(ngModel)]="c.early_childhood">
+              </td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                <input (keyup)="update(c)" type="number" [(ngModel)]="c.chillhood">
+              </td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                <input (keyup)="update(c)" type="number" [(ngModel)]="c.youth">
+              </td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                <input (keyup)="update(c)" type="number" [(ngModel)]="c.teen">
+              </td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                <input (keyup)="update(c)" type="number" [(ngModel)]="c.teen">
+              </td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                <input (keyup)="update(c)" type="number" [(ngModel)]="c.adulthood">
+              </td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                <input (keyup)="update(c)" type="number" [(ngModel)]="c.old_age">
+              </td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                <input (keyup)="update(c)" type="number" [(ngModel)]="c.total_group">
+              </td>
+
+            </tr>
+
+            <!-- More people... -->
+          </tbody>
+        </table>
+        <app-pagination [limit]="limit" [offset]="offset" [totalItems]="coverages.length" (onPageChange)="onPageChange($event)" ></app-pagination>
+      </div>
+    </div>
+    <div class="flex justify-center items-center py-4" *ngIf="isLoading">
+      <app-loader></app-loader>
+    </div>
+  </div>
+</div>

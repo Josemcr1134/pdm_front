@@ -41,7 +41,7 @@
         <hr class=" border-[3px] rounded-xl my-2 border-[#ebebff]"/>
 
         <ul  class="strategicLinesList w-full">
-          <li *ngFor="let s of regulations"  (click)="chooseRegulations(s.url)" class="strategicLine">
+          <li *ngFor="let s of regulations"  (click)="chooseRegulations(s.link)" class="strategicLine">
             <span   class="text-wrap">
               {{s.name}}
             </span>

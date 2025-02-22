@@ -18,28 +18,29 @@ export class MobileMenuComponent {
   public windowWith:any;
 
 
+
   public menuItems:{label:string, icon:string, route:string}[] = [
     {
       label:'Planeación',
       icon:'assets/icons/planning.svg',
-      route:"/dashboard/planning"
+      route:"/dashboard/planning/false"
     },
-    {
-      label:'Planeación Nacional',
-      icon:'assets/icons/national-planning.svg',
-      route:"/dashboard/national-planning"
-    },
+    // {
+    //   label:'Planeación Nacional',
+    //   icon:'assets/icons/national-planning.svg',
+    //   route:"/dashboard/national-planning"
+    // },
 
-    {
-      label:'Informes Nacionales',
-      icon:'assets/icons/national-reports.svg',
-      route:"/dashboard/national-reports"
-    },
-    {
-      label:'Lineamientos',
-      icon:'assets/icons/guidelines.svg',
-      route:"/dashboard/guidelines"
-    },
+    // {
+    //   label:'Informes Nacionales',
+    //   icon:'assets/icons/national-reports.svg',
+    //   route:"/dashboard/national-reports"
+    // },
+    // {
+    //   label:'Lineamientos',
+    //   icon:'assets/icons/guidelines.svg',
+    //   route:"/dashboard/guidelines"
+    // },
     {
       label:'Normativas',
       icon:'assets/icons/regulations.svg',
@@ -49,18 +50,18 @@ export class MobileMenuComponent {
     {
       label:'Planeación Departamental',
       icon:'assets/icons/departamental-planning.svg',
-      route:"/dashboard/departamental-planning"
+      route:"/dashboard/planning/true"
     },
-    {
-      label:'P.T.S',
-      icon:'assets/icons/pts.svg',
-      route:"/dashboard/pts"
-    },
-    {
-      label:'P.D.T.V',
-      icon:'assets/icons/pdtv.svg',
-      route:"/dashboard/pdtv"
-    },
+    // {
+    //   label:'P.T.S',
+    //   icon:'assets/icons/pts.svg',
+    //   route:"/dashboard/pts"
+    // },
+    // {
+    //   label:'P.D.T.V',
+    //   icon:'assets/icons/pdtv.svg',
+    //   route:"/dashboard/pdtv"
+    // },
     {
       label:'Gastos',
       icon:'assets/icons/expenses.svg',
@@ -72,7 +73,7 @@ export class MobileMenuComponent {
       route:"/dashboard/incomes"
     },
 
-  ];
+  ]
 
   closeMenu(){
     this.close.emit(true)

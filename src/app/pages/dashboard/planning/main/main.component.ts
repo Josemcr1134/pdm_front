@@ -4,6 +4,7 @@ import { StrategicLine } from '../../../../core/models/strategic-line.model';
 import { Sector } from '../../../../core/models/sectors.model';
 import { ProductGoal } from '../../../../core/models/product-goal.model';
 import { PlanningService } from '../../../../core/services/planning/planning.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -17,21 +18,41 @@ export class MainComponent implements OnInit {
   public productGoal!:ProductGoal | undefined;
   public sector:string = '';
   public code:string = '';
+  public filterByDpt:string = '';
   public strategicLines: StrategicLine[] = [];
   public productGoals:ProductGoal[] = [];
   public sectors:Sector[] = [];
   public  programCodes: ProgramCode[] = [];
   public isLoading:boolean = false;
-
-  constructor(private planningSvc:PlanningService){}
+  public developmentPlan:any;
+  constructor(private planningSvc:PlanningService, private router:Router, private activatedRoute:ActivatedRoute){}
 
   ngOnInit(): void {
-    this.getStrategicLines();
+    this.activatedRoute.params.subscribe((params:any) =>{
+      console.log(params)
+      this.filterByDpt = params.filterByDpt;
+      this.getDevelopmentPlan(params.filterByDpt)
+    })
+
+  };
+
+  getDevelopmentPlan(filter:boolean){
+    this.planningSvc.getDevelopmentPlan(filter)
+        .subscribe({
+          error:(err:any) => {
+            console.log(err);
+          },
+          next:(resp:any) => {
+            console.log(resp)
+            this.developmentPlan = resp;
+            this.getStrategicLines()
+          }
+        })
   }
 
   getStrategicLines(){
     this.isLoading = !this.isLoading;
-    this.planningSvc.getStrategicLines()
+    this.planningSvc.getStrategicLines(this.developmentPlan.id)
         .subscribe({
           error:(err:any) => {
             console.log(err)
@@ -122,5 +143,10 @@ export class MainComponent implements OnInit {
         this.isLoading = !this.isLoading;
       }
     });
-  }
+  };
+
+  goToDetail(){
+    sessionStorage.setItem('productGoal', JSON.stringify(this.productGoal));
+    this.router.navigateByUrl('/dashboard/planning/' + this.filterByDpt + '/detail/' + this.productGoal?.id);
+  };
 }

@@ -17,7 +17,7 @@
               <div class="mb-5">
                 <div class="w-full">
                   <label for="text" class="block text-xs md:text-sm font-medium text-primary">Fuentes de financiamiento</label>
-                  <div class="flex items-start w-full gap-2 mb-3" *ngIf="sourceSelected == undefined">
+                  <div class="flex items-start w-full gap-2 mb-3" *ngIf="sourceSelected == undefined && allowSearch">
                     <div class="w-full">
                       <input type="text" name="text" [(ngModel)]="searchSources"   id="text" autocomplete="off" placeholder="Buscar"  class="block mb-3 w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                       <div class="flex gap-3 items-center">
@@ -44,7 +44,7 @@
                     <li *ngFor="let s of sources" (click)="selectSource(s)" class="hover:bg-purple-700/20 p-2 rounded-2xl text-sm border-b border-gray-100 text-pruple-700 "> {{s.code}} - {{s.name}} </li>
                   </ul>
                   <app-alert *ngIf="searchSources.length && !isLoading && !sources.length && sourceSelected == undefined" [msg]="'No encontramos fuentes de financiamiento'" ></app-alert>
-                  <span  *ngIf="sourceSelected !== undefined" class="flex justify-between p-3 mb-3 items-center bg-purple-700/20  rounded-2xl text-sm border-b border-gray-100 text-pruple-700">
+                  <span  *ngIf="sourceSelected !== undefined && allowSearch" class="flex justify-between p-3 mb-3 items-center bg-purple-700/20  rounded-2xl text-sm border-b border-gray-100 text-pruple-700">
 
                     <p >{{sourceSelected.name}} </p>
                     <button (click)="deleteOperatingExpense(null)" [disabled]="isLoading">
@@ -54,7 +54,12 @@
                     </button>
                   </span>
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <span  *ngFor="let s of sourcesSelected" class="flex justify-between p-2 items-center bg-purple-500/10  rounded-2xl text-xs text-pruple-500">
+                    <span  *ngFor="let s of sourcesSelected" [ngClass]="{'bg-purple-700/50':  s.source_financing == sourceSelected}" class="flex justify-between gap-x-2 p-2 items-center bg-purple-500/10  rounded-2xl text-xs text-pruple-500">
+                      <button (click)="editSource(s)" [disabled]="isLoading">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-green-500 hover:text-green-700">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                        </svg>
+                      </button>
                       {{s.source_financing.name}}
                       <button (click)="deleteOperatingExpense(s.source_financing.id)" [disabled]="isLoading">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-red-500 hover:text-red-700">

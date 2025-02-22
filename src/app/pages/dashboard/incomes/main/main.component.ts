@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IncomesService } from '../../../../core/services/incomes/incomes.service';
 import { AlertsService } from '../../../../core/services/alerts/alerts.service';
+import { PlanningService } from '../../../../core/services/planning/planning.service';
 
 @Component({
   selector: 'app-main',
@@ -8,28 +9,30 @@ import { AlertsService } from '../../../../core/services/alerts/alerts.service';
   styleUrl: './main.component.css'
 })
 export class MainComponent implements OnInit{
-  public year:number = 2024
+  public yearSelected:number = 0;
+  public years:any;
   public incomes:any[]=[];
   public isLoading:boolean = false;
   public showIncomeDetail:boolean = false;
   public incomeDetail:any;
-  constructor(private incomesSvc:IncomesService, private alertSvc:AlertsService){}
+  constructor(private incomesSvc:IncomesService, private pdmSvc:PlanningService){}
 
   ngOnInit(): void {
     this.getIncomes();
+    this.getYears();
   }
 
   getIncomes(){
     this.isLoading = !this.isLoading;
-    this.incomesSvc.getIncomes(2024)
+    this.incomesSvc.getIncomes(this.yearSelected)
         .subscribe({
           error:(err:any) => {
             console.log(err);
             this.isLoading = !this.isLoading;
           },
           next:(resp:any) => {
-            console.log(resp)
             this.incomes = resp.incomes;
+            console.log(this.incomes)
             this.isLoading = !this.isLoading;
           }
         });
@@ -42,7 +45,6 @@ export class MainComponent implements OnInit{
   selectItem(data:{}){
     this.incomeDetail = data;
     this.showIncomeDetail = !this.showIncomeDetail;
-    console.log(data);
   };
 
   refresh(){
@@ -50,4 +52,16 @@ export class MainComponent implements OnInit{
     this.getIncomes();
   };
 
+  getYears(){
+    this.pdmSvc.getYears()
+        .subscribe({
+          error:(err:any) => {
+            console.log(err);
+          },
+          next:(resp:any) => {
+            this.years = resp;
+            this.yearSelected = resp.first_year;
+          }
+        });
+  };
 }

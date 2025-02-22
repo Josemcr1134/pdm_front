@@ -1,0 +1,332 @@
+<div class="p-4">
+  <div class="grid lg:grid-cols-4 gap-3">
+    <div class="">
+      <label for="year" class="mb-1 block text-sm font-medium text-primary truncate">Periodo a Ejecutar</label>
+      <div class=" grid grid-cols-1">
+        <select id="year" name="year" [(ngModel)]="yearSelected" class="col-start-1 row-start-1 block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-xs md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600">
+          <option [value]="years?.first_year">{{years?.first_year}}</option>
+          <option [value]="years?.second_year">{{years?.second_year}}</option>
+          <option [value]="years?.third_year">{{years?.third_year}}</option>
+          <option [value]="years?.fourth_year">{{years?.fourth_year}}</option>
+        </select>
+
+      </div>
+    </div>
+    <div class="col-span-1">
+      <label class="block mb-1 text-sm font-medium text-primary truncate">Meta a Ejecutar</label>
+      <input
+        type="number"
+        [(ngModel)]="goal"
+        (keydown.enter)="updateExecutedGoal()"
+        placeholder="Ingresa la meta a ejecutar"
+        class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+      >
+    </div>
+    <div class="col-span-1">
+      <label class="block mb-1 text-sm font-medium text-primary truncate">Saldo inicial</label>
+      <input
+        type="number"
+        [(ngModel)]="initApproval"
+        placeholder="Ingresa el saldo inicial"
+        class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+      >
+    </div>
+
+  </div>
+  <hr class="my-6">
+  <!-- Fuentes de financiamiento (colapsable) -->
+  <div   >
+    <p  class="text-primary text-sm font-semibold truncate text-wrap mb-2">Ejecución presupuestal</p>
+    <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-3">
+      <div class="col-span-1">
+        <label class="block mb-1 text-sm font-medium text-primary truncate">Total apropiado</label>
+        <input
+          type="number"
+          [value]="getTotalForProperty('total_approval')"
+          placeholder="Ingresa el total apropiado"
+          class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+        >
+      </div>
+      <div class="col-span-1">
+        <label class="block mb-1 text-sm font-medium text-primary truncate">Disponibilidad</label>
+        <input
+          type="number"
+          placeholder="Ingresa la disponibilidad"
+          [value]="getTotalForProperty('availability')"
+          class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+        >
+      </div>
+      <div class="col-span-1">
+        <label class="block mb-1 text-sm font-medium text-primary truncate">Compromisos acumulados</label>
+        <input
+          type="number"
+          [value]="getTotalForProperty('cumulative_commitments')"
+          placeholder="Ingresa los compromisos acumulados"
+          class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+        >
+      </div>
+      <div class="col-span-1">
+        <label class="block mb-1 text-sm font-medium text-primary truncate">Obligaciones por pagar</label>
+        <input
+          type="number"
+          [value]="getTotalForProperty('obligations')"
+          placeholder="Ingresa las obligaciones por pagar"
+          class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+        >
+      </div>
+
+    </div>
+
+
+    <hr class="my-6">
+    <!-- TOTAL APPROVAL -->
+    <p class="block mb-1 text-xs font-medium text-primary truncate mt-3">Apropiación inicial </p>
+    <ul role="list" class="mt-2">
+      <li *ngFor="let s of sourcesSelected"  class="w-full mb-4 flex rounded-md justify-between bg-gray-50 shadow-sm ">
+        <div class="flex w-auto shrink-0 py-2 items-center justify-center rounded-l-md bg-purple-600 px-2 text-sm font-medium text-white">{{s.initial_approval.source_financing_code}}</div>
+        <a class="font-medium text-sm py-2 text-gray-900 align-middle hover:text-gray-600">{{s.initial_approval.source_financing_name}}</a>
+        <p class="text-gray-500 text-sm py-2 pr-2 align-middle">{{s.initial_approval.value | currency}}</p>
+      </li>
+    </ul>
+    <div class="flex justify-end">
+      <div class="bg-purple-50 rounded-lg text-purple-800 p-2 text-sm">
+         Total: {{getTotalForProperty('initial_approval') | currency}}
+      </div>
+    </div>
+    <hr class="my-6">
+    <!-- ADDITIONS -->
+    <p class="block mb-1 text-xs font-medium text-primary truncate mt-3">Adiciones </p>
+    <ul role="list" class="mt-2">
+      <li *ngFor="let s of sourcesSelected"  class="w-full mb-4 flex rounded-md justify-between bg-gray-50 shadow-sm ">
+        <div class="flex w-auto shrink-0 py-2 items-center justify-center rounded-l-md bg-purple-600 px-2 text-sm font-medium text-white">{{s.additions.source_financing_code}}</div>
+        <a class="font-medium text-sm py-2 text-gray-900 align-middle hover:text-gray-600">{{s.additions.source_financing_name}}</a>
+        <p class="text-gray-500 text-sm py-2 pr-2 align-middle">{{s.additions.value | currency}}</p>
+      </li>
+    </ul>
+    <div class="flex justify-end">
+      <div class="bg-purple-50 rounded-lg text-purple-800 p-2 text-sm">
+         Total: {{getTotalForProperty('additions') | currency}}
+      </div>
+    </div>
+    <hr class="my-6">
+     <!-- REDUCTIONS -->
+     <p class="block mb-1 text-xs font-medium text-primary truncate mt-3">Reducciones </p>
+     <ul role="list" class="mt-2">
+       <li *ngFor="let s of sourcesSelected" class="w-full mb-4 flex rounded-md justify-between bg-gray-50 shadow-sm ">
+         <div class="flex w-auto shrink-0 py-2 items-center justify-center rounded-l-md bg-purple-600 px-2 text-sm font-medium text-white">{{s.reductions.source_financing_code}}</div>
+         <a class="font-medium text-sm py-2 text-gray-900 align-middle hover:text-gray-600">{{s.reductions.source_financing_name}}</a>
+         <p class="text-gray-500 text-sm py-2 pr-2 align-middle">{{s.reductions.value | currency}}</p>
+       </li>
+     </ul>
+     <div class="flex justify-end">
+       <div class="bg-purple-50 rounded-lg text-purple-800 p-2 text-sm">
+          Total: {{getTotalForProperty('reductions') | currency}}
+       </div>
+     </div>
+     <hr class="my-6">
+      <!-- DEFERRALS -->
+    <p class="block mb-1 text-xs font-medium text-primary truncate mt-3">Aplazamiento </p>
+    <ul role="list" class="mt-2">
+      <li *ngFor="let s of sourcesSelected" class="w-full mb-4 flex rounded-md justify-between bg-gray-50 shadow-sm ">
+        <div class="flex w-auto shrink-0 py-2 items-center justify-center rounded-l-md bg-purple-600 px-2 text-sm font-medium text-white">{{s.deferrals.source_financing_code}}</div>
+        <a class="font-medium text-sm py-2 text-gray-900 align-middle hover:text-gray-600">{{s.deferrals.source_financing_name}}</a>
+        <p class="text-gray-500 text-sm py-2 pr-2 align-middle">{{s.deferrals.value | currency}}</p>
+      </li>
+    </ul>
+    <div class="flex justify-end">
+      <div class="bg-purple-50 rounded-lg text-purple-800 p-2 text-sm">
+         Total: {{getTotalForProperty('deferrals') | currency}}
+      </div>
+    </div>
+    <hr class="my-6">
+    <!-- DISPLACEMENT -->
+    <p class="block mb-1 text-xs font-medium text-primary truncate mt-3">Desplazamiento </p>
+    <ul role="list" class="mt-2">
+      <li *ngFor="let s of sourcesSelected" class="w-full mb-4 flex rounded-md justify-between bg-gray-50 shadow-sm ">
+        <div class="flex w-auto shrink-0 py-2 items-center justify-center rounded-l-md bg-purple-600 px-2 text-sm font-medium text-white">{{s.displacement.source_financing_code}}</div>
+        <a class="font-medium text-sm py-2 text-gray-900 align-middle hover:text-gray-600">{{s.displacement.source_financing_name}}</a>
+        <p class="text-gray-500 text-sm py-2 pr-2 align-middle">{{s.displacement.value | currency}}</p>
+      </li>
+    </ul>
+    <div class="flex justify-end">
+      <div class="bg-purple-50 rounded-lg text-purple-800 p-2 text-sm">
+          Total: {{getTotalForProperty('displacement') | currency}}
+      </div>
+    </div>
+    <hr class="my-6">
+
+    <!-- TRANSFER CREDIT -->
+    <p class="block mb-1 text-xs font-medium text-primary truncate mt-3">Traslado crédito </p>
+    <ul role="list" class="mt-2">
+      <li *ngFor="let s of sourcesSelected" class="w-full mb-4 flex rounded-md justify-between bg-gray-50 shadow-sm ">
+        <div class="flex w-auto shrink-0 py-2 items-center justify-center rounded-l-md bg-purple-600 px-2 text-sm font-medium text-white">{{s.credit_transfer.source_financing_code}}</div>
+        <a class="font-medium text-sm py-2 text-gray-900 align-middle hover:text-gray-600">{{s.credit_transfer.source_financing_name}}</a>
+        <p class="text-gray-500 text-sm py-2 pr-2 align-middle">{{s.credit_transfer.value | currency}}</p>
+      </li>
+    </ul>
+    <div class="flex justify-end">
+      <div class="bg-purple-50 rounded-lg text-purple-800 p-2 text-sm">
+          Total: {{getTotalForProperty('credit_transfer') | currency}}
+      </div>
+    </div>
+    <hr class="my-6">
+
+    <!-- TRANSFER WITH CREDIT -->
+    <p class="block mb-1 text-xs font-medium text-primary truncate mt-3">Traslado con crédito </p>
+    <ul role="list" class="mt-2">
+      <li *ngFor="let s of sourcesSelected" class="w-full mb-4 flex rounded-md justify-between bg-gray-50 shadow-sm ">
+        <div class="flex w-auto shrink-0 py-2 items-center justify-center rounded-l-md bg-purple-600 px-2 text-sm font-medium text-white">{{s.transfer_with_credit.source_financing_code}}</div>
+        <a class="font-medium text-sm py-2 text-gray-900 align-middle hover:text-gray-600">{{s.transfer_with_credit.source_financing_name}}</a>
+        <p class="text-gray-500 text-sm py-2 pr-2 align-middle">{{s.transfer_with_credit.value | currency}}</p>
+      </li>
+    </ul>
+    <div class="flex justify-end">
+      <div class="bg-purple-50 rounded-lg text-purple-800 p-2 text-sm">
+          Total: {{getTotalForProperty('transfer_with_credit') | currency}}
+      </div>
+    </div>
+    <!-- TOTAL APPROVAL -->
+    <p class="block mb-1 text-xs font-medium text-primary truncate mt-3">Total apropiación </p>
+    <ul role="list" class="mt-2">
+      <li *ngFor="let s of sourcesSelected"  class="w-full mb-4 flex rounded-md justify-between bg-gray-50 shadow-sm ">
+        <div class="flex w-auto shrink-0 py-2 items-center justify-center rounded-l-md bg-purple-600 px-2 text-sm font-medium text-white">{{s.total_approval.source_financing_code}}</div>
+        <a class="font-medium text-sm py-2 text-gray-900 align-middle hover:text-gray-600">{{s.total_approval.source_financing_name}}</a>
+        <p class="text-gray-500 text-sm py-2 pr-2 align-middle">{{s.total_approval.value | currency}}</p>
+      </li>
+    </ul>
+    <div class="flex justify-end">
+      <div class="bg-purple-50 rounded-lg text-purple-800 p-2 text-sm">
+          Total: {{getTotalForProperty('total_approval') | currency}}
+      </div>
+    </div>
+    <hr class="my-6">
+    <!--AVAILABILITY -->
+    <p class="block mb-1 text-xs font-medium text-primary truncate mt-3">Disponibilidad </p>
+    <ul role="list" class="mt-2">
+      <li *ngFor="let s of sourcesSelected" class="w-full mb-4 flex rounded-md justify-between bg-gray-50 shadow-sm ">
+        <div class="flex w-auto shrink-0 py-2 items-center justify-center rounded-l-md bg-purple-600 px-2 text-sm font-medium text-white">{{s.availability.source_financing_code}}</div>
+        <a class="font-medium text-sm py-2 text-gray-900 align-middle hover:text-gray-600">{{s.availability.source_financing_name}}</a>
+        <p class="text-gray-500 text-sm py-2 pr-2 align-middle">{{s.availability.value | currency}}</p>
+      </li>
+    </ul>
+    <div class="flex justify-end">
+      <div class="bg-purple-50 rounded-lg text-purple-800 p-2 text-sm">
+         Total: {{getTotalForProperty('availability') | currency}}
+      </div>
+    </div>
+    <hr class="my-6">
+    <!--commitments_month -->
+    <p class="block mb-1 text-xs font-medium text-primary truncate mt-3">Compromisos mes </p>
+    <ul role="list" class="mt-2">
+      <li *ngFor="let s of sourcesSelected" class="w-full mb-4 flex rounded-md justify-between bg-gray-50 shadow-sm ">
+        <div class="flex w-auto shrink-0 py-2 items-center justify-center rounded-l-md bg-purple-600 px-2 text-sm font-medium text-white">{{s.commitments_month.source_financing_code}}</div>
+        <a class="font-medium text-sm py-2 text-gray-900 align-middle hover:text-gray-600">{{s.commitments_month.source_financing_name}}</a>
+        <p class="text-gray-500 text-sm py-2 pr-2 align-middle">{{s.commitments_month.value | currency}}</p>
+      </li>
+    </ul>
+    <div class="flex justify-end">
+      <div class="bg-purple-50 rounded-lg text-purple-800 p-2 text-sm">
+         Total: {{getTotalForProperty('commitments_month') | currency}}
+      </div>
+    </div>
+    <hr class="my-6">
+    <!--cumulative_commitments -->
+    <p class="block mb-1 text-xs font-medium text-primary truncate mt-3">Compromisos acumulados </p>
+    <ul role="list" class="mt-2">
+      <li *ngFor="let s of sourcesSelected" class="w-full mb-4 flex rounded-md justify-between bg-gray-50 shadow-sm ">
+        <div class="flex w-auto shrink-0 py-2 items-center justify-center rounded-l-md bg-purple-600 px-2 text-sm font-medium text-white">{{s.cumulative_commitments.source_financing_code}}</div>
+        <a class="font-medium text-sm py-2 text-gray-900 align-middle hover:text-gray-600">{{s.cumulative_commitments.source_financing_name}}</a>
+        <p class="text-gray-500 text-sm py-2 pr-2 align-middle">{{s.cumulative_commitments.value | currency}}</p>
+      </li>
+    </ul>
+    <div class="flex justify-end">
+      <div class="bg-purple-50 rounded-lg text-purple-800 p-2 text-sm">
+         Total: {{getTotalForProperty('cumulative_commitments') | currency}}
+      </div>
+    </div>
+    <hr class="my-6">
+
+    <!-- BALANCE TO EXECUTE -->
+    <p class="block mb-1 text-xs font-medium text-primary truncate mt-3">Saldo por ejecutar </p>
+    <ul role="list" class="mt-2">
+      <li *ngFor="let s of sourcesSelected" class="w-full mb-4 flex rounded-md justify-between bg-gray-50 shadow-sm ">
+        <div class="flex w-auto shrink-0 py-2 items-center justify-center rounded-l-md bg-purple-600 px-2 text-sm font-medium text-white">{{s.executed_balance.source_financing_code}}</div>
+        <a class="font-medium text-sm py-2 text-gray-900 align-middle hover:text-gray-600">{{s.executed_balance.source_financing_name}}</a>
+        <p class="text-gray-500 text-sm py-2 pr-2 align-middle">{{s.executed_balance.value | currency}}</p>
+      </li>
+    </ul>
+
+    <div class="flex justify-end">
+      <div class="bg-purple-50 rounded-lg text-purple-800 p-2 text-sm">
+          Total: {{getTotalForProperty('executed_balance') | currency}}
+      </div>
+    </div>
+    <hr class="my-6">
+    <!--previous_payments -->
+    <p class="block mb-1 text-xs font-medium text-primary truncate mt-3">Pagos anteriores </p>
+    <ul role="list" class="mt-2">
+      <li *ngFor="let s of sourcesSelected" class="w-full mb-4 flex rounded-md justify-between bg-gray-50 shadow-sm ">
+        <div class="flex w-auto shrink-0 py-2 items-center justify-center rounded-l-md bg-purple-600 px-2 text-sm font-medium text-white">{{s.previous_payments.source_financing_code}}</div>
+        <a class="font-medium text-sm py-2 text-gray-900 align-middle hover:text-gray-600">{{s.previous_payments.source_financing_name}}</a>
+        <p class="text-gray-500 text-sm py-2 pr-2 align-middle">{{s.previous_payments.value | currency}}</p>
+      </li>
+    </ul>
+    <div class="flex justify-end">
+      <div class="bg-purple-50 rounded-lg text-purple-800 p-2 text-sm">
+          Total: {{getTotalForProperty('previous_payments') | currency}}
+      </div>
+    </div>
+
+    <hr class="my-6">
+    <!--payments_month -->
+    <p class="block mb-1 text-xs font-medium text-primary truncate mt-3">Pagos/mes </p>
+    <ul role="list" class="mt-2">
+      <li *ngFor="let s of sourcesSelected" class="w-full mb-4 flex rounded-md justify-between bg-gray-50 shadow-sm ">
+        <div class="flex w-auto shrink-0 py-2 items-center justify-center rounded-l-md bg-purple-600 px-2 text-sm font-medium text-white">{{s.payments_month.source_financing_code}}</div>
+        <a class="font-medium text-sm py-2 text-gray-900 align-middle hover:text-gray-600">{{s.payments_month.source_financing_name}}</a>
+        <p class="text-gray-500 text-sm py-2 pr-2 align-middle">{{s.payments_month.value | currency}}</p>
+      </li>
+    </ul>
+    <div class="flex justify-end">
+      <div class="bg-purple-50 rounded-lg text-purple-800 p-2 text-sm">
+          Total: {{getTotalForProperty('payments_month') | currency}}
+      </div>
+    </div>
+    <hr class="my-6">
+    <!-- OBLIGATIONS -->
+    <p class="block mb-1 text-xs font-medium text-primary truncate mt-3">Obligaciones por pagar </p>
+    <ul role="list" class="mt-2">
+      <li *ngFor="let s of sourcesSelected" class="w-full mb-4 flex rounded-md justify-between bg-gray-50 shadow-sm ">
+        <div class="flex w-auto shrink-0 py-2 items-center justify-center rounded-l-md bg-purple-600 px-2 text-sm font-medium text-white">{{s.obligations.source_financing_code}}</div>
+        <a class="font-medium text-sm py-2 text-gray-900 align-middle hover:text-gray-600">{{s.obligations.source_financing_name}}</a>
+        <p class="text-gray-500 text-sm py-2 pr-2 align-middle">{{s.obligations.value | currency}}</p>
+      </li>
+    </ul>
+    <div class="flex justify-end">
+      <div class="bg-purple-50 rounded-lg text-purple-800 p-2 text-sm">
+        Total: {{getTotalForProperty('obligations') | currency}}
+      </div>
+    </div>
+    <hr class="my-6">
+    <!-- BALANCE -->
+    <p class="block mb-1 text-xs font-medium text-primary truncate mt-3">Saldo disponible </p>
+    <ul role="list" class="mt-2">
+      <li *ngFor="let s of sourcesSelected" class="w-full mb-4 flex rounded-md justify-between bg-gray-50 shadow-sm ">
+        <div class="flex w-auto shrink-0 py-2 items-center justify-center rounded-l-md bg-purple-600 px-2 text-sm font-medium text-white">{{s.balance.source_financing_code}}</div>
+        <a class="font-medium text-sm py-2 text-gray-900 align-middle hover:text-gray-600">{{s.balance.source_financing_name}}</a>
+        <p class="text-gray-500 text-sm py-2 pr-2 align-middle">{{s.balance.value | currency}}</p>
+      </li>
+    </ul>
+    <div class="flex justify-end">
+      <div class="bg-purple-50 rounded-lg text-purple-800 p-2 text-sm">
+         Total: {{getTotalForProperty('balance') | currency}}
+      </div>
+    </div>
+    <hr class="my-6">
+
+
+
+  </div>
+
+
+</div>

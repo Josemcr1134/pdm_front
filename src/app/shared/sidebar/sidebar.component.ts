@@ -24,24 +24,24 @@ export class SidebarComponent implements OnInit {
     {
       label:'Planeación',
       icon:'assets/icons/planning.svg',
-      route:"/dashboard/planning"
+      route:"/dashboard/planning/false"
     },
-    {
-      label:'Planeación Nacional',
-      icon:'assets/icons/national-planning.svg',
-      route:"/dashboard/national-planning"
-    },
+    // {
+    //   label:'Planeación Nacional',
+    //   icon:'assets/icons/national-planning.svg',
+    //   route:"/dashboard/national-planning"
+    // },
 
     // {
     //   label:'Informes Nacionales',
     //   icon:'assets/icons/national-reports.svg',
     //   route:"/dashboard/national-reports"
     // },
-    {
-      label:'Lineamientos',
-      icon:'assets/icons/guidelines.svg',
-      route:"/dashboard/guidelines"
-    },
+    // {
+    //   label:'Lineamientos',
+    //   icon:'assets/icons/guidelines.svg',
+    //   route:"/dashboard/guidelines"
+    // },
     {
       label:'Normativas',
       icon:'assets/icons/regulations.svg',
@@ -51,7 +51,7 @@ export class SidebarComponent implements OnInit {
     {
       label:'Planeación Departamental',
       icon:'assets/icons/departamental-planning.svg',
-      route:"/dashboard/departamental-planning"
+      route:"/dashboard/planning/true"
     },
     // {
     //   label:'P.T.S',

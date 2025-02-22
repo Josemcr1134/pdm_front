@@ -32,7 +32,7 @@
                 <li *ngFor="let mI of menuItems">
                   <!-- Current: "bg-indigo-700 text-white", Default: "text-indigo-200 hover:text-white hover:bg-indigo-700" -->
                   <a [routerLink]="mI.route" routerLinkActive="active" class="group flex gap-x-3 rounded-md  p-2 text-sm/6 font-semibold text-white">
-                    <img class="size-6 shrink-0 text-white" [src]="mI.icon" alt="">
+                    <!-- <img class="size-6 shrink-0 text-white" [src]="mI.icon" alt=""> -->
                     <span class=""  >{{mI.label}}</span>
                   </a>
                 </li>

@@ -39,8 +39,10 @@ export class OperatingExpensesService {
     return this.http.delete(url, this.authSvc.header);
   };
 
-
-
+  getExecutionUnit(limit:number, offset:number){
+    const url = `${this.authSvc.baseUrl}/contracts/execution-unit/?${limit}&offset=${offset}`;
+    return this.http.get(url, this.authSvc.header);
+  };
 
 
 

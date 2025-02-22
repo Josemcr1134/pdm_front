@@ -8,7 +8,7 @@
         <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 162 207" class="h-8 w-auto"><rect width="22" height="40" y="74" fill="#fff" data-name="Rectangle 138" rx="8"></rect><rect width="22" height="105" x="28" y="46" fill="#fff" data-name="Rectangle 139" rx="8"></rect><rect width="22" height="105" x="56" y="28" fill="#fff" data-name="Rectangle 140" rx="8"></rect><rect width="22" height="22" x="56" fill="#fff3f3" data-name="Rectangle 141" opacity="0.62" rx="8"></rect><rect width="22" height="105" x="84" y="72" fill="#fff" data-name="Rectangle 135" rx="8"></rect><rect width="22" height="22" x="84" y="185" fill="#fff" data-name="Rectangle 136" opacity="0.62" rx="8"></rect><rect width="22" height="64" x="112" y="59" fill="#fff" data-name="Rectangle 137" rx="8"></rect><rect width="22" height="22" x="140" y="82" fill="#fff" data-name="Rectangle 142" rx="8"></rect></svg>
       </div>
       <p *ngIf="!isColapsed" class="text-white text-center text-sm font-bold">Planeación para el desarrollo</p>
-      <button class="text-white" (click)="toCollapse()">
+      <!-- <button class="text-white" (click)="toCollapse()">
         <svg *ngIf="!isColapsed" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
           <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
         </svg>
@@ -16,7 +16,7 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
         </svg>
 
-      </button>
+      </button> -->
     </div>
     <nav class="flex flex-1 flex-col">
       <ul role="list" class="flex flex-1 flex-col gap-y-7">
@@ -25,7 +25,6 @@
             <li *ngFor="let mI of menuItems">
               <!-- Current: "bg-indigo-700 text-white", Default: "text-indigo-200 hover:text-white hover:bg-indigo-700" -->
               <a [routerLink]="mI.route" routerLinkActive="active" class="group flex gap-x-3 rounded-md  p-2 text-sm/6 font-semibold text-white">
-                <img class="size-6 shrink-0 text-white" [src]="mI.icon" alt="">
                 <span class="" *ngIf="!isColapsed" >{{mI.label}}</span>
               </a>
             </li>

@@ -12,7 +12,7 @@ const routes: Routes = [
         loadChildren: () => import('./investments/investments.module').then(m => m.InvestmentsModule)
       },
       {
-        path: 'functionality/:year',
+        path: 'functionality/:year/:executionCode',
         loadChildren: () => import('./functionality/functionality.module').then(m => m.FunctionalityModule)
       },
       {

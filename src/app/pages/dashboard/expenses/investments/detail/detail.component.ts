@@ -15,6 +15,7 @@ export class DetailComponent implements OnInit{
   public filterByHomologation:boolean = false;
   public searchSources:string = '';
   public isLoading:boolean = false;
+  public allowSearch:boolean = true;
   public sourceSelected:{
     id:string,
     code:string,
@@ -202,5 +203,36 @@ export class DetailComponent implements OnInit{
       this.sourceSelected = undefined;
     }
   };
+
+  editSource(source:any){
+    if (source.source_financing.id ==  this.expenseForm.get('source_financing')?.value ) {
+      this.allowSearch = true;
+      this.sourceSelected = undefined;
+      this.loadForm();
+    }else {
+      this.expenseForm.get('initial_approval')?.setValue(source.initial_approval);
+      this.expenseForm.get('additions')?.setValue(source.additions);
+      this.expenseForm.get('reductions')?.setValue(source.reductions);
+      this.expenseForm.get('deferrals')?.setValue(source.deferrals);
+      this.expenseForm.get('displacement')?.setValue(source.displacement);
+      this.expenseForm.get('transfer_with_credit')?.setValue(source.transfer_with_credit);
+      this.expenseForm.get('credit_transfer')?.setValue(source.credit_transfer);
+      this.expenseForm.get('total_approval')?.setValue(source.total_approval);
+      this.expenseForm.get('availability')?.setValue(source.availability);
+      this.expenseForm.get('previous_commitments')?.setValue(source.previous_commitments);
+      this.expenseForm.get('commitments_month')?.setValue(source.commitments_month);
+      this.expenseForm.get('cumulative_commitments')?.setValue(source.cumulative_commitments);
+      this.expenseForm.get('executed_balance')?.setValue(source.executed_balance);
+      this.expenseForm.get('previous_payments')?.setValue(source.previous_payments);
+      this.expenseForm.get('payments_month')?.setValue(source.payments_month);
+      this.expenseForm.get('accumulated_payments')?.setValue(source.accumulated_payments);
+      this.expenseForm.get('obligations')?.setValue(source.obligations);
+      this.expenseForm.get('balance')?.setValue(source.balance);
+      this.sourceSelected = source.source_financing;
+      this.expenseForm.get('source_financing')?.setValue(this.sourceSelected?.id);
+      this.allowSearch = false;
+    }
+  }
+
 
 }

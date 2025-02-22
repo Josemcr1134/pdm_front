@@ -15,6 +15,7 @@ export class DetailComponent implements OnInit {
   public filterByHomologation:boolean = false;
   public searchSources:string = '';
   public isLoading:boolean = false;
+  public allowSearch:boolean = true;
   public sourceSelected:{
     id:string,
     code:string,
@@ -180,10 +181,40 @@ export class DetailComponent implements OnInit {
                 this.alertSvc.currentAlert('Éxito', 'Fuente de financiamiento eliminada', 'success');
                 this.sourcesSelected = this.sourcesSelected.filter(source => source.source_financing.id !== sourceId);
                 this.isLoading = !this.isLoading;
+                this.allowSearch = true;
               }
             });
     } else {
       this.sourceSelected = undefined;
     }
   };
+
+  editSource(source:any){
+    console.log(source)
+    if (source.source_financing.id ==  this.incomeForm.get('source_financing')?.value ) {
+      this.allowSearch = true;
+      this.sourceSelected = undefined;
+      this.loadForm();
+    }else {
+      this.incomeForm.get('initial_approval')?.setValue(source.initial_approval);
+      this.incomeForm.get('additions')?.setValue(source.additions);
+      this.incomeForm.get('reductions')?.setValue(source.reductions);
+      this.incomeForm.get('deferrals')?.setValue(source.deferrals);
+      this.incomeForm.get('displacement')?.setValue(source.displacement);
+      this.incomeForm.get('availability')?.setValue(source.availability);
+      this.incomeForm.get('commitments_month')?.setValue(source.commitments_month);
+      this.incomeForm.get('commitments_total')?.setValue(source.commitments_total);
+      this.incomeForm.get('balance_executed')?.setValue(source.balance_executed);
+      this.incomeForm.get('previous_payments')?.setValue(source.previous_payments);
+      this.incomeForm.get('payments_month')?.setValue(source.payments_month);
+      this.incomeForm.get('total_payments')?.setValue(source.total_payments);
+      this.incomeForm.get('obligations_payable')?.setValue(source.obligations_payable);
+      this.incomeForm.get('balance')?.setValue(this.data.total_attributes.balance);
+      this.sourceSelected = source.source_financing;
+      this.incomeForm.get('source_financing')?.setValue(this.sourceSelected?.id);
+      this.allowSearch = false;
+    }
+    console.log(this.incomeForm.value)
+  }
+
 }

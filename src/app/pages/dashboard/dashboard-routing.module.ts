@@ -9,7 +9,7 @@ const routes: Routes = [
     component: DashboardComponent,
     children:[
       {
-        path: 'planning',
+        path: 'planning/:filterByDpt',
         loadChildren: () => import('./planning/planning.module').then(m => m.PlanningModule)
         // canActivate:[AuthGuard]
       },
@@ -70,7 +70,7 @@ const routes: Routes = [
       },
       {
         path:'**',
-        redirectTo:'planning',
+        redirectTo:'planning/false',
         pathMatch:'full'
       }
     ]

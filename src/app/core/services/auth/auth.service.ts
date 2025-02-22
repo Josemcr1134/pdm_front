@@ -28,4 +28,9 @@ export class AuthService {
     return this.http.post(url, data, this.header)
   };
 
+  getUserInfo(){
+    const url = `${this.baseUrl}/users/me/`;
+    return this.http.get(url, this.header);
+  };
+
 }

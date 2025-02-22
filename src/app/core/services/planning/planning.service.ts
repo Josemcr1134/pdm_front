@@ -14,8 +14,8 @@ export class PlanningService {
   constructor(private http:HttpClient, private authSvc:AuthService) { }
 
 
-  getStrategicLines(){
-    const url = `${this.authSvc.baseUrl}/pdm/strategic-line/`;
+  getStrategicLines(developPlan:string){
+    const url = `${this.authSvc.baseUrl}/pdm/strategic-line/?development_plan_id=${developPlan}`;
     return this.http.get<StrategicLine[]>(url, this.authSvc.header);
   };
 
@@ -34,17 +34,133 @@ export class PlanningService {
     if (codeId) {
       params = params.set('code_and_program_id', codeId);
     }
+
     const url = `${this.authSvc.baseUrl}/pdm/goal/`;
     return this.http.get<ProductGoal[]>(url, { headers: this.authSvc.header.headers, params });
   };
-
 
   getYears(){
     const url = `${this.authSvc.baseUrl}/pdm/development-plan/years-of-plan-execution/`;
     return this.http.get(url, this.authSvc.header);
   };
 
+  getScheduledGoal(goalId:string, year:number){
+    const url = `${this.authSvc.baseUrl}/pdm/goal/${goalId}/scheduled/?year=${year}`;
+    return this.http.get(url, this.authSvc.header);
+  };
 
 
+  getExecutedGoal(goalId:string, year:number){
+    const url = `${this.authSvc.baseUrl}/pdm/goal/${goalId}/executed/?year=${year}`;
+    return this.http.get(url, this.authSvc.header);
+  }
 
+  getStatistics(goalId:string){
+    const url = `${this.authSvc.baseUrl}/pdm/goal/${goalId}/statistics/`;
+    return this.http.get(url, this.authSvc.header);
+  };
+
+
+  getContractExecutionUnits(limit:number, offset:number){
+    const url = `${this.authSvc.baseUrl}/contracts/execution-unit/?limit=${limit}&offset=${offset}`;
+    return this.http.get(url, this.authSvc.header);
+  };
+
+  getCatalogProduct(code:string, limit:number, offset:number, search:string){
+    const url = `${this.authSvc.baseUrl}/catalogue/product-mga/?limit${limit}&offset=${offset}&code=${code}&search=${search}`;
+    return this.http.get(url, this.authSvc.header)
+  };
+
+  getModality(limit:number, offset:number){
+    const url = `${this.authSvc.baseUrl}/modality/?limit=${limit}&offset=${offset}`;
+    return this.http.get(url, this.authSvc.header);
+  };
+
+  getWellnessCatalogue(limit:number, offset: number, search:string){
+    const url = `${this.authSvc.baseUrl}/catalogue/wellness/?limit=${limit}&offset=${offset}&search=${search}`;
+    return this.http.get(url, this.authSvc.header);
+  };
+
+  createContract(data:{}){
+    const url = `${this.authSvc.baseUrl}/contracts/`;
+    return this.http.post(url, data, this.authSvc.header);
+  };
+
+
+  deleteContract(id:string){
+    const url = `${this.authSvc.baseUrl}/contracts/${id}/`;
+    return this.http.delete(url, this.authSvc.header);
+  };
+
+
+  getContracts(limit:number, offset:number, year:number){
+    const url = `${this.authSvc.baseUrl}/contracts/?limit=${limit}&offset=${offset}&year=${year}`;
+    return this.http.get(url, this.authSvc.header);
+  };
+
+  getContractById(id:string){
+    const url = `${this.authSvc.baseUrl}/contracts/${id}/`;
+    return this.http.get(url, this.authSvc.header);
+  };
+
+  addSourceFinancing(data:{}){
+    const url = `${this.authSvc.baseUrl}/contracts/contract-product-contracted-source-financing/`;
+    return this.http.post(url, data, this.authSvc.header);
+  };
+
+  deleteSourceFinancing(id:string){
+    const url = `${this.authSvc.baseUrl}/contracts/contract-product-contracted-source-financing/${id}/`;
+    return this.http.delete(url, this.authSvc.header);
+  };
+
+  getCoverage(limit:number, offset:number, goalSelected:string){
+    const url = `${this.authSvc.baseUrl}/coverage/?limit=${limit}&offset=${offset}&goal=${goalSelected}`;
+    return this.http.get(url, this.authSvc.header);
+  };
+
+  updateCoverage(data:{}, id:string){
+    const url = `${this.authSvc.baseUrl}/coverage/${id}/`;
+    return this.http.patch(url, data, this.authSvc.header);
+  };
+
+  getDevelopmentPlan(isDpt:boolean){
+    const url = `${this.authSvc.baseUrl}/pdm/development-plan/active/?is_department=${isDpt}`;
+    return this.http.get(url, this.authSvc.header);
+  };
+
+  createContractDownloadable(data:{}){
+    const url = `${this.authSvc.baseUrl}/contracts/generate-project-bank-certificate/`;
+    return this.http.post(url,data, this.authSvc.header);
+  };
+
+  getContractDownloadable(id:string){
+    const url = `${this.authSvc.baseUrl}/contracts/generate-project-bank-certificate/${id}/`;
+    return this.http.get(url, this.authSvc.header);
+  };
+
+  updateBpin(data:{}, goalId:string){
+    const url = `${this.authSvc.baseUrl}/pdm/goal/${goalId}/bpin/`;
+    return this.http.put(url, data, this.authSvc.header);
+  };
+
+  updateGoalExecuted(goalId:string, year:number, data:{}){
+    const url = `${this.authSvc.baseUrl}/pdm/goal/${goalId}/executed/?year=${year}`;
+    return this.http.patch(url,data, this.authSvc.header);
+  };
+
+  updateGoalScheduled(goalId:string, year:number, data:{}){
+    const url = `${this.authSvc.baseUrl}/pdm/goal/${goalId}/scheduled/?year=${year}`;
+    return this.http.patch(url,data, this.authSvc.header);
+  };
+
+
+  updateContract(id:string, data:{}){
+    const url = `${this.authSvc.baseUrl}/contracts/${id}/`;
+    return this.http.patch(url, data, this.authSvc.header);
+  };
+
+  updateResponsableUser(data:{},id:string){
+    const url = `${this.authSvc.baseUrl}/company/${id}/`;
+    return this.http.patch(url, data, this.authSvc.header);
+  };
 }

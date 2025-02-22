@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ExpensesRoutingModule } from './expenses-routing.module';
 import { MainComponent } from './main/main.component';
 import { FormsModule } from '@angular/forms';
+import { LoaderComponent } from '../../../shared/loader/loader.component';
 
 
 
@@ -14,7 +15,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     ExpensesRoutingModule,
-    FormsModule
+    FormsModule,
+    LoaderComponent
 
   ]
 })

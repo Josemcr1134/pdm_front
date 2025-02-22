@@ -9,26 +9,26 @@
         <table class="min-w-full divide-y divide-gray-300">
           <thead>
             <tr>
-              <th scope="col" class="text-nowrap py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-primary sm:pl-0">Cod. Sector</th>
-              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Sector</th>
-              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Pagos acumulados</th>
+              <th scope="col" class="text-nowrap py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-primary sm:pl-0">Código</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Nivel</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Apropiación Inicial</th>
               <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Adiciones</th>
-              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Disponibilidad</th>
-              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Saldo</th>
-              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Disponibilidad/mes</th>
-              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Transferencia crédito</th>
-              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Compromisos acumulados</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Reducciones</th>
               <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Aplazamiento</th>
               <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Desplazamiento</th>
-              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Saldo ejecutado</th>
-              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Apropiación Inicial</th>
-              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Obligaciones</th>
-              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Pagos / mes</th>
-              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Compromisos anteriores</th>
-              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Pagos anteriores</th>
-              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Reducciones</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Traslado con crédito</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Traslado crédito</th>
               <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Total aprobado</th>
-              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Transferencia con crédito</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Disponibilidad</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Compromisos anteriores</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Compromisos/mes</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Compromisos acumulados</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Saldo ejecutado</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Pagos anteriores</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Pagos / mes</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Pagos acumulados</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Obligaciones</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Saldo</th>
               <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
                 <span class="sr-only">Edit</span>
               </th>
@@ -42,27 +42,27 @@
                     <span *ngIf="item.expanded">▼</span>
                     <span *ngIf="!item.expanded">▶</span>
                   </span>
-                  {{ item.entity.code }}
+                  {{ item.code }}
                 </td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.entity.name }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.accumulated_payments }}</td>
+                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.level }}</td>
+                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.initial_approval }}</td>
                 <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.additions }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.availability }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.balance }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.commitments_month }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.credit_transfer }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.cumulative_commitments }}</td>
+                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.reductions }}</td>
                 <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.deferrals }}</td>
                 <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.displacement }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.executed_balance }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.initial_approval }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.obligations }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.payments_month }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.previous_commitments }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.previous_payments }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.reductions }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.total_approval }}</td>
                 <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.transfer_with_credit }}</td>
+                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.credit_transfer }}</td>
+                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.total_approval }}</td>
+                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.availability }}</td>
+                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.previous_commitments }}</td>
+                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.commitments_month }}</td>
+                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.cumulative_commitments }}</td>
+                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.executed_balance }}</td>
+                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.previous_payments }}</td>
+                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.payments_month }}</td>
+                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.accumulated_payments }}</td>
+                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.obligations }}</td>
+                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.balance }}</td>
                 <td class="whitespace-nowrap px-3 text-sm text-gray-500">
                   <button *ngIf="!item.children.length" class="text-blue-600 hover:text-blue-900">✏️</button>
                 </td>
@@ -91,25 +91,25 @@
                 </span>
                 {{ child.code }}
               </td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.entity.name }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.accumulated_payments }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.level }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.initial_approval }}</td>
               <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.additions }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.availability }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.balance }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.commitments_month }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.credit_transfer }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.cumulative_commitments }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.reductions }}</td>
               <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.deferrals }}</td>
               <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.displacement }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.executed_balance }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.initial_approval }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.obligations }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.payments_month }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.previous_commitments }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.previous_payments }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.reductions }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.total_approval }}</td>
               <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.transfer_with_credit }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.credit_transfer }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.total_approval }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.availability }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.previous_commitments }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.commitments_month }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.cumulative_commitments }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.executed_balance }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.previous_payments }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.payments_month }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.accumulated_payments }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.obligations }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.balance }}</td>
               <td class="whitespace-nowrap px-3 text-sm text-gray-500">
                 <button (click)="selectItem(child)" *ngIf="!child.children.length" class="text-blue-600 hover:text-blue-900">✏️</button>
               </td>

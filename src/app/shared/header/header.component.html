@@ -21,10 +21,13 @@
           <button (click)="showProfileMenu = !showProfileMenu" type="button" class="-m-1.5 flex items-center p-1.5" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
             <span class="sr-only">Open user menu</span>
             <span class="flex justify-center items-center bg-red-50 rounded-full py-2 px-4">
-                <span class="text-red-500 font-bold">{{"J" | slice:0:1}} </span>
+                <span class="text-red-500 font-bold">{{userName| slice:0:1}} </span>
             </span>
             <span class="hidden lg:flex lg:items-center">
-              <span class="ml-4 text-sm font-semibold leading-6 text-gray-900" aria-hidden="true">Jose Manuel Cuello</span>
+              <div class="flex flex-col">
+                <span class="ml-4 text-sm font-semibold text-gray-900" aria-hidden="true">{{userName}}</span>
+                <span class="ml-4 text-xs font-normal text-gray-900" aria-hidden="true">{{userCompany}}</span>
+              </div>
               <svg class="ml-2 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
               </svg>

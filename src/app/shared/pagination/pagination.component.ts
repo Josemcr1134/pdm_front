@@ -1,9 +1,12 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-pagination',
   standalone: true,
-  imports: [],
+  imports: [
+    CommonModule
+  ],
   templateUrl: './pagination.component.html',
   styleUrl: './pagination.component.css'
 })
@@ -11,6 +14,7 @@ export class PaginationComponent {
   @Input() limit: number = 10;
   @Input() offset: number = 0;
   @Input() totalItems: number = 0;
+  @Input() showLabels:boolean = true;
   @Output() onPageChange = new EventEmitter<number>();
 
   get currentPage(): number {

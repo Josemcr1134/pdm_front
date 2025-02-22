@@ -1,27 +1,38 @@
-<div>
+<div *ngIf="!isLoading">
   <div class="block bg-white p-3 rounded-xl">
     <div class="flex items-center gap-5 flex-wrap">
       <div class="flex  items-center flex-wrap gap-4">
           <p class="text-black font-bold text-base">Gastos</p>
           <div class="grid grid-cols-1">
-            <select (change)="handleYearChange()" [(ngModel)]="year"  aria-label="Select a tab" class="col-start-1 row-start-1 w-24 appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600">
-              <option value=2022>2022</option>
-              <option value=2023>2023</option>
-              <option value=2024>2024</option>
-              <option value=2025>2025</option>
+            <select (change)="handleYearChange()" [(ngModel)]="yearSelected"  aria-label="Select a tab" class="col-start-1 row-start-1 w-24 appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600">
+              <option [value]="years?.first_year">{{years?.first_year}}</option>
+              <option [value]="years?.second_year">{{years?.second_year}}</option>
+              <option [value]="years?.third_year">{{years?.third_year}}</option>
+              <option [value]="years?.fourth_year">{{years?.fourth_year}}</option>
+            </select>
+            <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end fill-gray-500" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
+              <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <div class="grid grid-cols-1" *ngIf="tabSelected == 2">
+            <select [(ngModel)]="executionSelected"  aria-label="Select a tab" class="col-start-1 row-start-1 w-36 appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600">
+              <option *ngFor="let e of executionUnits" [value]="e.code">{{e.name}}</option>
             </select>
             <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end fill-gray-500" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
               <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
             </svg>
           </div>
           <div class="flex items-center   gap-3">
-            <button [routerLink]="['/dashboard/expenses/investments', this.year]" routerLinkActive="active"  class="bg-purple-50 border border-purple-400 text-purple-400 rounded-lg py-1.5 px-4">Inversiones</button>
-            <button [routerLink]="['/dashboard/expenses/functionality', this.year]" routerLinkActive="active" class="bg-purple-50 border border-purple-400 text-purple-400 rounded-lg py-1.5 px-4">Funcionalidad</button>
+            <button (click)="chooseTab(1)" [ngClass]="{'active': tabSelected == 1}"   class="bg-purple-50 border border-purple-400 text-purple-400 rounded-lg py-1.5 px-4">Inversiones</button>
+            <button   (click)="chooseTab(2)"  [ngClass]="{'active': tabSelected == 2}"   class="bg-purple-50 border border-purple-400 text-purple-400 rounded-lg py-1.5 px-4">Funcionalidad</button>
           </div>
       </div>
 
     </div>
   </div>
+  <router-outlet></router-outlet>
 </div>
 
-<router-outlet></router-outlet>
+<div *ngIf="isLoading" class="flex justify-center items-center h-full">
+  <app-loader></app-loader>
+</div>

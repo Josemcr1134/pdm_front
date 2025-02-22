@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PlanningService } from '../../../../core/services/planning/planning.service';
+import { OperatingExpensesService } from '../../../../core/services/operatingExpenses/operating-expenses.service';
 
 @Component({
   selector: 'app-main',
@@ -8,30 +9,71 @@ import { PlanningService } from '../../../../core/services/planning/planning.ser
   styleUrl: './main.component.css'
 })
 export class MainComponent implements OnInit {
-  public year:string = '2025';
+  public years:any;
+  public yearSelected:number = 0;
   public investmentSelected:any;
-  constructor(private router:Router, private pdmSvc:PlanningService){}
+  public currentUrl:string = '';
+  public executionSelected:string = '';
+  public isLoading:boolean = false;
+  public tabSelected:number = 1;
+  public executionUnits:{
+    id:string,
+    code:string,
+    name:string
+  }[] = []
+  constructor(private router:Router, private pdmSvc:PlanningService, private expenseSvc:OperatingExpensesService){}
 
 
   ngOnInit(): void {
-    this.handleYearChange();
     this.getYears();
+    this.getExecutionUnit();
   }
 
   handleYearChange(){
-    let currentUrl = this.router.url.slice(0, -4);
-    this.router.navigateByUrl(currentUrl+this.year)
+    this.isLoading = !this.isLoading;
+    let currentUrl = this.router.url.slice(0, -7);
+    this.currentUrl = currentUrl;
+    this.router.navigateByUrl(currentUrl+this.yearSelected)
+    this.isLoading = !this.isLoading;
   };
 
   getYears(){
+    this.isLoading = !this.isLoading;
     this.pdmSvc.getYears()
+        .subscribe({
+          error:(err:any) => {
+            console.log(err);
+            this.isLoading = !this.isLoading;
+          },
+          next:(resp:any) => {
+            this.years = resp;
+            this.yearSelected = resp.first_year;
+            this.isLoading = !this.isLoading;
+            this.handleYearChange();
+
+          }
+        });
+  };
+
+  getExecutionUnit(){
+    this.expenseSvc.getExecutionUnit(10, 0)
         .subscribe({
           error:(err:any) => {
             console.log(err);
           },
           next:(resp:any) => {
-            console.log(resp)
+            this.executionUnits = resp.results;
+            this.executionSelected = this.executionUnits[0].code;
           }
-        })
-}
+        });
+  };
+
+  chooseTab(tab:number){
+    this.tabSelected = tab;
+    if (tab == 1) {
+      this.router.navigateByUrl('/dashboard/expenses/functionality/' + this.yearSelected + '/' + this.executionSelected)
+    } else {
+      this.router.navigateByUrl('/dashboard/expenses/investments/' + this.yearSelected )
+    }
+  }
 }
