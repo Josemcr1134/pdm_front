@@ -22,8 +22,8 @@ export class MainComponent implements OnInit {
   public offset: number = 0;
   public itemSelected:number = 0;
   public collapsedStates = new Map<string, boolean>(); // Para rastrear el estado de cada sección
-
-
+  public columnSelected:number = 0;
+  public indexSelected!:number;
 
   constructor(private expensesSvc:OperatingExpensesService, private activatedRoute:ActivatedRoute, private pdmSvc:PlanningService ){}
 
@@ -67,6 +67,7 @@ export class MainComponent implements OnInit {
 
   chooseCode(code:any){
     this.codeSelected = code;
+    console.log(code)
     this.goalSelected = undefined;
     this.rubricSelected = undefined;
   };
@@ -102,13 +103,16 @@ export class MainComponent implements OnInit {
   };
 
 
-  toggleCollapse(s: any, index: number) {
-    const key = `${s.code}-${index}`; // Identificador único para cada rúbrica e indicador
+  toggleCollapse(s: any, index: number, task:number, columnIndex:number) {
+    this.indexSelected = columnIndex;
+    this.columnSelected =  task;
+    console.log(this.columnSelected)
+    const key = `${s.code}-${index}-${task}-${columnIndex}`; // Identificador único para cada rúbrica e indicador
     this.collapsedStates.set(key, !this.collapsedStates.get(key));
   };
 
-  isCollapsed(s: any, index: number): boolean {
-    return this.collapsedStates.get(`${s.code}-${index}`) ?? true; // Por defecto colapsado
+  isCollapsed(s: any, index: number , task:number, columnIndex:number): boolean {
+    return this.collapsedStates.get(`${s.code}-${index}-${task}-${columnIndex}`) ?? true; // Por defecto colapsado
   };
 
 
