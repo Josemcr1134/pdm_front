@@ -7,28 +7,43 @@
 
         <ul  class="strategicLinesList w-full">
           <li *ngFor="let s of investments ; let iv = index" (click)="chooseInvestments(s)" [ngClass]="{'strategicLineActive':  s == investmentSelected }"  class="strategicLine text-wrap max-h-[300px] overflow-y-auto">
-              <span class="md:text-base text-sm">{{s.strategic_line}}</span>
+              <div class="flex justify-between items-center">
+                <span class="md:text-sm text-xs">{{s.strategic_line}}</span>
+                <button  (click)="toggleCollapse2( iv, 1)">
+                  <span *ngIf="isCollapsed2(iv, 1) ">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                  </span>
+                  <span *ngIf="!isCollapsed2(iv, 1) ">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                  </span>
+                </button>
+              </div>
               <hr class="my-3">
-              <div *ngFor="let indicator of [
-                    {task:1 , title: 'Aprobación inicial', key: 'initial_approval' },
-                    {task:1 , title: 'Adiciones', key: 'additions' },
-                    {task:1 , title: 'Reducciones', key: 'reductions' },
-                    {task:1 , title: 'Aplazamientos', key: 'displacement' },
-                    {task:1 , title: 'Desplazamientos', key: 'deferrals' },
-                    {task:1 , title: 'Traslado crédito', key: 'credit_transfer' },
-                    {task:1 , title: 'Traslado con crédito', key: 'transfer_with_credit' },
-                    {task:1 , title: 'Total apropiado', key: 'total_approval' },
-                    {task:1 , title: 'Disponibilidades', key: 'availability' },
-                    {task:1 , title: 'Compromisos anteriores', key: 'previous_commitments' },
-                    {task:1 , title: 'Compromisos/mes', key: 'commitments_month' },
-                    {task:1 , title: 'Compromisos acumulados', key: 'cumulative_commitments' },
-                    {task:1 , title: 'Saldo ejecutado', key: 'executed_balance' },
-                    {task:1 , title: 'Pagos anteriores', key: 'previous_payments' },
-                    {task:1 , title: 'Pagos/mes', key: 'payments_month' },
-                    {task:1 , title: 'Pagos acumulados', key: 'accumulated_payments' },
-                    {task:1 , title: 'Obligaciones', key: 'obligations' },
-                    {task:1 , title: 'Saldo', key: 'balance' }
-                  ]; let i = index" class="col-span-1">
+              <div *ngIf="!isCollapsed2(iv, 1) ">
+                <div  *ngFor="let indicator of [
+                      {task:1 , title: 'Aprobación inicial', key: 'initial_approval' },
+                      {task:1 , title: 'Adiciones', key: 'additions' },
+                      {task:1 , title: 'Reducciones', key: 'reductions' },
+                      {task:1 , title: 'Aplazamientos', key: 'displacement' },
+                      {task:1 , title: 'Desplazamientos', key: 'deferrals' },
+                      {task:1 , title: 'Traslado crédito', key: 'credit_transfer' },
+                      {task:1 , title: 'Traslado con crédito', key: 'transfer_with_credit' },
+                      {task:1 , title: 'Total apropiado', key: 'total_approval' },
+                      {task:1 , title: 'Disponibilidades', key: 'availability' },
+                      {task:1 , title: 'Compromisos anteriores', key: 'previous_commitments' },
+                      {task:1 , title: 'Compromisos/mes', key: 'commitments_month' },
+                      {task:1 , title: 'Compromisos acumulados', key: 'cumulative_commitments' },
+                      {task:1 , title: 'Saldo ejecutado', key: 'executed_balance' },
+                      {task:1 , title: 'Pagos anteriores', key: 'previous_payments' },
+                      {task:1 , title: 'Pagos/mes', key: 'payments_month' },
+                      {task:1 , title: 'Pagos acumulados', key: 'accumulated_payments' },
+                      {task:1 , title: 'Obligaciones', key: 'obligations' },
+                      {task:1 , title: 'Saldo', key: 'balance' }
+                    ]; let i = index" class="col-span-1">
                   <div class="flex items-start justify-between">
                     <div class="mb-1 flex items-center flex-nowrap gap-x-2 justify-start">
                       <!-- Botón de colapsar/expandir -->
@@ -61,6 +76,7 @@
                     </ul>
                   </div>
                 </div>
+              </div>
           </li>
         </ul>
         <app-pagination
@@ -72,129 +88,162 @@
       </li>
       <li  *ngIf="investmentSelected !== undefined" class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:max-w-[480px]">
         <p class="text-primary text-sm md:text-[17px] font-black  ">Sectores</p>
+
         <hr class=" border-[3px] rounded-xl my-2 border-[#ebebff]"/>
 
         <ul  class="strategicLinesList w-full">
           <li *ngFor="let s of investmentSelected.sectors; let iv = index" (click)="chooseSector(s)"  [ngClass]="{'strategicLineActive':  s == sectorSelected }"  class="strategicLine text-wrap max-h-[300px] overflow-y-auto">
-              <span class="md:text-base text-sm">{{s.sector}}</span>
+              <div class="flex justify-between items-center">
+                <span class="md:text-sm text-xs">{{s.sector}}</span>
+                <button  (click)="toggleCollapse2( iv, 2)">
+                  <span *ngIf="isCollapsed2(iv, 2) ">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                  </span>
+                  <span *ngIf="!isCollapsed2(iv, 2) ">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                  </span>
+                </button>
+              </div>
               <hr class="my-3">
-              <div *ngFor="let indicator of [
-                    { task:2, title: 'Aprobación inicial', key: 'initial_approval' },
-                    { task:2, title: 'Adiciones', key: 'additions' },
-                    { task:2, title: 'Reducciones', key: 'reductions' },
-                    { task:2, title: 'Aplazamientos', key: 'displacement' },
-                    { task:2, title: 'Desplazamientos', key: 'deferrals' },
-                    { task:2, title: 'Traslado crédito', key: 'credit_transfer' },
-                    { task:2, title: 'Traslado con crédito', key: 'transfer_with_credit' },
-                    { task:2, title: 'Total apropiado', key: 'total_approval' },
-                    { task:2, title: 'Disponibilidades', key: 'availability' },
-                    { task:2, title: 'Compromisos anteriores', key: 'previous_commitments' },
-                    { task:2, title: 'Compromisos/mes', key: 'commitments_month' },
-                    { task:2, title: 'Compromisos acumulados', key: 'cumulative_commitments' },
-                    { task:2, title: 'Saldo ejecutado', key: 'executed_balance' },
-                    { task:2, title: 'Pagos anteriores', key: 'previous_payments' },
-                    { task:2, title: 'Pagos/mes', key: 'payments_month' },
-                    { task:2, title: 'Pagos acumulados', key: 'accumulated_payments' },
-                    { task:2, title: 'Obligaciones', key: 'obligations' },
-                    { task:2, title: 'Saldo', key: 'balance' }
-                  ]; let i = index" class="col-span-1">
-                  <div class="flex items-start justify-between">
-                    <div class="mb-1 flex items-center flex-nowrap gap-x-2 justify-start">
-                      <!-- Botón de colapsar/expandir -->
-                      <button *ngIf="s.sources_financing.length > 0" (click)="toggleCollapse(s, i,  indicator.task, iv)" class="text-primary">
-                        <span *ngIf="isCollapsed(s, i, indicator.task, iv) ">
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                          </svg>
-                        </span>
-                        <span *ngIf="!isCollapsed(s, i, indicator.task, iv) ">
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                          </svg>
-                        </span>
-                      </button>
-                      <p class="text-primary text-[13px] font-semibold truncate text-wrap">{{indicator.title}}</p>
+              <div *ngIf="!isCollapsed2(iv, 2) " >
+                <div *ngFor="let indicator of [
+                      { task:2, title: 'Aprobación inicial', key: 'initial_approval' },
+                      { task:2, title: 'Adiciones', key: 'additions' },
+                      { task:2, title: 'Reducciones', key: 'reductions' },
+                      { task:2, title: 'Aplazamientos', key: 'displacement' },
+                      { task:2, title: 'Desplazamientos', key: 'deferrals' },
+                      { task:2, title: 'Traslado crédito', key: 'credit_transfer' },
+                      { task:2, title: 'Traslado con crédito', key: 'transfer_with_credit' },
+                      { task:2, title: 'Total apropiado', key: 'total_approval' },
+                      { task:2, title: 'Disponibilidades', key: 'availability' },
+                      { task:2, title: 'Compromisos anteriores', key: 'previous_commitments' },
+                      { task:2, title: 'Compromisos/mes', key: 'commitments_month' },
+                      { task:2, title: 'Compromisos acumulados', key: 'cumulative_commitments' },
+                      { task:2, title: 'Saldo ejecutado', key: 'executed_balance' },
+                      { task:2, title: 'Pagos anteriores', key: 'previous_payments' },
+                      { task:2, title: 'Pagos/mes', key: 'payments_month' },
+                      { task:2, title: 'Pagos acumulados', key: 'accumulated_payments' },
+                      { task:2, title: 'Obligaciones', key: 'obligations' },
+                      { task:2, title: 'Saldo', key: 'balance' }
+                    ]; let i = index" class="col-span-1">
+                    <div class="flex items-start justify-between">
+                      <div class="mb-1 flex items-center flex-nowrap gap-x-2 justify-start">
+                        <!-- Botón de colapsar/expandir -->
+                        <button *ngIf="s.sources_financing.length > 0" (click)="toggleCollapse(s, i,  indicator.task, iv)" class="text-primary">
+                          <span *ngIf="isCollapsed(s, i, indicator.task, iv) ">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
+                          </span>
+                          <span *ngIf="!isCollapsed(s, i, indicator.task, iv) ">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
+                          </span>
+                        </button>
+                        <p class="text-primary text-[13px] font-semibold truncate text-wrap">{{indicator.title}}</p>
+                      </div>
+                      <p class="text-wrap text-[10px]">{{s.total_attributes[indicator.key] | currency}}</p>
                     </div>
-                    <p class="text-wrap text-[10px]">{{s.total_attributes[indicator.key] | currency}}</p>
-                  </div>
 
-                  <!-- Fuentes de financiamiento (colapsable) -->
-                  <div *ngIf="!isCollapsed(s, i, indicator.task, iv) && columnSelected == 2">
-                    <p *ngIf="s.sources_financing.length > 0" class="text-primary text-[10px] font-semibold truncate text-wrap">Fuente de financiamiento</p>
-                    <ul role="list" class="mt-2">
-                      <li *ngFor="let sf of s.sources_financing" class="w-full flex rounded-md justify-between bg-white shadow-sm mb-2">
-                        <div class="flex w-auto shrink-0 items-center justify-center rounded-l-md bg-purple-600 px-2 text-xs font-medium text-white">{{sf.source_financing.code}}</div>
-                        <a class="font-medium text-xs text-gray-900 align-middle hover:text-gray-600 truncate">{{sf.source_financing.name}}</a>
-                        <p class="text-gray-500 text-xs pr-2 align-middle">{{sf[indicator.key] | currency}}</p>
-                      </li>
-                    </ul>
+                    <!-- Fuentes de financiamiento (colapsable) -->
+                    <div *ngIf="!isCollapsed(s, i, indicator.task, iv) && columnSelected == 2">
+                      <p *ngIf="s.sources_financing.length > 0" class="text-primary text-[10px] font-semibold truncate text-wrap">Fuente de financiamiento</p>
+                      <ul role="list" class="mt-2">
+                        <li *ngFor="let sf of s.sources_financing" class="w-full flex rounded-md justify-between bg-white shadow-sm mb-2">
+                          <div class="flex w-auto shrink-0 items-center justify-center rounded-l-md bg-purple-600 px-2 text-xs font-medium text-white">{{sf.source_financing.code}}</div>
+                          <a class="font-medium text-xs text-gray-900 align-middle hover:text-gray-600 truncate">{{sf.source_financing.name}}</a>
+                          <p class="text-gray-500 text-xs pr-2 align-middle">{{sf[indicator.key] | currency}}</p>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
-                </div>
-
+              </div>
           </li>
         </ul>
       </li>
       <li  *ngIf="sectorSelected !== undefined" class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:max-w-[480px]">
+
         <p class="text-primary text-sm md:text-[17px] font-black  ">Códigos y programas</p>
         <hr class=" border-[3px] rounded-xl my-2 border-[#ebebff]"/>
 
         <ul  class="strategicLinesList w-full">
           <li *ngFor="let s of sectorSelected.code_and_programs; let iv = index" (click)="chooseCode(s)"  [ngClass]="{'strategicLineActive':  s == codeSelected }"  class="strategicLine text-wrap max-h-[300px] overflow-y-auto">
-              <span class="md:text-base text-sm">{{s.program}}</span>
-              <hr class="my-3">
-               <!-- Iterar sobre los indicadores -->
-               <div *ngFor="let indicator of [
-                    { task:3, title: 'Aprobación inicial', key: 'initial_approval' },
-                    { task:3, title: 'Adiciones', key: 'additions' },
-                    { task:3, title: 'Reducciones', key: 'reductions' },
-                    { task:3, title: 'Aplazamientos', key: 'displacement' },
-                    { task:3, title: 'Desplazamientos', key: 'deferrals' },
-                    { task:3, title: 'Traslado crédito', key: 'credit_transfer' },
-                    { task:3, title: 'Traslado con crédito', key: 'transfer_with_credit' },
-                    { task:3, title: 'Total apropiado', key: 'total_approval' },
-                    { task:3, title: 'Disponibilidades', key: 'availability' },
-                    { task:3, title: 'Compromisos anteriores', key: 'previous_commitments' },
-                    { task:3, title: 'Compromisos/mes', key: 'commitments_month' },
-                    { task:3, title: 'Compromisos acumulados', key: 'cumulative_commitments' },
-                    { task:3, title: 'Saldo ejecutado', key: 'executed_balance' },
-                    { task:3, title: 'Pagos anteriores', key: 'previous_payments' },
-                    { task:3, title: 'Pagos/mes', key: 'payments_month' },
-                    { task:3, title: 'Pagos acumulados', key: 'accumulated_payments' },
-                    { task:3, title: 'Obligaciones', key: 'obligations' },
-                    { task:3, title: 'Saldo', key: 'balance' }
-                  ]; let i = index" class="col-span-1">
-                  <div class="flex items-start justify-between">
-                    <div class="mb-1 flex items-center flex-nowrap gap-x-2 justify-start">
-                      <!-- Botón de colapsar/expandir -->
-                      <button *ngIf="s.sources_financing.length > 0" (click)="toggleCollapse(s, i, indicator.task, iv)" class="text-primary">
-                        <span *ngIf="isCollapsed(s, i, indicator.task, iv)">
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                          </svg>
-                        </span>
-                        <span *ngIf="!isCollapsed(s, i, indicator.task, iv)">
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                          </svg>
-                        </span>
-                      </button>
-                      <p class="text-primary text-[13px] font-semibold truncate text-wrap">{{indicator.title}}</p>
+              <div class="flex justify-between items-center">
+                <span class="md:text-sm text-xs">{{s.program}}</span>
+                <button  (click)="toggleCollapse2( iv, 3)">
+                  <span *ngIf="isCollapsed2(iv, 3) ">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                  </span>
+                  <span *ngIf="!isCollapsed2(iv, 3) ">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                  </span>
+                </button>
+              </div>
+              <div *ngIf="!isCollapsed2(iv, 3) ">
+                <hr class="my-3">
+                 <!-- Iterar sobre los indicadores -->
+                 <div *ngFor="let indicator of [
+                      { task:3, title: 'Aprobación inicial', key: 'initial_approval' },
+                      { task:3, title: 'Adiciones', key: 'additions' },
+                      { task:3, title: 'Reducciones', key: 'reductions' },
+                      { task:3, title: 'Aplazamientos', key: 'displacement' },
+                      { task:3, title: 'Desplazamientos', key: 'deferrals' },
+                      { task:3, title: 'Traslado crédito', key: 'credit_transfer' },
+                      { task:3, title: 'Traslado con crédito', key: 'transfer_with_credit' },
+                      { task:3, title: 'Total apropiado', key: 'total_approval' },
+                      { task:3, title: 'Disponibilidades', key: 'availability' },
+                      { task:3, title: 'Compromisos anteriores', key: 'previous_commitments' },
+                      { task:3, title: 'Compromisos/mes', key: 'commitments_month' },
+                      { task:3, title: 'Compromisos acumulados', key: 'cumulative_commitments' },
+                      { task:3, title: 'Saldo ejecutado', key: 'executed_balance' },
+                      { task:3, title: 'Pagos anteriores', key: 'previous_payments' },
+                      { task:3, title: 'Pagos/mes', key: 'payments_month' },
+                      { task:3, title: 'Pagos acumulados', key: 'accumulated_payments' },
+                      { task:3, title: 'Obligaciones', key: 'obligations' },
+                      { task:3, title: 'Saldo', key: 'balance' }
+                    ]; let i = index" class="col-span-1">
+                    <div class="flex items-start justify-between">
+                      <div class="mb-1 flex items-center flex-nowrap gap-x-2 justify-start">
+                        <!-- Botón de colapsar/expandir -->
+                        <button *ngIf="s.sources_financing.length > 0" (click)="toggleCollapse(s, i, indicator.task, iv)" class="text-primary">
+                          <span *ngIf="isCollapsed(s, i, indicator.task, iv)">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
+                          </span>
+                          <span *ngIf="!isCollapsed(s, i, indicator.task, iv)">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
+                          </span>
+                        </button>
+                        <p class="text-primary text-[13px] font-semibold truncate text-wrap">{{indicator.title}}</p>
+                      </div>
+                      <p class="text-wrap text-[10px]">{{s.total_attributes[indicator.key] | currency}}</p>
                     </div>
-                    <p class="text-wrap text-[10px]">{{s.total_attributes[indicator.key] | currency}}</p>
-                  </div>
 
-                  <!-- Fuentes de financiamiento (colapsable) -->
-                  <div *ngIf="!isCollapsed(s, i, indicator.task, iv)">
-                    <p *ngIf="s.sources_financing.length > 0" class="text-primary text-[10px] font-semibold truncate text-wrap">Fuente de financiamiento</p>
-                    <ul role="list" class="mt-2">
-                      <li *ngFor="let sf of s.sources_financing" class="w-full flex rounded-md justify-between bg-white shadow-sm mb-2">
-                        <div class="flex w-auto shrink-0 items-center justify-center rounded-l-md bg-purple-600 px-2 text-xs font-medium text-white">{{sf.source_financing.code}}</div>
-                        <a class="font-medium text-xs text-gray-900 align-middle hover:text-gray-600 truncate">{{sf.source_financing.name}}</a>
-                        <p class="text-gray-500 text-xs pr-2 align-middle">{{sf[indicator.key] | currency}}</p>
-                      </li>
-                    </ul>
+                    <!-- Fuentes de financiamiento (colapsable) -->
+                    <div *ngIf="!isCollapsed(s, i, indicator.task, iv)">
+                      <p *ngIf="s.sources_financing.length > 0" class="text-primary text-[10px] font-semibold truncate text-wrap">Fuente de financiamiento</p>
+                      <ul role="list" class="mt-2">
+                        <li *ngFor="let sf of s.sources_financing" class="w-full flex rounded-md justify-between bg-white shadow-sm mb-2">
+                          <div class="flex w-auto shrink-0 items-center justify-center rounded-l-md bg-purple-600 px-2 text-xs font-medium text-white">{{sf.source_financing.code}}</div>
+                          <a class="font-medium text-xs text-gray-900 align-middle hover:text-gray-600 truncate">{{sf.source_financing.name}}</a>
+                          <p class="text-gray-500 text-xs pr-2 align-middle">{{sf[indicator.key] | currency}}</p>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
-                </div>
+              </div>
           </li>
         </ul>
       </li>
@@ -203,9 +252,23 @@
         <hr class=" border-[3px] rounded-xl my-2 border-[#ebebff]"/>
         <ul  class="strategicLinesList w-full">
           <li *ngFor="let s of codeSelected.goals; let iv = index" (click)="chooseGoal(s)" [ngClass]="{'strategicLineActive':  s == goalSelected }"  class="strategicLine text-wrap max-h-[300px] overflow-y-auto">
-              <span class="md:text-base text-sm">{{s.goal}}</span>
+              <div class="flex justify-between items-center">
+                <span class="md:text-sm text-xs">{{s.goal}}</span>
+                <button  (click)="toggleCollapse2( iv, 4)">
+                  <span *ngIf="isCollapsed2(iv, 4) ">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                  </span>
+                  <span *ngIf="!isCollapsed2(iv, 4) ">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                  </span>
+                </button>
+              </div>
               <hr class="my-3">
-              <div class="grid grid-cols-1 gap-3">
+              <div *ngIf="!isCollapsed2(iv, 4) " >
                 <!-- Iterar sobre los indicadores -->
                 <div *ngFor="let indicator of [
                   {task:4, title: 'Aprobación inicial', key: 'initial_approval' },
@@ -270,19 +333,33 @@
         <ul class="strategicLinesList w-full">
           <li *ngFor="let s of goalSelected.rubrics; let iv = index" class="strategicLine text-wrap max-h-[300px] overflow-y-auto">
             <div class="flex justify-between gap-3 items-center">
-              <span class="md:text-base text-sm">
+              <span class="md:text-sm text-xs">
                 {{s.code}} &nbsp;
                 {{s.description}}
               </span>
-              <button (click)="chooseRubric(s)">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 text-primary">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
-                </svg>
-              </button>
+              <div class="flex items-center justify-end flex-nowrap">
+                <button  (click)="toggleCollapse2( iv, 5)">
+                  <span *ngIf="isCollapsed2(iv, 4) ">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                  </span>
+                  <span *ngIf="!isCollapsed2(iv, 4) ">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                  </span>
+                </button>
+                <button (click)="chooseRubric(s)">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 text-primary">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                  </svg>
+                </button>
+              </div>
             </div>
             <hr class="my-3">
 
-            <div class="grid grid-cols-1 gap-3">
+            <div *ngIf="!isCollapsed2(iv, 5) ">
               <!-- Iterar sobre los indicadores -->
               <div *ngFor="let indicator of [
                 {task:5, title: 'Aprobación inicial', key: 'initial_approval' },

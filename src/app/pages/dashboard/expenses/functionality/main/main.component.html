@@ -9,6 +9,7 @@
         <table class="min-w-full divide-y divide-gray-300">
           <thead>
             <tr>
+              <th scope="col" class="text-nowrap py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-primary sm:pl-0">Nombre</th>
               <th scope="col" class="text-nowrap py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-primary sm:pl-0">Código</th>
               <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Nivel</th>
               <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Apropiación Inicial</th>
@@ -42,8 +43,9 @@
                     <span *ngIf="item.expanded">▼</span>
                     <span *ngIf="!item.expanded">▶</span>
                   </span>
-                  {{ item.code }}
+                  {{ item.name }}
                 </td>
+                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.code }}</td>
                 <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.level }}</td>
                 <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.initial_approval }}</td>
                 <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.additions }}</td>
@@ -85,13 +87,13 @@
                 level === 3 ? 'text-red-600' : ''
               ]"
               [style.paddingLeft.px]="level * 20">
-                <span *ngIf="child.children?.length" class="mr-2">
+                <span *ngIf="child.sources_financing?.length || child.children?.length" class="mr-2">
                   <span *ngIf="child.expanded">▼</span>
                   <span *ngIf="!child.expanded">▶</span>
                 </span>
-                {{ child.code }}
-              </td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.level }}</td>
+                {{ child.name }}
+                </td>
+                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.code }}</td>
               <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.initial_approval }}</td>
               <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.additions }}</td>
               <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.reductions }}</td>
@@ -118,6 +120,42 @@
             <ng-container *ngIf="child.children?.length && child.expanded">
               <ng-container *ngTemplateOutlet="recursiveItems; context: { children: child.children, level: level + 1 }"></ng-container>
             </ng-container>
+            <!-- Recursividad para fuentes -->
+            <ng-container *ngIf="child.sources_financing?.length && child.expanded">
+              <ng-container *ngTemplateOutlet="recursiveItems2; context: { children: child.sources_financing, level: level + 1 }"></ng-container>
+            </ng-container>
+
+          </ng-container>
+        </ng-template>
+        <ng-template #recursiveItems2 let-children="children" let-level="level">
+          <ng-container *ngFor="let s of children">
+            <tr class=" hover:bg-gray-100 bg-purple-50">
+              <td  class="whitespace-nowrap py-4 text-gray-500 text-sm"
+                [style.paddingLeft.px]="level * 20"
+              >
+                {{ s.source_financing.name }}
+              </td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.source_financing.code }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.initial_approval }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.additions }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.reductions }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.deferrals }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.displacement }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.transfer_with_credit }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.credit_transfer }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.total_approval }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.availability }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.previous_commitments }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.commitments_month }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.cumulative_commitments }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.executed_balance }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.previous_payments }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.payments_month }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.accumulated_payments }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.obligations }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.balance }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">- </td>
+            </tr>
           </ng-container>
         </ng-template>
       </div>

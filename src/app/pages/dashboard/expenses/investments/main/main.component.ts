@@ -106,13 +106,21 @@ export class MainComponent implements OnInit {
   toggleCollapse(s: any, index: number, task:number, columnIndex:number) {
     this.indexSelected = columnIndex;
     this.columnSelected =  task;
-    console.log(this.columnSelected)
     const key = `${s.code}-${index}-${task}-${columnIndex}`; // Identificador único para cada rúbrica e indicador
     this.collapsedStates.set(key, !this.collapsedStates.get(key));
   };
 
   isCollapsed(s: any, index: number , task:number, columnIndex:number): boolean {
     return this.collapsedStates.get(`${s.code}-${index}-${task}-${columnIndex}`) ?? true; // Por defecto colapsado
+  };
+
+  toggleCollapse2(index:number, columnIndex:number) {
+    const key = `${index}-${columnIndex}`; // Identificador único para cada rúbrica e indicador
+    this.collapsedStates.set(key, !this.collapsedStates.get(key));
+  };
+
+  isCollapsed2( index: number ,columnIndex:number): boolean {
+    return this.collapsedStates.get(`${index}-${columnIndex}`) ?? true; // Por defecto colapsado
   };
 
 

@@ -70,10 +70,12 @@ export class MainComponent implements OnInit {
 
   chooseTab(tab:number){
     this.tabSelected = tab;
+
+    console.log(tab)
     if (tab == 1) {
-      this.router.navigateByUrl('/dashboard/expenses/functionality/' + this.yearSelected + '/' + this.executionSelected)
-    } else {
       this.router.navigateByUrl('/dashboard/expenses/investments/' + this.yearSelected )
+    } else {
+      this.router.navigateByUrl('/dashboard/expenses/functionality/' + this.yearSelected + '/' + this.executionSelected)
     }
   }
 }

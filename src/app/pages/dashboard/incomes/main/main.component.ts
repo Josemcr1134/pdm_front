@@ -40,7 +40,15 @@ export class MainComponent implements OnInit{
 
   toggleItem(item: any): void {
     item.expanded = !item.expanded;
-  };
+
+    // Sincronizar expansión para fuentes de financiamiento, si las tiene
+    if (item.sources_financing) {
+      item.sources_financing.forEach((source: any) => {
+        source.expanded = item.expanded;
+      });
+    }
+  }
+
 
   selectItem(data:{}){
     this.incomeDetail = data;
