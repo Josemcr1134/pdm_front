@@ -1,6 +1,45 @@
 <div class="mx-auto  h-full mt-5">
   <div class="overflow-x-auto whitespace-nowrap lg:p-4 h-full">
     <ul *ngIf="!isLoading" class="flex space-x-4 h-full" >
+      <li  class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:max-w-[380px]">
+        <p class="text-primary text-sm md:text-[17px] font-black  ">Inversión total</p>
+        <hr class=" border-[3px] rounded-xl my-2 border-[#ebebff]"/>
+
+        <ul  class="strategicLinesList w-full">
+          <li    class="strategicLine text-wrap max-h-[300px] overflow-y-auto">
+              <div >
+                <div  *ngFor="let indicator of [
+                      {task:1 , title: 'Aprobación inicial', key: 'initial_approval' },
+                      {task:1 , title: 'Adiciones', key: 'additions' },
+                      {task:1 , title: 'Reducciones', key: 'reductions' },
+                      {task:1 , title: 'Aplazamientos', key: 'displacement' },
+                      {task:1 , title: 'Desplazamientos', key: 'deferrals' },
+                      {task:1 , title: 'Traslado crédito', key: 'credit_transfer' },
+                      {task:1 , title: 'Traslado con crédito', key: 'transfer_with_credit' },
+                      {task:1 , title: 'Total apropiado', key: 'total_approval' },
+                      {task:1 , title: 'Disponibilidades', key: 'availability' },
+                      {task:1 , title: 'Compromisos anteriores', key: 'previous_commitments' },
+                      {task:1 , title: 'Compromisos/mes', key: 'commitments_month' },
+                      {task:1 , title: 'Compromisos acumulados', key: 'cumulative_commitments' },
+                      {task:1 , title: 'Saldo ejecutado', key: 'executed_balance' },
+                      {task:1 , title: 'Pagos anteriores', key: 'previous_payments' },
+                      {task:1 , title: 'Pagos/mes', key: 'payments_month' },
+                      {task:1 , title: 'Pagos acumulados', key: 'accumulated_payments' },
+                      {task:1 , title: 'Obligaciones', key: 'obligations' },
+                      {task:1 , title: 'Saldo', key: 'balance' }
+                    ]; let i = index" class="col-span-1">
+                  <div class="flex items-start justify-between">
+                    <div class="mb-1 flex items-center flex-nowrap gap-x-2 justify-start">
+                      <p class="text-primary text-[13px] font-semibold truncate text-wrap">{{indicator.title}}</p>
+                    </div>
+                    <p class="text-wrap text-[10px]">{{totalInvestments[indicator.key] | currency}}</p>
+                  </div>
+                </div>
+              </div>
+          </li>
+        </ul>
+
+      </li>
       <li  class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:max-w-[480px]">
         <p class="text-primary text-sm md:text-[17px] font-black  ">Lineas estratégicas</p>
         <hr class=" border-[3px] rounded-xl my-2 border-[#ebebff]"/>

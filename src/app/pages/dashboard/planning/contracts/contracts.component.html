@@ -22,12 +22,12 @@
 
           <ul  class="strategicLinesList w-full mb-3">
             <!-- [ngClass]="{'strategicLineActive':  sL.id == strategicLine }"  -->
-            <li *ngFor="let c of contracts"  [ngClass]="{'active': contractSelected?.id == c.id}" class="strategicLine w-full flex items-center justify-between text-wrap md:text-base text-xs">
+            <li *ngFor="let c of contracts"  [ngClass]="{'active': contractSelected?.id == c.id}" class="strategicLine w-full flex items-sstart justify-between text-wrap md:text-sm text-xs">
               <span >
                 {{c.object}}
               </span>
 
-              <div class="flex items-center gap-2">
+              <div class="flex items-start gap-2">
 
                 <button (click)="getContractById(c.id)">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 text-purple-500 hover:text-purple-700">
@@ -510,8 +510,13 @@
                           </svg>
                         </button>
                     </li>
+                    <li class="mb-2 w-auto flex items-center justify-end">
+                        <p class="p-2 text-sm cursor-pointer font-bold text-purple-700 hover:bg-purple-100 ">
+                         Total: {{getTotalForSelectedArray(p.contract_product_contracted_source_financing) | currency}}
+                        </p>
+                    </li>
                   </ul>
-              </div>
+                </div>
               </div>
           </div>
       </div>

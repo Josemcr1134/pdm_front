@@ -440,4 +440,9 @@ export class ContractsComponent implements OnInit {
           }
         });
   };
+
+  getTotalForSelectedArray(array: any[]): number {
+    return array.reduce((acc: number, item: any) => acc + (item.value || 0), 0);
+  }
+
 }

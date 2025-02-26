@@ -24,7 +24,7 @@ export class MainComponent implements OnInit {
   public collapsedStates = new Map<string, boolean>(); // Para rastrear el estado de cada sección
   public columnSelected:number = 0;
   public indexSelected!:number;
-
+  public totalInvestments:any;
   constructor(private expensesSvc:OperatingExpensesService, private activatedRoute:ActivatedRoute, private pdmSvc:PlanningService ){}
 
   ngOnInit(): void {
@@ -44,7 +44,8 @@ export class MainComponent implements OnInit {
         },
         next:(resp:any) => {
           console.log(resp);
-          this.investments = resp;
+          this.totalInvestments = resp.total_investment;
+          this.investments = resp.detail;
           this.isLoading = !this.isLoading;
           }
         });
