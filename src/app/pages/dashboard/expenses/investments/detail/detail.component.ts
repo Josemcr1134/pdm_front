@@ -29,6 +29,7 @@ export class DetailComponent implements OnInit{
   public expenseForm!: FormGroup;
   public sourcesSelected:any[] = [];
   ngOnInit(): void {
+    console.log(this.data)
     this.expenseForm = new FormGroup({
       year: new FormControl(2024, [
         Validators.required,

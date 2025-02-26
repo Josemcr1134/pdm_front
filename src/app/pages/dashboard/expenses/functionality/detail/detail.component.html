@@ -71,137 +71,174 @@
               </div>
 
               <form [formGroup]="expenseForm" class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                <!-- Fila 1 -->
                 <div class="col-span-1">
-                  <label class="block text-xs mb-2 md:text-sm font-medium text-primary">Aprobación inicial</label>
+                  <label class="block text-xs md:text-sm font-medium text-primary truncate">Aprobación inicial</label>
                   <input
                     type="number"
                     formControlName="initial_approval"
                     placeholder="Ingresa la aprobación inicial"
-                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-xs md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                   >
                 </div>
                 <div class="col-span-1">
-                  <label class="block text-xs mb-2 md:text-sm font-medium text-primary">Adiciones</label>
+                  <label class="block text-xs md:text-sm font-medium text-primary truncate">Adiciones</label>
                   <input
                     type="number"
                     formControlName="additions"
                     placeholder="Ingresa la adición"
-                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-xs md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                   >
                 </div>
                 <div class="col-span-1">
-                  <label class="block text-xs mb-2 md:text-sm font-medium text-primary">Reducciones</label>
+                  <label class="block text-xs md:text-sm font-medium text-primary truncate">Reducciones</label>
                   <input
                     type="number"
                     formControlName="reductions"
                     placeholder="Ingresa la reducción"
-                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-xs md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                   >
                 </div>
                 <div class="col-span-1">
-                  <label class="block text-xs mb-2 md:text-sm font-medium text-primary">Aplazamientos</label>
-                  <input
-                    type="number"
-                    formControlName="deferrals"
-                    placeholder="Ingresa el aplazamiento"
-                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                  >
-                </div>
-
-                <!-- Fila 2 -->
-                <div class="col-span-1">
-                  <label class="block text-xs mb-2 md:text-sm font-medium text-primary">Desplazamiento</label>
+                  <label class="block text-xs md:text-sm font-medium text-primary truncate">Desplazamiento</label>
                   <input
                     type="number"
                     formControlName="displacement"
                     placeholder="Ingresa el desplazamiento"
-                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-xs md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                  >
+                </div>
+
+
+                <!-- Fila 2 -->
+                <div class="col-span-1">
+                  <label class="block text-xs md:text-sm font-medium text-primary truncate">Aplazamientos</label>
+                  <input
+                    type="number"
+                    formControlName="deferrals"
+                    placeholder="Ingresa el aplazamiento"
+                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-xs md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                   >
                 </div>
                 <div class="col-span-1">
-                  <label class="block text-xs mb-2 md:text-sm font-medium text-primary">Disponibilidad</label>
+                  <label class="block text-xs md:text-sm font-medium text-primary truncate">Traslado crédito</label>
+                  <input
+                    type="number"
+                    formControlName="credit_transfer"
+                    placeholder="Ingresa el traslado crédito"
+                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-xs md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                  >
+                </div>
+                <div class="col-span-1">
+                  <label class="block text-xs md:text-sm font-medium text-primary truncate">Traslado con crédito</label>
+                  <input
+                    type="number"
+                    formControlName="transfer_with_credit"
+                    placeholder="Ingresa el traslado cond crédito"
+                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-xs md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                  >
+                </div>
+                <div class="col-span-1">
+                  <label class="block text-xs md:text-sm font-medium text-primary truncate">Total aprobado</label>
+                  <input
+                    type="number"
+                    formControlName="total_approval"
+                    placeholder="Ingresa el total de pagos"
+                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-xs md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                  >
+                </div>
+
+                <div class="col-span-1">
+                  <label class="block text-xs md:text-sm font-medium text-primary truncate">Disponibilidad</label>
                   <input
                     type="number"
                     formControlName="availability"
                     placeholder="Ingresa la disponibilidad"
-                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-xs md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                   >
                 </div>
                 <div class="col-span-1">
-                  <label class="block text-xs mb-2 md:text-sm font-medium text-primary">Compromisos/mes</label>
+                  <label class="block text-xs md:text-sm font-medium text-primary truncate">Compromisos anteriores</label>
+                  <input
+                    type="number"
+                    formControlName="previous_commitments"
+                    placeholder="Ingresa los compromisos anteriores"
+                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-xs md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                  >
+                </div>
+                <div class="col-span-1">
+                  <label class="block text-xs md:text-sm font-medium text-primary truncate">Compromisos/mes</label>
                   <input
                     type="number"
                     formControlName="commitments_month"
                     placeholder="Ingresa los compromisos/mes"
-                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-xs md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                   >
                 </div>
                 <div class="col-span-1">
-                  <label class="block text-xs mb-2 md:text-sm font-medium text-primary">Compromisos acumulados</label>
+                  <label class="block text-xs md:text-sm font-medium text-primary truncate">Compromisos acumulados</label>
                   <input
                     type="number"
                     formControlName="cumulative_commitments"
                     placeholder="Ingresa el compromisos acumulados"
-                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-xs md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                   >
                 </div>
 
                 <!-- Fila 3 -->
                 <div class="col-span-1">
-                  <label class="block text-xs mb-2 md:text-sm font-medium text-primary">Saldo ejecutado</label>
+                  <label class="block text-xs md:text-sm font-medium text-primary truncate">Saldo ejecutado</label>
                   <input
                     type="number"
                     formControlName="executed_balance"
                     placeholder="Ingresa el saldo ejecutado"
-                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-xs md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                   >
                 </div>
                 <div class="col-span-1">
-                  <label class="block text-xs mb-2 md:text-sm font-medium text-primary">Pagos anteriores</label>
+                  <label class="block text-xs md:text-sm font-medium text-primary truncate">Pagos anteriores</label>
                   <input
                     type="number"
                     formControlName="previous_payments"
                     placeholder="Ingresa los pagos anteriores"
-                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-xs md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                   >
                 </div>
                 <div class="col-span-1">
-                  <label class="block text-xs mb-2 md:text-sm font-medium text-primary">Pagos del mes</label>
+                  <label class="block text-xs md:text-sm font-medium text-primary truncate">Pagos del mes</label>
                   <input
                     type="number"
                     formControlName="payments_month"
                     placeholder="Ingresa los pagos del mes"
-                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-xs md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                   >
                 </div>
                 <div class="col-span-1">
-                  <label class="block text-xs mb-2 md:text-sm font-medium text-primary">Total aprobado</label>
+                  <label class="block text-xs md:text-sm font-medium text-primary truncate">Pagos acumulados</label>
                   <input
                     type="number"
-                    formControlName="total_approval"
-                    placeholder="Ingresa el total de pagos"
-                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                    formControlName="accumulated_payments"
+                    placeholder="Ingresa los pagos acumulados"
+                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-xs md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                  >
+                </div>
+                <div class="col-span-1">
+                  <label class="block text-xs md:text-sm font-medium text-primary truncate">Obligaciones </label>
+                  <input
+                    type="number"
+                    formControlName="obligations"
+                    placeholder="Ingresa las obligaciones"
+                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-xs md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                   >
                 </div>
 
                 <!-- Fila 4 -->
                 <div class="col-span-2 md:col-span-3">
-                  <label class="block text-xs mb-2 md:text-sm font-medium text-primary">Obligaciones </label>
-                  <input
-                    type="number"
-                    formControlName="obligations"
-                    placeholder="Ingresa las obligaciones"
-                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1.5"
-                  >
-                </div>
-                <div class="col-span-2 md:col-span-3">
-                  <label class="block text-xs mb-2 md:text-sm font-medium text-primary">Saldo</label>
+                  <label class="block text-xs md:text-sm font-medium text-primary truncate">Saldo</label>
                   <input
                     type="number"
                     formControlName="balance"
                     placeholder="Ingresa el saldo"
-                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1.5"
+                    class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-xs md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                   >
                 </div>
               </form>
