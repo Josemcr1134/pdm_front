@@ -12,6 +12,7 @@ export class MainComponent implements OnInit {
 
   public investments:any[] = [];
   public isLoading:boolean = false;
+  public showRubricModal:boolean = false;
   public investmentSelected:any;
   public year:string = '';
   public sectorSelected:any;
@@ -95,6 +96,7 @@ export class MainComponent implements OnInit {
     this.goalSelected = undefined;
     this.rubricSelected = undefined;
     this.showRubricDetail = false;
+    this.showRubricModal = false;
   };
 
 

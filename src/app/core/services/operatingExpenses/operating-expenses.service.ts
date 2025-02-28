@@ -44,6 +44,8 @@ export class OperatingExpensesService {
     return this.http.get(url, this.authSvc.header);
   };
 
-
-
+  addRubric(data:{}, id:string){
+    const url = `${this.authSvc.baseUrl}/investment-expenses/${id}/add_rubric_investment_expense/`;
+    return this.http.post(url, data, this.authSvc.header);
+  };
 }

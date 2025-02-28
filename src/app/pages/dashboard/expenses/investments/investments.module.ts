@@ -8,12 +8,14 @@ import { LoaderComponent } from '../../../../shared/loader/loader.component';
 import { AlertComponent } from '../../../../shared/alert/alert.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
+import { AddRubricComponent } from './add-rubric/add-rubric.component';
 
 
 @NgModule({
   declarations: [
     MainComponent,
-    DetailComponent
+    DetailComponent,
+    AddRubricComponent
   ],
   imports: [
     CommonModule,
