@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { OperatingExpensesService } from '../../../../../core/services/operatingExpenses/operating-expenses.service';
 import { ActivatedRoute } from '@angular/router';
 import { PlanningService } from '../../../../../core/services/planning/planning.service';
+import { AlertsService } from '../../../../../core/services/alerts/alerts.service';
 
 @Component({
   selector: 'app-main',
@@ -26,7 +27,7 @@ export class MainComponent implements OnInit {
   public columnSelected:number = 0;
   public indexSelected!:number;
   public totalInvestments:any;
-  constructor(private expensesSvc:OperatingExpensesService, private activatedRoute:ActivatedRoute, private pdmSvc:PlanningService ){}
+  constructor(private alertSvc:AlertsService, private expensesSvc:OperatingExpensesService, private activatedRoute:ActivatedRoute, private pdmSvc:PlanningService ){}
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params:any) => {
@@ -127,4 +128,19 @@ export class MainComponent implements OnInit {
   };
 
 
+  deleteRubric(rubricId:string){
+    this.isLoading = !this.isLoading;
+    this.expensesSvc.deleteRubric(this.goalSelected.id, rubricId)
+        .subscribe({
+          error:(err:any) => {
+            this.alertSvc.handleErrors(err);
+            this.isLoading = !this.isLoading;
+          },
+          next:(resp:any) =>{
+            this.alertSvc.currentAlert('Éxito', 'Rubro eliminado', 'success');
+            this.isLoading = !this.isLoading;
+            this.refresh();
+            }
+          })
+  }
 }

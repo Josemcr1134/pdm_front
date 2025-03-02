@@ -48,4 +48,9 @@ export class OperatingExpensesService {
     const url = `${this.authSvc.baseUrl}/investment-expenses/${id}/add_rubric_investment_expense/`;
     return this.http.post(url, data, this.authSvc.header);
   };
+
+  deleteRubric( id:string, rubricId:string){
+    const url = `${this.authSvc.baseUrl}/investment-expenses/${id}/delete_rubric_investment_expense/?rubric_id=${rubricId}`;
+    return this.http.delete(url, this.authSvc.header);
+  };
 }
