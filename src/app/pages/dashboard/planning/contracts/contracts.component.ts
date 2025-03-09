@@ -278,15 +278,17 @@ export class ContractsComponent implements OnInit {
     this.pdmSvc.addSourceFinancing(data)
         .subscribe({
           error:(err:any) => {
-            console.log(err);
             this.alertSvc.handleErrors(err);
             this.isLoading = !this.isLoading;
           },
           next:(resp:any) => {
-            console.log(resp);
             this.alertSvc.currentAlert('Éxito', 'Fuente de financiamiento agregada', 'success');
-            this.showAddSourceModal = false
+            this.showAddSourceModal = false;
+            this.searchSources = '';
+            this.contractSourceValue = 0;
+            this.sourceSelected = undefined;
             this.isLoading = !this.isLoading;
+            this.getContractById(this.contractSelected.id)
           }
         });
   };

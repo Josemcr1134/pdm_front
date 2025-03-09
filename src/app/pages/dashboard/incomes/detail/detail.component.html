@@ -39,24 +39,24 @@
                     <li *ngFor="let s of sources" (click)="selectSource(s)" class="hover:bg-purple-700/20 p-2 rounded-2xl text-sm border-b border-gray-100 text-pruple-700 "> {{s.code}} - {{s.name}} </li>
                   </ul>
                   <app-alert *ngIf="searchSources.length && !isLoading && !sources.length && sourceSelected == undefined" [msg]="'No encontramos fuentes de financiamiento'" ></app-alert>
-                  <span  *ngIf="sourceSelected !== undefined && allowSearch" class="flex justify-between p-3 items-center bg-purple-700/20  rounded-2xl text-sm border-b border-gray-100 text-pruple-700">
-                    <p>{{sourceSelected.name}} </p>
+                  <span  *ngIf="sourceSelected !== undefined && allowSearch" class="flex justify-between p-1.5 items-center bg-purple-700/20  rounded-2xl text-sm border-b border-gray-100 text-pruple-700">
+                    <p class="text-xs">{{sourceSelected.name}} </p>
                     <button (click)="deleteSourceFinancing(null)" [disabled]="isLoading">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-red-500 hover:text-red-700">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 text-red-500 hover:text-red-700">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                       </svg>
                     </button>
                   </span>
-                  <div class="grid grid-cols-2 gap-3">
-                    <span  *ngFor="let s of sourcesSelected" [ngClass]="{'bg-purple-700/50':  s.source_financing == sourceSelected}" class="flex justify-between gap-x-2 p-2 items-center bg-purple-500/10  rounded-2xl text-xs text-pruple-500">
+                  <div class=" gap-3">
+                    <span  *ngFor="let s of sourcesSelected" [ngClass]="{'bg-purple-700/50':  s.source_financing == sourceSelected}" class="flex justify-between mb-2 gap-x-2 p-2 items-center bg-purple-500/10  rounded-2xl text-xs text-pruple-500">
                       <button (click)="editSource(s)" [disabled]="isLoading">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-green-500 hover:text-green-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 text-green-500 hover:text-green-700">
                           <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
                         </svg>
                       </button>
-                      {{s.source_financing.name}}
+                      <p class="text-[10px]"> {{s.source_financing.name}} </p>
                       <button (click)="deleteSourceFinancing(s.source_financing.id)" [disabled]="isLoading">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-red-500 hover:text-red-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 text-red-500 hover:text-red-700">
                           <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                         </svg>
                       </button>
@@ -89,6 +89,20 @@
                   </div>
                 </div>
                 <div>
+                  <label for="text" class="block text-xs mb-2 md:text-sm font-medium text-primary">Translado credito</label>
+                  <div class="mt-2">
+                    <input type="number" name="credit_transfer" formControlName="credit_transfer"  id="credit_transfer" autocomplete="off" placeholder="Ingresa el traslado crédito"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+>
+                  </div>
+                </div>
+                <div>
+                  <label for="text" class="block text-xs mb-2 md:text-sm font-medium text-primary">Translado debito</label>
+                  <div class="mt-2">
+                    <input type="number" name="debit_transfer" formControlName="debit_transfer"  id="debit_transfer" autocomplete="off" placeholder="Ingresa el traslado débito"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+>
+                  </div>
+                </div>
+                <div>
                   <label for="text" class="block text-xs mb-2 md:text-sm font-medium text-primary">Aplazamientos</label>
                   <div class="mt-2">
                     <input type="number" name="deferrals" formControlName="deferrals"  id="deferrals" autocomplete="off" placeholder="Ingresa el aplazamiento del ingreso"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
@@ -103,6 +117,13 @@
                   </div>
                 </div>
                 <div>
+                  <label for="text" class="block text-xs mb-2 md:text-sm font-medium text-primary">Total de Apropiación</label>
+                  <div class="mt-2">
+                    <input type="number" name="total_approval" formControlName="total_approval"  id="total_approval" autocomplete="off" placeholder="Ingresa el total de apropiación"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+>
+                  </div>
+                </div>
+                <div>
                   <label for="text" class="block text-xs mb-2 md:text-sm font-medium text-primary">Disponibilidad</label>
                   <div class="mt-2">
                     <input type="number" name="availability" formControlName="availability"  id="availability" autocomplete="off" placeholder="Ingresa la disponibilidad del ingreso"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
@@ -110,61 +131,61 @@
                   </div>
                 </div>
                 <div>
-                  <label for="text" class="block text-xs mb-2 md:text-sm font-medium text-primary">Compromisos/mes</label>
+                  <label for="previous_recognized" class="block text-xs mb-2 md:text-sm font-medium text-primary">Reconocimiento anterior</label>
                   <div class="mt-2">
-                    <input type="number" name="commitments_month" formControlName="commitments_month"  id="commitments_month" autocomplete="off" placeholder="Ingresa los compromisos/mes del ingreso"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
->
+                    <input type="number" name="previous_recognized" formControlName="previous_recognized" id="previous_recognized" autocomplete="off" placeholder="Ingresa el reconocimiento anterior" class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600">
                   </div>
                 </div>
+
                 <div>
-                  <label for="text" class="block text-xs mb-2 md:text-sm font-medium text-primary">Total de compromisos</label>
+                  <label for="month_recognized" class="block text-xs mb-2 md:text-sm font-medium text-primary">Reconocimiento del mes</label>
                   <div class="mt-2">
-                    <input type="number" name="commitments_total" formControlName="commitments_total"  id="commitments_total" autocomplete="off" placeholder="Ingresa el total de comprommisos del ingreso"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
->
+                    <input type="number" name="month_recognized" formControlName="month_recognized" id="month_recognized" autocomplete="off" placeholder="Ingresa el reconocimiento del mes" class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600">
                   </div>
                 </div>
+
                 <div>
-                  <label for="text" class="block text-xs mb-2 md:text-sm font-medium text-primary">Saldo ejecutado</label>
+                  <label for="total_recognized" class="block text-xs mb-2 md:text-sm font-medium text-primary">Total de reconocimiento</label>
                   <div class="mt-2">
-                    <input type="number" name="balance_executed" formControlName="balance_executed"  id="balance_executed" autocomplete="off" placeholder="Ingresa el balance ejecutado del ingreso"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
->
+                    <input type="number" name="total_recognized" formControlName="total_recognized" id="total_recognized" autocomplete="off" placeholder="Ingresa el total de reconocimiento" class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600">
                   </div>
                 </div>
+
                 <div>
-                  <label for="text" class="block text-xs mb-2 md:text-sm font-medium text-primary">Pagos anteriores</label>
+                  <label for="previous_collection" class="block text-xs mb-2 md:text-sm font-medium text-primary">Recaudo anterior</label>
                   <div class="mt-2">
-                    <input type="number" name="previous_payments" formControlName="previous_payments"  id="previous_payments" autocomplete="off" placeholder="Ingresa los pagos anteriores del ingreso"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
->
+                    <input type="number" name="previous_collection" formControlName="previous_collection" id="previous_collection" autocomplete="off" placeholder="Ingresa el recaudo anterior" class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600">
                   </div>
                 </div>
+
                 <div>
-                  <label for="text" class="block text-xs mb-2 md:text-sm font-medium text-primary">Pagos del mes</label>
+                  <label for="collection_month" class="block text-xs mb-2 md:text-sm font-medium text-primary">Recaudo del mes</label>
                   <div class="mt-2">
-                    <input type="number" name="payments_month" formControlName="payments_month"  id="payments_month" autocomplete="off" placeholder="Ingresa los pagos del mes del ingreso"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
->
+                    <input type="number" name="collection_month" formControlName="collection_month" id="collection_month" autocomplete="off" placeholder="Ingresa el recaudo del mes" class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600">
                   </div>
                 </div>
+
                 <div>
-                  <label for="text" class="block text-xs mb-2 md:text-sm font-medium text-primary">Total pagos</label>
+                  <label for="total_collection" class="block text-xs mb-2 md:text-sm font-medium text-primary">Total de recaudo</label>
                   <div class="mt-2">
-                    <input type="number" name="total_payments" formControlName="total_payments"  id="total_payments" autocomplete="off" placeholder="Ingresa los pagos totales del ingreso"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
->
+                    <input type="number" name="total_collection" formControlName="total_collection" id="total_collection" autocomplete="off" placeholder="Ingresa el total de recaudo" class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600">
                   </div>
                 </div>
+
                 <div>
-                  <label for="text" class="block text-xs mb-2 md:text-sm font-medium text-primary">Obligaciones pagables</label>
+                  <label for="balance_collection" class="block text-xs mb-2 md:text-sm font-medium text-primary">Saldo por recaudar</label>
                   <div class="mt-2">
-                    <input type="number" name="obligations_payable" formControlName="obligations_payable"  id="obligations_payable" autocomplete="off" placeholder="Ingresa las obligaciones pagables del ingreso"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
->
+                    <input type="number" name="balance_collection" formControlName="balance_collection" id="balance_collection" autocomplete="off" placeholder="Ingresa el saldo por recaudar" class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600">
                   </div>
                 </div>
+
                 <div>
-                  <label for="text" class="block text-xs mb-2 md:text-sm font-medium text-primary">Saldo</label>
+                  <label for="balance_executed" class="block text-xs mb-2 md:text-sm font-medium text-primary">Saldo por ejecutar</label>
                   <div class="mt-2">
-                    <input type="number" name="balance" formControlName="balance"  id="balance" autocomplete="off" placeholder="Ingresa el saldo del ingreso"  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
->
+                    <input type="number" name="balance_executed" formControlName="balance_executed" id="balance_executed" autocomplete="off" placeholder="Ingresa el saldo por ejecutar" class="block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-sm md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600">
                   </div>
                 </div>
+
               </form>
 
             </div>

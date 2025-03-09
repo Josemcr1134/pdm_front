@@ -47,6 +47,14 @@ export class DetailComponent implements OnInit {
         Validators.required,
         Validators.pattern('^[0-9]+$')
       ]),
+      credit_transfer: new FormControl(null, [
+        Validators.required,
+        Validators.pattern('^[0-9]+$')
+      ]),
+      debit_transfer: new FormControl(null, [
+        Validators.required,
+        Validators.pattern('^[0-9]+$')
+      ]),
       deferrals: new FormControl(null, [
         Validators.required,
         Validators.pattern('^[0-9]+$')
@@ -55,39 +63,43 @@ export class DetailComponent implements OnInit {
         Validators.required,
         Validators.pattern('^[0-9]+$')
       ]),
+      total_approval: new FormControl(null, [
+        Validators.required,
+        Validators.pattern('^[0-9]+$')
+      ]),
       availability: new FormControl(null, [
         Validators.required,
         Validators.pattern('^[0-9]+$')
       ]),
-      commitments_month: new FormControl(null, [
+      previous_recognized: new FormControl(null, [
         Validators.required,
         Validators.pattern('^[0-9]+$')
       ]),
-      commitments_total: new FormControl(null, [
+      month_recognized: new FormControl(null, [
+        Validators.required,
+        Validators.pattern('^[0-9]+$')
+      ]),
+      total_recognized: new FormControl(null, [
+        Validators.required,
+        Validators.pattern('^[0-9]+$')
+      ]),
+      previous_collection: new FormControl(null, [
+        Validators.required,
+        Validators.pattern('^[0-9]+$')
+      ]),
+      collection_month: new FormControl(null, [
+        Validators.required,
+        Validators.pattern('^[0-9]+$')
+      ]),
+      total_collection: new FormControl(null, [
+        Validators.required,
+        Validators.pattern('^[0-9]+$')
+      ]),
+      balance_collection: new FormControl(null, [
         Validators.required,
         Validators.pattern('^[0-9]+$')
       ]),
       balance_executed: new FormControl(null, [
-        Validators.required,
-        Validators.pattern('^[0-9]+$')
-      ]),
-      previous_payments: new FormControl(null, [
-        Validators.required,
-        Validators.pattern('^[0-9]+$')
-      ]),
-      payments_month: new FormControl(null, [
-        Validators.required,
-        Validators.pattern('^[0-9]+$')
-      ]),
-      total_payments: new FormControl(null, [
-        Validators.required,
-        Validators.pattern('^[0-9]+$')
-      ]),
-      obligations_payable: new FormControl(null, [
-        Validators.required,
-        Validators.pattern('^[0-9]+$')
-      ]),
-      balance: new FormControl(null, [
         Validators.required,
         Validators.pattern('^[0-9]+$')
       ]),
@@ -108,17 +120,20 @@ export class DetailComponent implements OnInit {
     this.incomeForm.get('initial_approval')?.setValue(this.data.total_attributes.initial_approval);
     this.incomeForm.get('additions')?.setValue(this.data.total_attributes.additions);
     this.incomeForm.get('reductions')?.setValue(this.data.total_attributes.reductions);
+    this.incomeForm.get('credit_transfer')?.setValue(this.data.total_attributes.credit_transfer);
+    this.incomeForm.get('debit_transfer')?.setValue(this.data.total_attributes.debit_transfer);
     this.incomeForm.get('deferrals')?.setValue(this.data.total_attributes.deferrals);
     this.incomeForm.get('displacement')?.setValue(this.data.total_attributes.displacement);
+    this.incomeForm.get('total_approval')?.setValue(this.data.total_attributes.total_approval);
     this.incomeForm.get('availability')?.setValue(this.data.total_attributes.availability);
-    this.incomeForm.get('commitments_month')?.setValue(this.data.total_attributes.commitments_month);
-    this.incomeForm.get('commitments_total')?.setValue(this.data.total_attributes.commitments_total);
+    this.incomeForm.get('previous_recognized')?.setValue(this.data.total_attributes.previous_recognized);
+    this.incomeForm.get('month_recognized')?.setValue(this.data.total_attributes.month_recognized);
+    this.incomeForm.get('total_recognized')?.setValue(this.data.total_attributes.total_recognized);
+    this.incomeForm.get('previous_collection')?.setValue(this.data.total_attributes.previous_collection);
+    this.incomeForm.get('collection_month')?.setValue(this.data.total_attributes.collection_month);
+    this.incomeForm.get('total_collection')?.setValue(this.data.total_attributes.total_collection);
+    this.incomeForm.get('balance_collection')?.setValue(this.data.total_attributes.balance_collection);
     this.incomeForm.get('balance_executed')?.setValue(this.data.total_attributes.balance_executed);
-    this.incomeForm.get('previous_payments')?.setValue(this.data.total_attributes.previous_payments);
-    this.incomeForm.get('payments_month')?.setValue(this.data.total_attributes.payments_month);
-    this.incomeForm.get('total_payments')?.setValue(this.data.total_attributes.total_payments);
-    this.incomeForm.get('obligations_payable')?.setValue(this.data.total_attributes.obligations_payable);
-    this.incomeForm.get('balance')?.setValue(this.data.total_attributes.balance);
     this.sourcesSelected = this.data.sources_financing;
     this.incomeForm.get('source_financing')?.setValue(this.sourceSelected?.id);
   };
@@ -202,14 +217,14 @@ export class DetailComponent implements OnInit {
       this.incomeForm.get('deferrals')?.setValue(source.deferrals);
       this.incomeForm.get('displacement')?.setValue(source.displacement);
       this.incomeForm.get('availability')?.setValue(source.availability);
-      this.incomeForm.get('commitments_month')?.setValue(source.commitments_month);
-      this.incomeForm.get('commitments_total')?.setValue(source.commitments_total);
-      this.incomeForm.get('balance_executed')?.setValue(source.balance_executed);
-      this.incomeForm.get('previous_payments')?.setValue(source.previous_payments);
-      this.incomeForm.get('payments_month')?.setValue(source.payments_month);
-      this.incomeForm.get('total_payments')?.setValue(source.total_payments);
-      this.incomeForm.get('obligations_payable')?.setValue(source.obligations_payable);
-      this.incomeForm.get('balance')?.setValue(this.data.total_attributes.balance);
+      this.incomeForm.get('previous_recognized')?.setValue(source.previous_recognized);
+      this.incomeForm.get('month_recognized')?.setValue(source.month_recognized);
+      this.incomeForm.get('total_recognized')?.setValue(source.total_recognized);
+      this.incomeForm.get('previous_collection')?.setValue(source.previous_collection);
+      this.incomeForm.get('collection_month')?.setValue(source.collection_month);
+      this.incomeForm.get('total_collection')?.setValue(source.total_collection);
+      this.incomeForm.get('balance_collection')?.setValue(source.balance_collection);
+      this.incomeForm.get('balance_executed')?.setValue(this.data.total_attributes.balance_executed);
       this.sourceSelected = source.source_financing;
       this.incomeForm.get('source_financing')?.setValue(this.sourceSelected?.id);
       this.allowSearch = false;
