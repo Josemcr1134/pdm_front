@@ -415,7 +415,7 @@
 
             <div class="flex justify-between gap-3 items-center">
               <span class="md:text-sm text-xs">
-                {{s.code}} &nbsp;
+                {{s.code | slice:0:15}} &nbsp;
                 {{s.description}}
               </span>
               <div class="flex items-center justify-end flex-nowrap">
