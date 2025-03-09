@@ -5,6 +5,39 @@
 
   <div class=" flow-root">
     <div class=" overflow-x-auto mb-4">
+      <div *ngIf="!isLoading"  class=" flex flex-col items-center gap-4 p-4 bg-gray-100 rounded-xl shadow-lg w-full my-5">
+        <!-- Input para seleccionar archivo -->
+        <input
+          type="file"
+          *ngIf="!selectedFile"
+          (change)="onFileChange($event)"
+          accept=".xls,.xlsx,.xlsm,.csv"
+          class="block w-full text-sm text-gray-500
+                 file:mr-4 file:py-2 file:px-4
+                 file:rounded-lg file:border-0
+                 file:text-sm file:font-semibold
+                 file:bg-blue-50 file:text-blue-700
+                 hover:file:bg-blue-100 cursor-pointer"
+        />
+
+        <!-- Botón de subir -->
+        <button
+          *ngIf="selectedFile"
+          (click)="loadInvestment()"
+          class="w-full px-4 py-2 badge-green rounded-lg disabled:bg-gray-400"
+        >
+          Subir
+        </button>
+
+        <!-- Botón de cancelar -->
+        <button
+          *ngIf="selectedFile"
+          (click)="selectedFile = null"
+          class="w-full px-4 py-2 text-white bg-red-500 rounded-lg disabled:bg-gray-400"
+        >
+          Cancelar
+        </button>
+      </div>
       <div *ngIf="!isLoading" class="inline-block min-w-full py-2 align-middle ">
         <table class="min-w-full divide-y divide-gray-300">
           <thead>

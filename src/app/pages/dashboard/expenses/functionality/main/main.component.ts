@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { OperatingExpensesService } from '../../../../../core/services/operatingExpenses/operating-expenses.service';
 import { AlertsService } from '../../../../../core/services/alerts/alerts.service';
 import { ActivatedRoute } from '@angular/router';
+import { LoadMatrixService } from '../../../../../core/services/load-matrix/load-matrix.service';
 
 @Component({
   selector: 'app-main',
@@ -23,7 +24,7 @@ export class MainComponent implements OnInit {
     })
   }
 
-  constructor(private expensesSvc:OperatingExpensesService, private activatedRoute:ActivatedRoute){}
+  constructor(private loadMatrixSvc:LoadMatrixService, private alertSvc:AlertsService,  private expensesSvc:OperatingExpensesService, private activatedRoute:ActivatedRoute){}
 
   getExpenses(){
     this.isLoading = !this.isLoading;
@@ -61,4 +62,44 @@ export class MainComponent implements OnInit {
     this.getExpenses();
   };
 
+
+  loadInvestment(){
+    const fd = new FormData();
+    fd.append('file', this.selectedFile);
+    fd.append('year', this.year);
+    fd.append('entity', localStorage.getItem('executionId') || '');
+    this.isLoading = !this.isLoading;
+
+    this.loadMatrixSvc.loadExpensesOperation(fd)
+        .subscribe({
+          error:(err:any) => {
+            this.isLoading = !this.isLoading;
+            this.alertSvc.currentAlert('', 'Revisa si el formato de matriz se encuentra cargado', 'error');
+          },
+          next:(resp:any) => {
+            console.log(resp)
+            this.alertSvc.currentAlert('Éxito', 'Matriz cargada', 'success');
+            this.isLoading = !this.isLoading;
+            this.selectedFile = null
+            this.getExpenses();
+          }
+        });
+  };
+
+  selectedFile: File | any = null;
+
+  onFileChange(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const allowedExtensions = ['xls', 'xlsx', 'xlsm', 'csv'];
+      const fileExtension = file.name.split('.').pop()?.toLowerCase();
+
+      if (fileExtension && allowedExtensions.includes(fileExtension)) {
+        this.selectedFile = file;
+      } else {
+        this.alertSvc.currentAlert('Formato inválido', 'Por favor adjunta un archivo de Excel', 'info');
+        this.selectedFile = null;
+      }
+    };
+  };
 }

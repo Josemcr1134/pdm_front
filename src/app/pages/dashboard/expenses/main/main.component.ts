@@ -13,7 +13,7 @@ export class MainComponent implements OnInit {
   public yearSelected:number = 0;
   public investmentSelected:any;
   public currentUrl:string = '';
-  public executionSelected:string = '';
+  public executionSelected:any;
   public isLoading:boolean = false;
   public tabSelected:number = 1;
   public executionUnits:{
@@ -31,10 +31,18 @@ export class MainComponent implements OnInit {
 
   handleYearChange(){
     this.isLoading = !this.isLoading;
-    let currentUrl = this.router.url.slice(0, -7);
-    this.currentUrl = currentUrl;
-    this.router.navigateByUrl(currentUrl+this.yearSelected)
-    this.isLoading = !this.isLoading;
+    if (this.tabSelected == 1) {
+      let currentUrl = this.router.url.slice(0, -4);
+      this.currentUrl = currentUrl;
+      this.router.navigateByUrl(currentUrl+this.yearSelected)
+      this.isLoading = !this.isLoading;
+
+    } else {
+      let currentUrl = this.router.url.slice(0, -7);
+      this.currentUrl = currentUrl;
+      this.router.navigateByUrl(currentUrl+this.yearSelected)
+      this.isLoading = !this.isLoading;
+    }
   };
 
   getYears(){
@@ -63,19 +71,24 @@ export class MainComponent implements OnInit {
           },
           next:(resp:any) => {
             this.executionUnits = resp.results;
-            this.executionSelected = this.executionUnits[0].code;
+            this.executionSelected = this.executionUnits[0];
           }
         });
   };
 
   chooseTab(tab:number){
     this.tabSelected = tab;
-
-    console.log(tab)
     if (tab == 1) {
       this.router.navigateByUrl('/dashboard/expenses/investments/' + this.yearSelected )
     } else {
-      this.router.navigateByUrl('/dashboard/expenses/functionality/' + this.yearSelected + '/' + this.executionSelected)
+      this.setExecutionId()
+      this.router.navigateByUrl('/dashboard/expenses/functionality/' + this.yearSelected + '/' + this.executionSelected?.code)
     }
+  }
+
+  setExecutionId(){
+    console.log(this.executionSelected.id)
+    localStorage.removeItem('executionId')
+    localStorage.setItem('executionId', this.executionSelected?.id)
   }
 }

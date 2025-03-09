@@ -1,21 +1,53 @@
 <div>
   <div class="block bg-white p-3 rounded-xl">
-    <div class="flex items-center gap-5 flex-wrap">
-      <div class="flex items-center gap-2">
-          <p class="text-black font-bold text-base">Ingresos </p>
-          <div class="grid grid-cols-1">
-            <select (change)="getIncomes()" [(ngModel)]="yearSelected"  aria-label="Select a tab" class="col-start-1 row-start-1 w-24 appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600">
-              <option [value]="years?.first_year">{{years?.first_year}}</option>
-              <option [value]="years?.second_year">{{years?.second_year}}</option>
-              <option [value]="years?.third_year">{{years?.third_year}}</option>
-              <option [value]="years?.fourth_year">{{years?.fourth_year}}</option>
-            </select>
-            <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end fill-gray-500" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
-              <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
-            </svg>
-          </div>
+    <div class="grid lg:grid-cols-2 grid-cols-1 gap-5">
+      <div class="flex items-center gap-10">
+        <p class="text-black font-bold text-base">Ingresos </p>
+        <div class="grid grid-cols-1">
+          <select (change)="getIncomes()" [(ngModel)]="yearSelected"  aria-label="Select a tab" class="col-start-1 row-start-1 w-24 appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600">
+            <option [value]="years?.first_year">{{years?.first_year}}</option>
+            <option [value]="years?.second_year">{{years?.second_year}}</option>
+            <option [value]="years?.third_year">{{years?.third_year}}</option>
+            <option [value]="years?.fourth_year">{{years?.fourth_year}}</option>
+          </select>
+          <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end fill-gray-500" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
+            <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+          </svg>
+        </div>
       </div>
+      <div class="flex flex-col items-center gap-4 p-2 bg-gray-100 rounded-xl shadow-lg w-full ">
+        <!-- Input para seleccionar archivo -->
+        <input
+          type="file"
+          *ngIf="!selectedFile"
+          (change)="onFileChange($event)"
+          accept=".xls,.xlsx,.xlsm,.csv"
+          class="block w-full text-sm text-gray-500
+                  file:mr-4 file:py-2 file:px-4
+                  file:rounded-lg file:border-0
+                  file:text-sm file:font-semibold
+                  file:bg-blue-50 file:text-blue-700
+                  hover:file:bg-blue-100 cursor-pointer"
+        />
+        <div  *ngIf="selectedFile" class="grid md:grid-cols-2 grid-cols-1 gap-3">
+          <!-- Botón de subir -->
+          <button
+            (click)="loadInvestment()"
+            class="w-full px-4 py-2 badge-green rounded-lg disabled:bg-gray-400"
+          >
+            Subir
+          </button>
 
+          <!-- Botón de cancelar -->
+          <button
+            (click)="selectedFile = null"
+            class="w-full px-4 py-2 text-white bg-red-500 rounded-lg disabled:bg-gray-400"
+          >
+            Cancelar
+          </button>
+
+        </div>
+      </div>
     </div>
   </div>
 </div>

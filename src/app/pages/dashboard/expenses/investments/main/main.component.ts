@@ -3,6 +3,7 @@ import { OperatingExpensesService } from '../../../../../core/services/operating
 import { ActivatedRoute } from '@angular/router';
 import { PlanningService } from '../../../../../core/services/planning/planning.service';
 import { AlertsService } from '../../../../../core/services/alerts/alerts.service';
+import { LoadMatrixService } from '../../../../../core/services/load-matrix/load-matrix.service';
 
 @Component({
   selector: 'app-main',
@@ -27,7 +28,7 @@ export class MainComponent implements OnInit {
   public columnSelected:number = 0;
   public indexSelected!:number;
   public totalInvestments:any;
-  constructor(private alertSvc:AlertsService, private expensesSvc:OperatingExpensesService, private activatedRoute:ActivatedRoute, private pdmSvc:PlanningService ){}
+  constructor(private loadMatrixSvc:LoadMatrixService, private alertSvc:AlertsService, private expensesSvc:OperatingExpensesService, private activatedRoute:ActivatedRoute, private pdmSvc:PlanningService ){}
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params:any) => {
@@ -141,6 +142,45 @@ export class MainComponent implements OnInit {
             this.isLoading = !this.isLoading;
             this.refresh();
             }
-          })
-  }
+          });
+  };
+
+  loadInvestment(){
+    const fd = new FormData();
+    fd.append('file', this.selectedFile);
+    fd.append('year', this.year);
+    this.isLoading = !this.isLoading;
+
+    this.loadMatrixSvc.loadExpensesInvestments(fd)
+        .subscribe({
+          error:(err:any) => {
+            this.isLoading = !this.isLoading;
+            this.alertSvc.currentAlert('', 'Revisa si el formato de matriz se encuentra cargado', 'error');
+          },
+          next:(resp:any) => {
+            console.log(resp)
+            this.alertSvc.currentAlert('Éxito', 'Matriz cargada', 'success');
+            this.isLoading = !this.isLoading;
+            this.selectedFile = null
+            this.getInvestments();
+          }
+        });
+  };
+
+  selectedFile: File | any = null;
+
+  onFileChange(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const allowedExtensions = ['xls', 'xlsx', 'xlsm', 'csv'];
+      const fileExtension = file.name.split('.').pop()?.toLowerCase();
+
+      if (fileExtension && allowedExtensions.includes(fileExtension)) {
+        this.selectedFile = file;
+      } else {
+        this.alertSvc.currentAlert('Formato inválido', 'Por favor adjunta un archivo de Excel', 'info');
+        this.selectedFile = null;
+      }
+    };
+  };
 }

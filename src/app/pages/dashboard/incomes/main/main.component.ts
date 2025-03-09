@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IncomesService } from '../../../../core/services/incomes/incomes.service';
 import { AlertsService } from '../../../../core/services/alerts/alerts.service';
 import { PlanningService } from '../../../../core/services/planning/planning.service';
+import { LoadMatrixService } from '../../../../core/services/load-matrix/load-matrix.service';
 
 @Component({
   selector: 'app-main',
@@ -9,13 +10,13 @@ import { PlanningService } from '../../../../core/services/planning/planning.ser
   styleUrl: './main.component.css'
 })
 export class MainComponent implements OnInit{
-  public yearSelected:number = 0;
+  public yearSelected:number = 2024;
   public years:any;
   public incomes:any[]=[];
   public isLoading:boolean = false;
   public showIncomeDetail:boolean = false;
   public incomeDetail:any;
-  constructor(private incomesSvc:IncomesService, private pdmSvc:PlanningService){}
+  constructor(private incomesSvc:IncomesService, private pdmSvc:PlanningService, private loadMatrixSvc:LoadMatrixService, private alertSvc:AlertsService){}
 
   ngOnInit(): void {
     this.getIncomes();
@@ -71,5 +72,44 @@ export class MainComponent implements OnInit{
             this.yearSelected = resp.first_year;
           }
         });
+  };
+
+  loadInvestment(){
+    const fd = new FormData();
+    fd.append('file', this.selectedFile);
+    fd.append('year', this.yearSelected.toString());
+    this.isLoading = !this.isLoading;
+
+    this.loadMatrixSvc.loadIncomeData(fd)
+        .subscribe({
+          error:(err:any) => {
+            this.isLoading = !this.isLoading;
+            this.alertSvc.currentAlert('', 'Revisa si el formato de matriz se encuentra cargado', 'error');
+          },
+          next:(resp:any) => {
+            console.log(resp)
+            this.alertSvc.currentAlert('Éxito', 'Matriz cargada', 'success');
+            this.isLoading = !this.isLoading;
+            this.selectedFile = null
+            this.getIncomes();
+          }
+        });
+  };
+
+  selectedFile: File | any = null;
+
+  onFileChange(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const allowedExtensions = ['xls', 'xlsx', 'xlsm', 'csv'];
+      const fileExtension = file.name.split('.').pop()?.toLowerCase();
+
+      if (fileExtension && allowedExtensions.includes(fileExtension)) {
+        this.selectedFile = file;
+      } else {
+        this.alertSvc.currentAlert('Formato inválido', 'Por favor adjunta un archivo de Excel', 'info');
+        this.selectedFile = null;
+      }
+    };
   };
 }
