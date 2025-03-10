@@ -114,9 +114,9 @@ export class MainComponent implements OnInit {
             console.log(err);
             this.isLoading = !this.isLoading;
           },
-          next:(resp:ProductGoal[]) => {
+          next:(resp:any) => {
             console.log(resp)
-            this.productGoals = resp;
+            this.productGoals = resp.results;
             this.productGoal = undefined;
             this.isLoading = !this.isLoading;
           }
