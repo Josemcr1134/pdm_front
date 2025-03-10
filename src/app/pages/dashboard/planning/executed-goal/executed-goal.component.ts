@@ -47,8 +47,8 @@ export class ExecutedGoalComponent implements OnInit {
               this.goal = resp.period.value;
               this.sourcesSelected = resp.source_financing;
             }
-          })
-  }
+          });
+  };
 
   getYears(){
     this.pdmSvc.getYears()
