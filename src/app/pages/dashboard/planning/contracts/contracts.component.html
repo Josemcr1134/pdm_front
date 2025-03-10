@@ -519,6 +519,15 @@
                 </div>
               </div>
           </div>
+          <div  class="mt-3">
+            <ul class="bg-purple-100 rounded-xl w-full">
+              <li class="mb-2 w-auto flex items-center justify-end">
+                  <p  class="p-2 text-sm cursor-pointer font-bold text-purple-700 hover:bg-purple-100 ">
+                   Total: {{getTotalFor() | currency}}
+                  </p>
+              </li>
+            </ul>
+          </div>
       </div>
   </div>
   <div *ngIf="isLoading" class="flex justify-center items-center py-4">

@@ -24,6 +24,7 @@ export class ScheduledGoalComponent implements OnInit{
   public initApproval:number = 0;
   public goal:number = 0;
   public sourcesSelected:any[] = [];
+  public hasGoal:boolean = false;
   constructor(private pdmSvc: PlanningService, private alertSvc:AlertsService){}
 
   ngOnInit(): void {
@@ -39,10 +40,11 @@ export class ScheduledGoalComponent implements OnInit{
       this.pdmSvc.getScheduledGoal(this.goalId, this.yearSelected)
           .subscribe({
             error:(err:any) => {
-              console.log(err);
+              this.hasGoal = false;
+              console.log(this.hasGoal)
             },
             next:(resp:any) => {
-              console.log(resp)
+              this.hasGoal = true;
               this.initApproval = resp.initial_approval;
               this.goal = resp.period.value;
               this.sourcesSelected = resp.source_financing;
@@ -65,12 +67,18 @@ export class ScheduledGoalComponent implements OnInit{
         });
   };
 
-
-  updateScheduledGoal(){
+  handleGoalChange(){
     const data ={
       value: this.goal
     };
+    if (this.hasGoal) {
+      this.updateScheduledGoal(data);
+    } else {
+      this.createScheduledGoal(data);
+    }
+  };
 
+  updateScheduledGoal(data:{}){
     this.pdmSvc.updateGoalScheduled(this.goalId, this.yearSelected, data)
           .subscribe({
             error:(err:any) => {
@@ -78,6 +86,18 @@ export class ScheduledGoalComponent implements OnInit{
             },
             next:(resp:any) => {
               this.alertSvc.currentAlert('Éxito', 'Meta programada actualizada', 'success');
+            }
+          });
+  };
+
+  createScheduledGoal(data:{}){
+    this.pdmSvc.createGoalScheduled(this.goalId, this.yearSelected, data)
+          .subscribe({
+            error:(err:any) => {
+              this.alertSvc.handleErrors(err);
+            },
+            next:(resp:any) => {
+              this.alertSvc.currentAlert('Éxito', 'Meta programada creada', 'success');
             }
           });
   };

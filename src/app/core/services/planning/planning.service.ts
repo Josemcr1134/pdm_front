@@ -143,9 +143,19 @@ export class PlanningService {
     return this.http.put(url, data, this.authSvc.header);
   };
 
+  createGoalExecuted(goalId:string, year:number, data:{}){
+    const url = `${this.authSvc.baseUrl}/pdm/goal/${goalId}/executed/?year=${year}`;
+    return this.http.post(url,data, this.authSvc.header);
+  };
+
   updateGoalExecuted(goalId:string, year:number, data:{}){
     const url = `${this.authSvc.baseUrl}/pdm/goal/${goalId}/executed/?year=${year}`;
     return this.http.patch(url,data, this.authSvc.header);
+  };
+
+  createGoalScheduled(goalId:string, year:number, data:{}){
+    const url = `${this.authSvc.baseUrl}/pdm/goal/${goalId}/scheduled/?year=${year}`;
+    return this.http.post(url,data, this.authSvc.header);
   };
 
   updateGoalScheduled(goalId:string, year:number, data:{}){

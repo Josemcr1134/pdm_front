@@ -22,6 +22,7 @@ export class ExecutedGoalComponent implements OnInit {
   public initApproval:number = 0;
   public goal:number = 0;
   public sourcesSelected:any[] = [];
+  public hasGoal:boolean = false;
   constructor(private pdmSvc: PlanningService, private alertSvc:AlertsService){}
 
   ngOnInit(): void {
@@ -37,12 +38,14 @@ export class ExecutedGoalComponent implements OnInit {
           .subscribe({
             error:(err:any) => {
               console.log(err);
+              this.hasGoal = false;
+              console.log(this.hasGoal)
             },
             next:(resp:any) => {
-              console.log(resp)
-                this.initApproval = resp.initial_approval;
-                this.goal = resp.period.value;
-                this.sourcesSelected = resp.source_financing;
+              this.hasGoal = true;
+              this.initApproval = resp.initial_approval;
+              this.goal = resp.period.value;
+              this.sourcesSelected = resp.source_financing;
             }
           })
   }
@@ -68,20 +71,40 @@ export class ExecutedGoalComponent implements OnInit {
     return this.sourcesSelected.reduce((total, item) => total + (item[property]?.value || 0), 0);
   };
 
-
-  updateExecutedGoal(){
+  handleGoalChange(){
     const data ={
       value: this.goal
     };
+    if (this.hasGoal) {
+      this.updateExecutedGoal(data);
+    } else {
+      this.createExecutedGoal(data);
+    }
+  };
 
+  createExecutedGoal(data:{}){
+    this.pdmSvc.createGoalExecuted(this.goalId, this.yearSelected, data)
+      .subscribe({
+        error:(err:any) => {
+          this.alertSvc.handleErrors(err);
+        },
+        next:(resp:any) => {
+          this.alertSvc.currentAlert('Éxito', 'Meta ejecutada creada', 'success');
+          this.getExecutedGoals();
+        }
+      });
+  };
+
+  updateExecutedGoal(data:{}){
     this.pdmSvc.updateGoalExecuted(this.goalId, this.yearSelected, data)
-          .subscribe({
-            error:(err:any) => {
-              this.alertSvc.handleErrors(err);
-            },
-            next:(resp:any) => {
-              this.alertSvc.currentAlert('Éxito', 'Meta ejecutada actualizada', 'success');
-            }
-          });
+      .subscribe({
+        error:(err:any) => {
+          this.alertSvc.handleErrors(err);
+        },
+        next:(resp:any) => {
+          this.alertSvc.currentAlert('Éxito', 'Meta ejecutada actualizada', 'success');
+          this.getExecutedGoals();
+        }
+      });
   };
 }

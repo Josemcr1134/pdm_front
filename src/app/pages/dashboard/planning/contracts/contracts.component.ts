@@ -30,7 +30,7 @@ export class ContractsComponent implements OnInit {
   public showAddContractModal:boolean = false;
   public contractExecutionLimit:number = 10;
   public contractExecutionOffset:number = 0;
-  public modalityLimit:number = 10;
+  public modalityLimit:number = 40;
   public modalityOffset:number = 0;
   public catalogProductLimit:number = 100;
   public catalogProductOffset:number = 0;
@@ -445,6 +445,17 @@ export class ContractsComponent implements OnInit {
 
   getTotalForSelectedArray(array: any[]): number {
     return array.reduce((acc: number, item: any) => acc + (item.value || 0), 0);
+  }
+
+  getTotalFor(): number {
+    return this.contractSelected.products_contracted.reduce((acc: number, item: any) => {
+      const total = item?.contract_product_contracted_source_financing?.reduce(
+
+        (sum: number, source: any) => sum + (source.value || 0),
+        0
+      );
+      return acc + (total || 0);
+    }, 0);
   }
 
 }
