@@ -20,12 +20,9 @@
         <ul *ngIf="categoryTypeSelected == 2" class="productGoalsList w-full">
           <li *ngFor="let pG of productGoals" (click)="chooseProductGoal(pG)"  [ngClass]="{'goalSelected': productGoal?.id == pG.id}" class="productGoal text-wrap">
               {{pG.name}}
-              <hr class="my-1">
-             <span>
-               Consecutivo de la meta:
-               {{pG.consecutive}}
-             </span>
+
           </li>
+          <app-pagination [limit]="10" [totalItems]="totalItems" [offset]="offset" (onPageChange)="onPageChange($event)" ></app-pagination>
         </ul>
       </li>
 

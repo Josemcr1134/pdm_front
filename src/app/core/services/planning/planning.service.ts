@@ -29,10 +29,16 @@ export class PlanningService {
     return this.http.get<ProgramCode[]>(url, this.authSvc.header);
   };
 
-  getGoals(codeId?:string){
+  getGoals(limit:number, offset:number, codeId?:string){
     let params = new HttpParams();
     if (codeId) {
       params = params.set('code_and_program_id', codeId);
+    }
+    if (limit) {
+      params = params.set('limit', limit);
+    }
+    if (offset) {
+      params = params.set('offset', offset);
     }
 
     const url = `${this.authSvc.baseUrl}/pdm/goal/`;

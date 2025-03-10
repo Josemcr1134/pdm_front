@@ -25,6 +25,8 @@ export class MainComponent implements OnInit {
   public  programCodes: ProgramCode[] = [];
   public isLoading:boolean = false;
   public developmentPlan:any;
+  public offset:number = 0;
+  public totalItems:number = 0;
   constructor(private planningSvc:PlanningService, private router:Router, private activatedRoute:ActivatedRoute){}
 
   ngOnInit(): void {
@@ -106,7 +108,7 @@ export class MainComponent implements OnInit {
   chooseCode(value:string){
     this.code = value;
     this.isLoading = !this.isLoading;
-    this.planningSvc.getGoals(this.code)
+    this.planningSvc.getGoals(10, this.offset, this.code)
         .subscribe({
           error:(err:any) =>{
             console.log(err);
@@ -129,16 +131,17 @@ export class MainComponent implements OnInit {
   getGeneralGoals(){
     this.isLoading = !this.isLoading;
 
-    this.planningSvc.getGoals()
+    this.planningSvc.getGoals(10, this.offset)
     .subscribe({
       error:(err:any) =>{
         console.log(err);
         this.isLoading = !this.isLoading;
       },
-      next:(resp:ProductGoal[]) => {
+      next:(resp:any) => {
         console.log(resp)
-        this.productGoals = resp;
-        this.categoryTypeSelected = 2
+        this.productGoals = resp.results;
+        this.totalItems = resp.count;
+        this.categoryTypeSelected = 2;
         this.productGoal = undefined
         this.isLoading = !this.isLoading;
       }
@@ -148,5 +151,10 @@ export class MainComponent implements OnInit {
   goToDetail(){
     sessionStorage.setItem('productGoal', JSON.stringify(this.productGoal));
     this.router.navigateByUrl('/dashboard/planning/' + this.filterByDpt + '/detail/' + this.productGoal?.id);
+  };
+
+  onPageChange(event:number){
+    this.offset = event;
+    this.getGeneralGoals();
   };
 }

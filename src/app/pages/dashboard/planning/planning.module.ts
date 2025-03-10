@@ -8,6 +8,7 @@ import { LoaderComponent } from '../../../shared/loader/loader.component';
 import { RouterModule } from '@angular/router';
 import { DetailComponent } from './detail/detail.component';
 import { FormsModule } from '@angular/forms';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { FormsModule } from '@angular/forms';
     AlertComponent,
     LoaderComponent,
     RouterModule,
-    FormsModule
+    FormsModule,
+    PaginationComponent
   ]
 })
 export class PlanningModule { }
