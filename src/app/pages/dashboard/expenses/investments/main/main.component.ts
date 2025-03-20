@@ -155,7 +155,7 @@ export class MainComponent implements OnInit {
         .subscribe({
           error:(err:any) => {
             this.isLoading = !this.isLoading;
-            this.alertSvc.currentAlert('', 'Revisa si el formato de matriz se encuentra cargado', 'error');
+            this.alertSvc.currentAlert('', err.error.message, 'error');
           },
           next:(resp:any) => {
             console.log(resp)
