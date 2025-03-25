@@ -81,6 +81,7 @@ export class MainComponent implements OnInit {
     this.goalSelected.rubrics.forEach((rubric:any) => {
       rubric.expanded = false; // Inicialmente, todas las secciones estarán colapsadas
     });
+    console.log(this.goalSelected.rubrics)
     this.rubricSelected = undefined;
   };
 

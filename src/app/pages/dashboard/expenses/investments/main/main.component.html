@@ -141,10 +141,10 @@
                   <div *ngIf="!isCollapsed(s, i, indicator.task, iv) && columnSelected == 1 && indexSelected == iv">
                     <p *ngIf="s.sources_financing.length > 0" class="text-primary text-[10px] font-semibold truncate text-wrap">Fuente de financiamiento </p>
                     <ul role="list" class="mt-2">
-                      <li *ngFor="let sf of s.sources_financing" class="w-full flex rounded-md justify-between bg-white shadow-sm mb-2">
-                        <div class="flex w-auto shrink-0 items-center justify-center rounded-l-md bg-purple-600 px-2 text-xs font-medium text-white">{{sf.source_financing.code}}</div>
-                        <a class="font-medium text-xs text-gray-900 align-middle hover:text-gray-600 truncate truncate">{{sf.source_financing.name}}</a>
-                        <p class="text-gray-500 text-xs pr-2 align-middle">{{sf[indicator.key] | currency}}</p>
+                      <li *ngFor="let sf of s.sources_financing" class="w-full flex flex-col rounded-md justify-between bg-white shadow-sm mb-2">
+                        <div class="flex w-full items-center justify-center rounded-t-md  bg-purple-600 px-2 text-xs font-medium text-white">{{sf.source_financing.code}}</div>
+                        <a class="font-medium text-[10px] text-center text-wrap text-gray-900 py-1 align-middle hover:text-gray-600 ">{{sf.source_financing.name}}</a>
+                        <p class="text-gray-500 text-center text-xs pr-2 align-middle">{{sf[indicator.key] | currency}}</p>
                       </li>
                     </ul>
                   </div>
@@ -227,10 +227,10 @@
                     <div *ngIf="!isCollapsed(s, i, indicator.task, iv) && columnSelected == 2">
                       <p *ngIf="s.sources_financing.length > 0" class="text-primary text-[10px] font-semibold truncate text-wrap">Fuente de financiamiento</p>
                       <ul role="list" class="mt-2">
-                        <li *ngFor="let sf of s.sources_financing" class="w-full flex rounded-md justify-between bg-white shadow-sm mb-2">
-                          <div class="flex w-auto shrink-0 items-center justify-center rounded-l-md bg-purple-600 px-2 text-xs font-medium text-white">{{sf.source_financing.code}}</div>
-                          <a class="font-medium text-xs text-gray-900 align-middle hover:text-gray-600 truncate">{{sf.source_financing.name}}</a>
-                          <p class="text-gray-500 text-xs pr-2 align-middle">{{sf[indicator.key] | currency}}</p>
+                        <li *ngFor="let sf of s.sources_financing" class="w-full flex flex-col rounded-md justify-between bg-white shadow-sm mb-2">
+                          <div class="flex w-full items-center justify-center rounded-t-md  bg-purple-600 px-2 text-xs font-medium text-white">{{sf.source_financing.code}}</div>
+                          <a class="font-medium text-[10px] text-center text-wrap text-gray-900 py-1 align-middle hover:text-gray-600 ">{{sf.source_financing.name}}</a>
+                          <p class="text-gray-500 text-center text-xs pr-2 align-middle">{{sf[indicator.key] | currency}}</p>
                         </li>
                       </ul>
                     </div>
@@ -308,10 +308,10 @@
                     <div *ngIf="!isCollapsed(s, i, indicator.task, iv)">
                       <p *ngIf="s.sources_financing.length > 0" class="text-primary text-[10px] font-semibold truncate text-wrap">Fuente de financiamiento</p>
                       <ul role="list" class="mt-2">
-                        <li *ngFor="let sf of s.sources_financing" class="w-full flex rounded-md justify-between bg-white shadow-sm mb-2">
-                          <div class="flex w-auto shrink-0 items-center justify-center rounded-l-md bg-purple-600 px-2 text-xs font-medium text-white">{{sf.source_financing.code}}</div>
-                          <a class="font-medium text-xs text-gray-900 align-middle hover:text-gray-600 truncate">{{sf.source_financing.name}}</a>
-                          <p class="text-gray-500 text-xs pr-2 align-middle">{{sf[indicator.key] | currency}}</p>
+                        <li *ngFor="let sf of s.sources_financing" class="w-full flex flex-col rounded-md justify-between bg-white shadow-sm mb-2">
+                          <div class="flex w-full items-center justify-center rounded-t-md  bg-purple-600 px-2 text-xs font-medium text-white">{{sf.source_financing.code}}</div>
+                          <a class="font-medium text-[10px] text-center text-wrap text-gray-900 py-1 align-middle hover:text-gray-600 ">{{sf.source_financing.name}}</a>
+                          <p class="text-gray-500 text-center text-xs pr-2 align-middle">{{sf[indicator.key] | currency}}</p>
                         </li>
                       </ul>
                     </div>
@@ -387,10 +387,10 @@
                   <div *ngIf="!isCollapsed(s, i, indicator.task, iv)">
                     <p *ngIf="s.sources_financing.length > 0" class="text-primary text-[10px] font-semibold truncate text-wrap">Fuente de financiamiento</p>
                     <ul role="list" class="mt-2">
-                      <li *ngFor="let sf of s.sources_financing" class="w-full flex rounded-md justify-between bg-white shadow-sm mb-2">
-                        <div class="flex w-auto shrink-0 items-center justify-center rounded-l-md bg-purple-600 px-2 text-xs font-medium text-white">{{sf.source_financing.code}}</div>
-                        <a class="font-medium text-xs text-gray-900 align-middle hover:text-gray-600 truncate">{{sf.source_financing.name}}</a>
-                        <p class="text-gray-500 text-xs pr-2 align-middle">{{sf[indicator.key] | currency}}</p>
+                      <li *ngFor="let sf of s.sources_financing" class="w-full flex flex-col rounded-md justify-between bg-white shadow-sm mb-2">
+                        <div class="flex w-full items-center justify-center rounded-t-md  bg-purple-600 px-2 text-xs font-medium text-white">{{sf.source_financing.code}}</div>
+                        <a class="font-medium text-[10px] text-center text-wrap text-gray-900 py-1 align-middle hover:text-gray-600 ">{{sf.source_financing.name}}</a>
+                        <p class="text-gray-500 text-center text-xs pr-2 align-middle">{{sf[indicator.key] | currency}}</p>
                       </li>
                     </ul>
                   </div>
@@ -401,7 +401,7 @@
       </li>
       <li  *ngIf="goalSelected !== undefined" class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[100%] flex-shrink-0 md:max-w-[480px]">
         <div class="flex justify-between items-center">
-          <p class="text-primary text-sm md:text-[17px] font-black  ">Rubricos</p>
+          <p class="text-primary text-sm md:text-[17px] font-black  ">Rubros</p>
           <button class="text-primary" (click)="showRubricModal = !showRubricModal">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
@@ -491,10 +491,16 @@
                 <div *ngIf="!isCollapsed(s, i, indicator.task, iv)">
                   <p *ngIf="s.sources_financing.length > 0" class="text-primary text-[10px] font-semibold truncate text-wrap">Fuente de financiamiento</p>
                   <ul role="list" class="mt-2">
-                    <li *ngFor="let sf of s.sources_financing" class="w-full flex rounded-md justify-between bg-white shadow-sm mb-2">
-                      <div class="flex w-auto shrink-0 items-center justify-center rounded-l-md bg-purple-600 px-2 text-xs font-medium text-white">{{sf.source_financing.code}}</div>
-                      <a class="font-medium text-xs text-gray-900 align-middle hover:text-gray-600 truncate">{{sf.source_financing.name}}</a>
-                      <p class="text-gray-500 text-xs pr-2 align-middle">{{sf[indicator.key] | currency}}</p>
+                    <li *ngFor="let sf of s.sources_financing" class="w-full flex flex-col gap-3 rounded-md  bg-white shadow-sm mb-2">
+                      <div class="flex w-full items-center justify-center rounded-t-md  bg-purple-600 px-2 text-xs font-medium text-white">
+                        {{sf.source_financing_homologation?.homologation}} -   {{sf.source_financing.code}}
+                      </div>
+                      <a class="font-medium text-wrap text-[10px] text-center text-gray-900 hover:text-gray-600 truncate">
+                        {{sf.source_financing.name}}
+                        <span *ngIf="sf.source_financing_homologation?.description">-</span>
+                        {{sf.source_financing_homologation?.description}}
+                      </a>
+                      <p class="text-gray-500 text-xs pr-2 text-center">{{sf[indicator.key] | currency}}</p>
                     </li>
                   </ul>
                 </div>
