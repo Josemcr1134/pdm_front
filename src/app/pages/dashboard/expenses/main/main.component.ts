@@ -64,7 +64,7 @@ export class MainComponent implements OnInit {
   };
 
   getExecutionUnit(){
-    this.expenseSvc.getExecutionUnit(10, 0)
+    this.expenseSvc.getExecutionUnit(100, 0)
         .subscribe({
           error:(err:any) => {
             console.log(err);
