@@ -36,9 +36,7 @@
             Cancelar
           </button>
         </div>
-
         <hr class=" border-[3px] rounded-xl my-2 border-[#ebebff]"/>
-
         <ul  class="strategicLinesList w-full">
           <li    class="strategicLine text-wrap max-h-[300px] overflow-y-auto">
               <div >
@@ -64,15 +62,14 @@
                     ]; let i = index" class="col-span-1">
                   <div class="flex items-start justify-between">
                     <div class="mb-1 flex items-center flex-nowrap gap-x-2 justify-start">
-                      <p class="text-primary text-[13px] font-semibold truncate text-wrap">{{indicator.title}}</p>
+                      <p class="text-primary text-[14px] font-semibold truncate text-wrap">{{indicator.title}}</p>
                     </div>
-                    <p class="text-wrap text-[10px]">{{totalInvestments[indicator.key] | currency}}</p>
+                    <p class="text-wrap text-[12px]">{{totalInvestments[indicator.key] | currency}}</p>
                   </div>
                 </div>
               </div>
           </li>
         </ul>
-
       </li>
       <li  class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:max-w-[480px]">
         <p class="text-primary text-sm md:text-[17px] font-black  ">Lineas estratégicas</p>

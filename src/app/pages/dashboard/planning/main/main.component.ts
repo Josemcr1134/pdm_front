@@ -5,6 +5,7 @@ import { Sector } from '../../../../core/models/sectors.model';
 import { ProductGoal } from '../../../../core/models/product-goal.model';
 import { PlanningService } from '../../../../core/services/planning/planning.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormControl } from '@angular/forms';
 
 
 @Component({
@@ -21,13 +22,20 @@ export class MainComponent implements OnInit {
   public filterByDpt:string = '';
   public strategicLines: StrategicLine[] = [];
   public productGoals:ProductGoal[] = [];
+  public productGoalsFiltered:ProductGoal[] = [];
   public sectors:Sector[] = [];
   public  programCodes: ProgramCode[] = [];
   public isLoading:boolean = false;
   public developmentPlan:any;
   public offset:number = 0;
   public totalItems:number = 0;
-  constructor(private planningSvc:PlanningService, private router:Router, private activatedRoute:ActivatedRoute){}
+  searchControl = new FormControl('');
+  public searchText: string  =''
+  constructor(private planningSvc:PlanningService, private router:Router, private activatedRoute:ActivatedRoute){
+    this.searchControl.valueChanges.subscribe(value => {
+      this.searchText = value?.toLowerCase() || '';
+    });
+  }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params:any) =>{
@@ -132,20 +140,20 @@ export class MainComponent implements OnInit {
     this.isLoading = !this.isLoading;
 
     this.planningSvc.getGoals(10, this.offset)
-    .subscribe({
-      error:(err:any) =>{
-        console.log(err);
-        this.isLoading = !this.isLoading;
-      },
-      next:(resp:any) => {
-        console.log(resp)
-        this.productGoals = resp.results;
-        this.totalItems = resp.count;
-        this.categoryTypeSelected = 2;
-        this.productGoal = undefined
-        this.isLoading = !this.isLoading;
-      }
-    });
+        .subscribe({
+          error:(err:any) =>{
+            console.log(err);
+            this.isLoading = !this.isLoading;
+          },
+          next:(resp:any) => {
+            console.log(resp)
+            this.productGoals = resp.results;
+            this.totalItems = resp.count;
+            this.categoryTypeSelected = 2;
+            this.productGoal = undefined
+            this.isLoading = !this.isLoading;
+          }
+        });
   };
 
   goToDetail(){
@@ -157,4 +165,6 @@ export class MainComponent implements OnInit {
     this.offset = event;
     this.getGeneralGoals();
   };
+
+
 }

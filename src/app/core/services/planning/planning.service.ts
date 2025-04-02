@@ -99,8 +99,8 @@ export class PlanningService {
   };
 
 
-  getContracts(limit:number, offset:number, year:number){
-    const url = `${this.authSvc.baseUrl}/contracts/?limit=${limit}&offset=${offset}&year=${year}`;
+  getContracts(limit:number, offset:number, year:number, goal:string){
+    const url = `${this.authSvc.baseUrl}/contracts/?limit=${limit}&offset=${offset}&year=${year}&goal=${goal}`;
     return this.http.get(url, this.authSvc.header);
   };
 

@@ -39,8 +39,9 @@ export class MainComponent implements OnInit {
 
     } else {
       let currentUrl = this.router.url.slice(0, -7);
+      console.log('entre', currentUrl)
       this.currentUrl = currentUrl;
-      this.router.navigateByUrl(currentUrl+this.yearSelected)
+      this.router.navigateByUrl(this.currentUrl +this.yearSelected + `/${this.executionSelected}`)
       this.isLoading = !this.isLoading;
     }
   };

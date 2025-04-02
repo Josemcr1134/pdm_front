@@ -1,7 +1,7 @@
 <div class="px-4 sm:px-6 lg:px-8">
 
   <div class="mt-8 flow-root">
-    <div *ngIf="!isLoading" class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+    <div *ngIf="!isLoading" class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8 mb-4">
       <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
         <table class="min-w-full divide-y divide-gray-300">
           <thead>
@@ -20,31 +20,29 @@
           </thead>
           <tbody class="divide-y divide-gray-200">
             <tr *ngFor="let c of coverages">
-              <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-primary text-nowrap sm:pl-0">{{c.differential_approach}}</td>
-              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{c.gender}}</td>
-              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                <input (keyup)="update(c)" type="number" [(ngModel)]="c.early_childhood">
+              <td class= "bg-green-50 whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-primary text-nowrap sm:pl-0">{{c.differential_approach || 'No definido'}}</td>
+              <td class= "bg-green-50 whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{c.gender || 'No definido'}}</td>
+              <td class= "bg-green-50 whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                <input class="text-center bg-green-50" (keyup)="update(c)" type="number" [(ngModel)]="c.early_childhood">
               </td>
-              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                <input (keyup)="update(c)" type="number" [(ngModel)]="c.chillhood">
+              <td class= "bg-green-50 whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                <input class="text-center bg-green-50" (keyup)="update(c)" type="number" [(ngModel)]="c.childhood">
               </td>
-              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                <input (keyup)="update(c)" type="number" [(ngModel)]="c.youth">
+              <td class= "bg-green-50 whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                <input class="text-center bg-green-50" (keyup)="update(c)" type="number" [(ngModel)]="c.youth">
               </td>
-              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                <input (keyup)="update(c)" type="number" [(ngModel)]="c.teen">
+              <td class= "bg-green-50 whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                <input class="text-center bg-green-50" (keyup)="update(c)" type="number" [(ngModel)]="c.teen">
               </td>
-              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                <input (keyup)="update(c)" type="number" [(ngModel)]="c.teen">
+
+              <td class= "bg-green-50 whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                <input class="text-center bg-green-50" (keyup)="update(c)" type="number" [(ngModel)]="c.adulthood">
               </td>
-              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                <input (keyup)="update(c)" type="number" [(ngModel)]="c.adulthood">
+              <td class= "bg-green-50 whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                <input class="text-center bg-green-50" (keyup)="update(c)" type="number" [(ngModel)]="c.old_age">
               </td>
-              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                <input (keyup)="update(c)" type="number" [(ngModel)]="c.old_age">
-              </td>
-              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                <input (keyup)="update(c)" type="number" [(ngModel)]="c.total_group">
+              <td class= "bg-green-50 whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                <input class="text-center bg-green-50" (keyup)="update(c)" type="number" [(ngModel)]="c.total_group">
               </td>
 
             </tr>
@@ -52,9 +50,9 @@
             <!-- More people... -->
           </tbody>
         </table>
-        <app-pagination [limit]="limit" [offset]="offset" [totalItems]="coverages.length" (onPageChange)="onPageChange($event)" ></app-pagination>
       </div>
     </div>
+    <app-pagination [limit]="limit" [offset]="offset" [totalItems]="coverages.length" (onPageChange)="onPageChange($event)" ></app-pagination>
     <div class="flex justify-center items-center py-4" *ngIf="isLoading">
       <app-loader></app-loader>
     </div>

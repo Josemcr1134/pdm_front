@@ -7,6 +7,7 @@ import { ExecutedGoalComponent } from './executed-goal/executed-goal.component';
 import { ContractsComponent } from './contracts/contracts.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { CoverageComponent } from './coverage/coverage.component';
+import { EvidencesComponent } from './evidences/evidences.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,10 @@ const routes: Routes = [
       {
         path:'coverage',
         component: CoverageComponent
+      },
+      {
+        path:'evidences',
+        component: EvidencesComponent
       },
       {
         path:'**',

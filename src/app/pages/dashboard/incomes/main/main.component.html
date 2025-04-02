@@ -60,7 +60,7 @@
       <div  class="inline-block min-w-full py-2 align-middle ">
         <table class="min-w-full divide-y divide-gray-300">
           <thead>
-            <tr>
+            <tr class="divide-x divide-gray-200">
               <th class="text-left text-nowrap py-3 px-3 text-sm font-semibold text-primary">Código</th>
               <th class="text-left text-nowrap px-3 text-sm font-semibold text-primary">Nombre Cuenta</th>
               <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Apropiación Inicial</th>
@@ -83,9 +83,9 @@
               <th class="text-left text-nowrap px-3 text-sm font-semibold text-primary">Acciones</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="divide-y divide-gray-200 bg-white">
             <ng-container *ngFor="let item of incomes">
-              <tr class="cursor-pointer hover:bg-gray-100" (click)="toggleItem(item)">
+              <tr class="cursor-pointer hover:bg-gray-100 divide-x divide-y divide-gray-200" (click)="toggleItem(item)">
                 <td class="whitespace-nowrap py-4 px-3 text-sm text-primary">
                   <span *ngIf="item.children?.length" class="mr-2">
                     <span *ngIf="item.expanded">▼</span>
@@ -94,38 +94,38 @@
                   {{ item.code  }}
                 </td>
                 <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.name  }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.initial_approval  }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.additions  }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.reductions  }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.credit_transfer  }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.debit_transfer  }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.deferrals  }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.displacement  }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.total_approval  }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.availability  }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.previous_recognized  }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.month_recognized  }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.total_recognized  }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.previous_collection  }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.collection_month  }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.total_collection  }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.balance_collection  }}</td>
-                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.balance_executed  }}</td>
+                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.initial_approval  | currency }}</td>
+                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.additions  | currency }}</td>
+                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.reductions  | currency }}</td>
+                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.credit_transfer  | currency }}</td>
+                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.debit_transfer  | currency }}</td>
+                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.deferrals  | currency }}</td>
+                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.displacement  | currency }}</td>
+                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.total_approval  | currency }}</td>
+                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.availability  | currency }}</td>
+                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.previous_recognized  | currency }}</td>
+                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.month_recognized  | currency }}</td>
+                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.total_recognized  | currency }}</td>
+                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.previous_collection  | currency }}</td>
+                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.collection_month  | currency }}</td>
+                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.total_collection  | currency }}</td>
+                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.balance_collection  | currency }}</td>
+                <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.balance_executed  | currency }}</td>
                 <td class="whitespace-nowrap px-3 text-sm text-gray-500">
                   <button *ngIf="!item.children.length" class="text-blue-600 hover:text-blue-900">✏️</button>
                 </td>
               </tr>
               <!-- Renderizar hijos -->
-              <ng-container *ngIf="item.children?.length && item.expanded">
+              <ng-container class="divide-x divide-y divide-gray-200" *ngIf="item.children?.length && item.expanded">
                 <ng-container *ngTemplateOutlet="recursiveItems; context: { children: item.children, level: 1 }"></ng-container>
               </ng-container>
             </ng-container>
           </tbody>
         </table>
         <!-- Plantilla recursiva para hijos y fuentes de financiamiento -->
-        <ng-template #recursiveItems let-children="children" let-level="level">
+        <ng-template #recursiveItems class="divide-x divide-y divide-gray-200" let-children="children" let-level="level">
           <ng-container *ngFor="let child of children">
-            <tr class="cursor-pointer hover:bg-gray-100" (click)="$event.stopPropagation(); toggleItem(child)">
+            <tr class="cursor-pointer hover:bg-gray-100 divide-x divide-y divide-gray-200" (click)="$event.stopPropagation(); toggleItem(child)">
               <td
                 class="whitespace-nowrap py-4 text-sm"
                 [ngClass]="[
@@ -144,23 +144,23 @@
               </td>
               <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.name }}</td>
 
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.initial_approval  }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.additions  }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.reductions  }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.credit_transfer  }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.debit_transfer  }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.deferrals  }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.displacement  }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.total_approval  }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.availability  }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.previous_recognized  }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.month_recognized  }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.total_recognized  }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.previous_collection  }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.collection_month  }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.total_collection  }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.balance_collection  }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.balance_executed  }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.initial_approval | currency  }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.additions | currency  }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.reductions | currency  }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.credit_transfer | currency  }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.debit_transfer | currency  }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.deferrals | currency  }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.displacement | currency  }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.total_approval | currency  }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.availability | currency  }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.previous_recognized | currency  }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.month_recognized | currency  }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.total_recognized | currency  }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.previous_collection | currency  }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.collection_month | currency  }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.total_collection | currency  }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.balance_collection | currency  }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.balance_executed | currency  }}</td>
               <td class="whitespace-nowrap px-3 text-sm text-gray-500">
                 <button (click)="selectItem(child)" *ngIf="!child.children.length" class="text-blue-600 hover:text-blue-900">✏️</button>
               </td>
@@ -182,30 +182,30 @@
         <!-- Plantilla recursiva para fuentes de financiamiento -->
         <ng-template #recursiveItems2 let-children="children" let-level="level">
           <ng-container *ngFor="let s of children">
-            <tr class=" hover:bg-gray-100 bg-purple-50">
+            <tr class=" hover:bg-gray-100 bg-purple-50 divide-x divide-y divide-gray-200">
               <td  class="whitespace-nowrap py-4 text-gray-500 text-sm"
                 [style.paddingLeft.px]="level * 20"
               >
                 {{ s.source_financing.name }}
               </td>
               <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.source_financing.name  }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.initial_approval  }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.additions  }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.reductions  }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.credit_transfer  }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.debit_transfer  }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.deferrals  }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.displacement  }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.total_approval  }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.availability  }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.previous_recognized  }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.month_recognized  }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.total_recognized  }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.previous_collection  }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.collection_month  }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.total_collection  }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.balance_collection  }}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.balance_executed  }}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.initial_approval  | currency}}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.additions  | currency}}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.reductions  | currency}}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.credit_transfer  | currency}}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.debit_transfer  | currency}}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.deferrals  | currency}}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.displacement  | currency}}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.total_approval  | currency}}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.availability  | currency}}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.previous_recognized  | currency}}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.month_recognized  | currency}}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.total_recognized  | currency}}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.previous_collection  | currency}}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.collection_month  | currency}}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.total_collection  | currency}}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.balance_collection  | currency}}</td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.balance_executed  | currency}}</td>
               <td class="whitespace-nowrap px-3 text-sm text-gray-500">-</td>
             </tr>
           </ng-container>

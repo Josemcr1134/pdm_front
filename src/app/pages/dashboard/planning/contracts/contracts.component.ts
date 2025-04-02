@@ -8,6 +8,7 @@ import { AlertsService } from '../../../../core/services/alerts/alerts.service';
 import { LoaderComponent } from '../../../../shared/loader/loader.component';
 import { SourceFinancingService } from '../../../../core/services/sourceFinancing/source-financing.service';
 import { AuthService } from '../../../../core/services/auth/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-contracts',
@@ -77,6 +78,7 @@ export class ContractsComponent implements OnInit {
     this.getModality();
     this.getWellnessCatalogue();
     this.getUser();
+    this.getSourceFinancing();
     this.contractForm = this.fb.group({
       object: ['', Validators.required],
       modality: ['', Validators.required],
@@ -140,15 +142,22 @@ export class ContractsComponent implements OnInit {
   };
 
   chooseProduct(id:string, description:string){
-    this.catalogProductsSelected.push({id:id, description:description});
-    this.catalogProducts = [];
-    this.searchCatalogProducts ='';
+    const productSelected = this.catalogProductsSelected.find ( p => p.id == id)
+    if (productSelected) {
+      Swal.fire('Ooops', 'Producto ya fue seleccionado', 'info')
+    } else {
+
+      this.catalogProductsSelected.push({id:id, description:description});
+    }
   };
 
   chooseWellnessCatalogue(id:string, code:string, name:string){
-    this.wellnessCatalogueSelected.push({id:id, code:code, name:name});
-    this.wellnessCatalogue = [];
-    this.searchCatalogWellness = '';
+    const productSelected = this.wellnessCatalogueSelected.find ( p => p.id == id)
+    if (productSelected) {
+      Swal.fire('Ooops', 'Item del catálogo UNSPC ya fue seleccionado', 'info')
+    } else {
+      this.wellnessCatalogueSelected.push({id:id, code:code, name:name});
+    }
   };
 
   getModality(){
@@ -208,6 +217,7 @@ export class ContractsComponent implements OnInit {
                   this.catalogProductsSelected = [];
                   this.showAddContractModal = false;
                   this.isLoading = !this.isLoading;
+                  this.getContracts();
                 }
               });
 
@@ -218,7 +228,7 @@ export class ContractsComponent implements OnInit {
 
   getContracts(){
     this.isLoading = !this.isLoading;
-    this.pdmSvc.getContracts(this.contractsLimit, this.contractsOffset,this.yearSelected)
+    this.pdmSvc.getContracts(this.contractsLimit, this.contractsOffset,this.yearSelected, this.goalId)
         .subscribe({
             error:(err:any) => {
               console.log(err);
@@ -315,7 +325,7 @@ export class ContractsComponent implements OnInit {
   };
 
   getSourceFinancing(){
-    this.sourceFinancingSvc.getSourceFinancing(this.filterByHomologation, this.searchSources)
+    this.sourceFinancingSvc.getSourceFinancingByGoal(this.goalId)
           .subscribe({
             error:(err:any) => {
               this.alertSvc.handleErrors(err);
@@ -327,9 +337,7 @@ export class ContractsComponent implements OnInit {
           });
   };
 
-  chooseSourceFinancing(p:any){
-    this.sourceSelected = p;
-  };
+
 
   downloadProduct(productId:string){
     this.isLoading = !this.isLoading;

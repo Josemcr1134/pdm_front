@@ -449,7 +449,7 @@
               <!-- NATIONAL PLAN -->
               <div class="mb-2">
                 <button (click)="p.product_contracted.catalogue_plan.isCollapsed = !p.product_contracted.catalogue_plan.isCollapsed" class="text-primary font-normal text-sm flex justify-between flex-nowrap w-full items-center">
-                  <span>{{p.product_contracted.catalogue_plan[0].national_development_plan | slice:0:20 }} </span>
+                  <span>{{p.product_contracted.catalogue_plan[0].national_development_plan | slice:0:28 }} </span>
                   <svg *ngIf="p.product_contracted.catalogue_plan.isCollapsed" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                   </svg>
@@ -472,7 +472,7 @@
               <!-- Public politic -->
               <div class="mb-2">
                 <button (click)="p.product_contracted.catalogue_politics.isCollapsed = !p.product_contracted.catalogue_politics.isCollapsed" class="text-primary font-normal text-sm flex justify-between flex-nowrap w-full items-center" >
-                  <span>{{p.product_contracted.catalogue_politics[0].public_policies | slice:0:10 }} </span>
+                  <span>{{p.product_contracted.catalogue_politics[0].public_policies }} </span>
                   <svg *ngIf="p.product_contracted.catalogue_politics.isCollapsed" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                   </svg>
@@ -544,7 +544,7 @@
   <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
     <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
 
-      <div class="relative transform overflow-hidden rounded-lg max-h-[70vh] overflow-y-auto bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
+      <div class="relative transform overflow-hidden rounded-lg max-h-[70vh] overflow-y-auto bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-xl sm:p-6">
         <div>
           <div class="mx-auto flex size-12 items-center justify-center rounded-full bg-green-100">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-green-600">
@@ -611,7 +611,7 @@
                 </div>
                 <fieldset class="mt-3">
                   <legend class="text-sm/6 font-normal text-primary">Unidades ejecutoras</legend>
-                  <div class="mt-6 space-y-6 sm:flex sm:items-center sm:space-x-10 sm:space-y-0 mb-3">
+                  <div class="mt-6  grid lg:grid-cols-2 xl:grid-cols-2 grid-cols-1 gap-4 mb-3">
                     <div *ngFor="let c of contractExecutions" class="flex items-center">
                       <input [id]="c.id"  [value]="c.id"  formControlName="executing_unit" name="executing_unit" type="radio"  class="relative size-4 appearance-none rounded-full border border-gray-300 bg-white before:absolute before:inset-1 before:rounded-full before:bg-white checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:before:bg-gray-400 forced-colors:appearance-auto forced-colors:before:hidden [&:not(:checked)]:before:hidden">
                       <label [for]="c.id" class="ml-3 block text-sm/6 font-medium text-gray-900">{{c.name}}</label>
@@ -683,10 +683,11 @@
               <hr class="my-4">
               <div>
                 <p class="text-primary font-normal text-sm">Fuentes de financiamiento</p>
-                <input *ngIf="sourceSelected == undefined" [(ngModel)]="searchSources" (keyup)="getSourceFinancing()" type="search" class="block w-full mb-2 rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600" name="search-products" placeholder="Buscar fuentes de financiamiento"  id="">
-                <ul *ngIf="sourcesFinancing.length && searchSources.length && sourceSelected == undefined" class="bg-gray-50 rounded-xl w-full max-h-60 overflow-y-scroll divide-y divide-purple-700">
-                  <li *ngFor="let cp of sourcesFinancing" (click)="chooseSourceFinancing(cp)" class="p-2 text-xs cursor-pointer font-normal text-gray-700 hover:bg-gray-100 "> {{cp.code}} - {{cp.name}} </li>
-                </ul>
+
+                <select  [(ngModel)]="sourceSelected" class="block w-full mb-2 rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"  name="" id="">
+                  <option  value="">Selecciona las fuentes de financiamiento</option>
+                  <option  *ngFor="let cp of sourcesFinancing" [ngValue]="cp">{{cp.code}} - {{cp.name}}</option>
+                </select>
                 <button  *ngIf="sourceSelected !== undefined" (click)="sourceSelected = undefined">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 text-red-500">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
