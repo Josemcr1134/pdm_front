@@ -11,8 +11,8 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
-  public username:string = 'jgabriel2g@hotmail.com';
-  public password:string = 'demodemo123';
+  public username:string = '';
+  public password:string = '';
   public isLoading:boolean = false;
 
   constructor(private authSvc:AuthService, private alertSvc:AlertsService, private router:Router){}
