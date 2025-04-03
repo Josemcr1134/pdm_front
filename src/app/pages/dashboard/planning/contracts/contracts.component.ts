@@ -332,7 +332,7 @@ export class ContractsComponent implements OnInit {
             },
             next:(resp:any) => {
               console.log(resp)
-              this.sourcesFinancing = resp.results;
+              this.sourcesFinancing = resp;
             }
           });
   };
