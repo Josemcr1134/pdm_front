@@ -42,30 +42,42 @@
               <div >
                 <div  *ngFor="let indicator of [
                       {task:1 , title: 'Aprobación inicial', key: 'initial_approval' },
-                      {task:1 , title: 'Adiciones', key: 'additions' },
-                      {task:1 , title: 'Reducciones', key: 'reductions' },
-                      {task:1 , title: 'Aplazamientos', key: 'displacement' },
-                      {task:1 , title: 'Desplazamientos', key: 'deferrals' },
-                      {task:1 , title: 'Traslado crédito', key: 'credit_transfer' },
-                      {task:1 , title: 'Traslado con crédito', key: 'transfer_with_credit' },
-                      {task:1 , title: 'Total apropiado', key: 'total_approval' },
-                      {task:1 , title: 'Disponibilidades', key: 'availability' },
-                      {task:1 , title: 'Compromisos anteriores', key: 'previous_commitments' },
-                      {task:1 , title: 'Compromisos/mes', key: 'commitments_month' },
-                      {task:1 , title: 'Compromisos acumulados', key: 'cumulative_commitments' },
-                      {task:1 , title: 'Saldo ejecutado', key: 'executed_balance' },
-                      {task:1 , title: 'Pagos anteriores', key: 'previous_payments' },
-                      {task:1 , title: 'Pagos/mes', key: 'payments_month' },
-                      {task:1 , title: 'Pagos acumulados', key: 'accumulated_payments' },
-                      {task:1 , title: 'Obligaciones', key: 'obligations' },
-                      {task:1 , title: 'Saldo', key: 'balance' }
+                      {task:2 , title: 'Adiciones', key: 'additions' },
+                      {task:3 , title: 'Reducciones', key: 'reductions' },
+                      {task:4 , title: 'Aplazamientos', key: 'displacement' },
+                      {task:5 , title: 'Desplazamientos', key: 'deferrals' },
+                      {task:6 , title: 'Traslado crédito', key: 'credit_transfer' },
+                      {task:7 , title: 'Traslado con crédito', key: 'transfer_with_credit' },
+                      {task:8 , title: 'Total apropiado', key: 'total_approval' },
+                      {task:9 , title: 'Disponibilidades', key: 'availability' },
+                      {task:10 , title: 'Compromisos anteriores', key: 'previous_commitments' },
+                      {task:11 , title: 'Compromisos/mes', key: 'commitments_month' },
+                      {task:12 , title: 'Compromisos acumulados', key: 'cumulative_commitments' },
+                      {task:13 , title: 'Saldo ejecutado', key: 'executed_balance' },
+                      {task:14 , title: 'Pagos anteriores', key: 'previous_payments' },
+                      {task:15 , title: 'Pagos/mes', key: 'payments_month' },
+                      {task:16 , title: 'Pagos acumulados', key: 'accumulated_payments' },
+                      {task:17 , title: 'Obligaciones', key: 'obligations' },
+                      {task:18 , title: 'Saldo', key: 'balance' }
                     ]; let i = index" class="col-span-1">
                   <div class="flex items-start justify-between">
                     <div class="mb-1 flex items-center flex-nowrap gap-x-2 justify-start">
                       <p class="text-primary text-[14px] font-semibold truncate text-wrap">{{indicator.title}}</p>
                     </div>
-                    <p class="text-wrap text-[12px]">{{totalInvestments[indicator.key] | currency}}</p>
+                    <div class="flex items-center justify-end gap-3">
+                      <p class="text-wrap text-[12px]">{{totalInvestments[indicator.key] | currency}}</p>
+                      <button *ngIf=" indicator.task !== itemSelected && totalInvestments.sources_financing.length > 0 || indicator.task == 0 && totalInvestmentColapsed " (click)="toogleCollapsed(indicator.task)">+</button>
+                      <button  *ngIf="!totalInvestmentColapsed && indicator.task == itemSelected && totalInvestments.sources_financing.length > 0 " (click)="toogleCollapsed(indicator.task)">-</button>
+                    </div>
                   </div>
+                  <p *ngIf="totalInvestments.sources_financing.length > 0 && itemSelected == indicator.task && !totalInvestmentColapsed" class="text-primary text-[10px] font-semibold truncate text-wrap">Fuente de financiamiento  </p>
+                  <ul  *ngIf="totalInvestments.sources_financing.length > 0 && itemSelected == indicator.task && !totalInvestmentColapsed"role="list" class="mt-2">
+                    <li *ngFor="let sf of totalInvestments.sources_financing" class="w-full flex flex-col rounded-md justify-between bg-white shadow-sm mb-2">
+                      <div class="flex w-full items-center justify-center rounded-t-md  bg-purple-600 px-2 text-xs font-medium text-white">{{sf.source_financing.code}}</div>
+                      <a class="font-medium text-[10px] text-center text-wrap text-gray-900 py-1 align-middle hover:text-gray-600 ">{{sf.source_financing.name}}</a>
+                      <p class="text-gray-500 text-center text-xs pr-2 align-middle">{{sf[indicator.key] | currency}}</p>
+                    </li>
+                  </ul>
                 </div>
               </div>
           </li>

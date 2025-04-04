@@ -184,4 +184,18 @@ export class MainComponent implements OnInit {
       }
     };
   };
+
+  totalInvestmentColapsed:boolean = true;
+  itemColapsed:number = 0;
+
+  toogleCollapsed(item:number){
+    if(item == this.itemSelected) {
+      this.itemSelected = 0
+    } else {
+      this.itemSelected = item;
+
+    }
+    this.totalInvestmentColapsed = !this.totalInvestmentColapsed;
+
+  }
 }
