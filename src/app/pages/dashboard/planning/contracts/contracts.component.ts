@@ -25,7 +25,7 @@ import Swal from 'sweetalert2';
   styleUrl: './contracts.component.css'
 })
 export class ContractsComponent implements OnInit {
-  public yearSelected:number = 0;
+  public yearSelected:number = 2024;
   public years:any;
   public goalId:string ='';
   public showAddContractModal:boolean = false;
@@ -257,7 +257,6 @@ export class ContractsComponent implements OnInit {
           },
           next:(resp:any) => {
             this.contractSelected = resp;
-            console.log(this.contractSelected)
             this.contractSelected.products_contracted.forEach( (p:any) => {
               p.product_contracted.catalogue_ccpet.isCollapsed = false;
               p.product_contracted.catalogue_central.isCollapsed = false;
@@ -325,7 +324,8 @@ export class ContractsComponent implements OnInit {
   };
 
   getSourceFinancing(){
-    this.sourceFinancingSvc.getSourceFinancingByGoal(this.goalId)
+    console.log(this.yearSelected)
+    this.sourceFinancingSvc.getSourceFinancingByGoal(this.goalId, this.yearSelected)
           .subscribe({
             error:(err:any) => {
               this.alertSvc.handleErrors(err);

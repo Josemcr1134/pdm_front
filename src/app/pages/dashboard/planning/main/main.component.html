@@ -56,12 +56,15 @@
       <!-- INDICATORS OF WELFARE    -->
       <li *ngIf="categoryTypeSelected == 1 && strategicLine.length && code.length && sector.length " class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:max-w-[350px] ">
         <p class="text-primary text-sm text-wrap md:text-[17px] font-black  ">Metas Producto: </p>
+        <input  [formControl]="searchControl"  *ngIf="categoryTypeSelected == 1" type="text" class="input w-full rounded-lg px-4 my-2 py-2 bg-gray-100 text-gray-700 ring-[1px] ring-gray-100"  placeholder="Buscar...">
 
         <ul  class="strategicLinesList w-full max-h-[600px] overflow-y-auto">
-          <li *ngFor="let s of productGoals" (click)="chooseProductGoal(s)" [ngClass]="{'goalSelected': productGoal?.id == s.id}" class="productGoal  text-wrap md:text-base text-xs cursor-pointer">
+          <li *ngFor="let s of productGoals  | search: searchControl.value ? searchControl.value : ''" (click)="chooseProductGoal(s)" [ngClass]="{'goalSelected': productGoal?.id == s.id}" class="productGoal  text-wrap md:text-base text-xs cursor-pointer">
               {{s.name}}
           </li>
         </ul>
+        <app-pagination [limit]="10" [totalItems]="totalItems" [offset]="offset" (onPageChange)="onPageChange($event)" ></app-pagination>
+
       </li>
 
       <!-- PRODUCT GOALS -->

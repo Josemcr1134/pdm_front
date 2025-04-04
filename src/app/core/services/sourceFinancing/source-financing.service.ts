@@ -21,11 +21,14 @@ export class SourceFinancingService {
     const url = `${this.authSvc.baseUrl}/source-financing/`;
     return this.http.get(url,  { headers: this.authSvc.header.headers, params });
   };
-  getSourceFinancingByGoal(goal:string){
+  getSourceFinancingByGoal(goal:string, year:any){
     let params = new HttpParams();
 
     if (goal) {
       params = params.set('goal', goal);
+    };
+    if (year) {
+      params = params.set('year', year);
     };
     const url = `${this.authSvc.baseUrl}/source-financing/list-by-meta/`;
     return this.http.get(url,  { headers: this.authSvc.header.headers, params });
