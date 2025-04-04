@@ -34,14 +34,9 @@ export class PlanningService {
     if (codeId) {
       params = params.set('code_and_program_id', codeId);
     }
-    if (limit) {
-      params = params.set('limit', limit);
-    }
-    if (offset) {
-      params = params.set('offset', offset);
-    }
 
-    const url = `${this.authSvc.baseUrl}/pdm/goal/`;
+
+    const url = `${this.authSvc.baseUrl}/pdm/goal/?offset=${offset}&limit=${limit}`;
     return this.http.get<ProductGoal[]>(url, { headers: this.authSvc.header.headers, params });
   };
 

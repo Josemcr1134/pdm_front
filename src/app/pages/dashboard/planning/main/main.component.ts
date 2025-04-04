@@ -29,8 +29,10 @@ export class MainComponent implements OnInit {
   public developmentPlan:any;
   public offset:number = 0;
   public totalItems:number = 0;
+  public totalItemsGeneral:number = 0;
   searchControl = new FormControl('');
-  public searchText: string  =''
+  public searchText: string  ='';
+  public offsetGeneral:number = 0;
   constructor(private planningSvc:PlanningService, private router:Router, private activatedRoute:ActivatedRoute){
     this.searchControl.valueChanges.subscribe(value => {
       this.searchText = value?.toLowerCase() || '';
@@ -116,6 +118,8 @@ export class MainComponent implements OnInit {
   chooseCode(value:string){
     this.code = value;
     this.isLoading = !this.isLoading;
+    console.log(this.offset)
+
     this.planningSvc.getGoals(10, this.offset, this.code)
         .subscribe({
           error:(err:any) =>{
@@ -125,6 +129,7 @@ export class MainComponent implements OnInit {
           next:(resp:any) => {
             console.log(resp)
             this.productGoals = resp.results;
+            this.totalItems = resp.count
             this.productGoal = undefined;
             this.isLoading = !this.isLoading;
           }
@@ -139,7 +144,7 @@ export class MainComponent implements OnInit {
   getGeneralGoals(){
     this.isLoading = !this.isLoading;
 
-    this.planningSvc.getGoals(10, this.offset)
+    this.planningSvc.getGoals(10, this.offsetGeneral)
         .subscribe({
           error:(err:any) =>{
             console.log(err);
@@ -148,7 +153,7 @@ export class MainComponent implements OnInit {
           next:(resp:any) => {
             console.log(resp)
             this.productGoals = resp.results;
-            this.totalItems = resp.count;
+            this.totalItemsGeneral = resp.count;
             this.categoryTypeSelected = 2;
             this.productGoal = undefined
             this.isLoading = !this.isLoading;
@@ -162,6 +167,12 @@ export class MainComponent implements OnInit {
   };
 
   onPageChange(event:number){
+    this.offset = event;
+    this.chooseCode(this.code);
+  };
+
+
+  onPageChangeGeneral(event:number){
     this.offset = event;
     this.getGeneralGoals();
   };
