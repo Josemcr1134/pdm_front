@@ -464,6 +464,11 @@ export class ContractsComponent implements OnInit {
       );
       return acc + (total || 0);
     }, 0);
+  };
+
+  refresh(){
+    this.getContracts()
+    this.getSourceFinancing();
   }
 
 }

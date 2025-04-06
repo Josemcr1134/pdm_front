@@ -116,10 +116,11 @@ export class MainComponent implements OnInit {
   };
 
   chooseCode(value:string){
+    if (value !== this.code) {
+      this.offset = 0;
+    }
     this.code = value;
     this.isLoading = !this.isLoading;
-    console.log(this.offset)
-
     this.planningSvc.getGoals(10, this.offset, this.code)
         .subscribe({
           error:(err:any) =>{
