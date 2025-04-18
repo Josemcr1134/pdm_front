@@ -21,6 +21,11 @@ export class MobileMenuComponent {
 
   public menuItems:{label:string, icon:string, route:string}[] = [
     {
+      label:'Tablero ',
+      icon:'assets/icons/planning.svg',
+      route:"/dashboard/metricsBoard"
+    },
+    {
       label:'Planeación',
       icon:'assets/icons/planning.svg',
       route:"/dashboard/planning/false"

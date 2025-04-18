@@ -1,0 +1,385 @@
+<div class="max-w-7xl mx-auto px-6 lg:px-8 py-12 lg:py-16">
+  <div *ngIf="!isLoading">
+    <div  class="w-full bg-gray-50 rounded-xl shadow-lg p-4 mb-6">
+        <div class="flex items-center justify-between mb-5">
+          <div>
+            <p class="text-lg text-primary font-medium uppercase">Lineas estratégicas</p>
+          </div>
+          <div>
+            <select [(ngModel)]="strategicLineSelected" (change)="chooseStrategicLine()" name="" class="max-w-80 w-full py-2.5 px-4 bg-primary  rounded-xl text-white" id="">
+              <option [ngValue]=null>Selecciona una linea estratégica</option>
+              <option *ngFor="let sL of strategicLines" [ngValue]="sL">{{sL.name}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid lg:grid-cols-6 grid-cols-1 gap-4">
+            <div class="grid xl:grid-cols-2 grid-cols-1 gap-3 lg:col-span-2">
+              <div>
+                <div class="stat-card h-full bg-white">
+                  <div class="flex justify-between items-start mb-7">
+                    <div>
+                      <p class="text-primary font-normal  text-xs mb-8">Ejecutado línea</p>
+                      <p class="text-black font-bold xl:text-3xl text-xl ">{{data.total_executed_goals}}%</p>
+                    </div>
+
+                  </div>
+                  <!-- <div class="flex justify-start items-center gap-x-1">
+                    <img src="assets/icons/trending-up.png" alt="">
+                    <p class="text-[#00B69B] font-semibold text-sm ">{{statPercentage}}%</p>
+                    <p class="text-primary font-normal text-sm "> Up from yesterday</p>
+                  </div> -->
+                </div>
+
+              </div>
+              <div>
+                <div class="stat-card h-full bg-white">
+                  <div class="flex justify-between items-start mb-7">
+                    <div>
+                      <p class="text-primary font-normal  text-xs mb-8">Pendiente por ejecutar</p>
+                      <p class="text-black font-bold xl:text-3xl text-xl ">{{data.total_pending_goals}}%</p>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="">
+                <div class="stat-card h-full bg-white">
+                  <div class="flex justify-between items-start mb-7">
+                    <div>
+                      <p class="text-primary font-normal  text-xs mb-8">Total metas</p>
+                      <p class="text-black font-bold xl:text-3xl text-xl ">{{data.total_goals}}</p>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <div class="">
+                <div class="stat-card h-full bg-white">
+                  <div class="flex justify-between items-start mb-7">
+                    <div>
+                      <p class="text-primary font-normal  text-xs mb-8">Total líneas estratégicas</p>
+                      <p class="text-black font-bold xl:text-3xl text-xl ">{{data.total_strategic_lines}}</p>
+                    </div>
+
+                  </div>
+                  <!-- <div class="flex justify-start items-center gap-x-1">
+                    <img src="assets/icons/trending-up.png" alt="">
+                    <p class="text-[#00B69B] font-semibold text-sm ">{{statPercentage}}%</p>
+                    <p class="text-primary font-normal text-sm "> Up from yesterday</p>
+                  </div> -->
+                </div>
+
+              </div>
+
+            </div>
+            <div class="lg:col-span-4 col-span-1">
+              <div class="stat-card "  >
+                <div class="grid xl:grid-cols-6 grid-cols-1 gap-3 items-center">
+                  <div class="xl:col-span-3">
+                    <app-strategic-line-chart [data]="strategicLines" ></app-strategic-line-chart>
+                  </div>
+                  <div class="xl:col-span-3">
+                    <div>
+                      <p class="text-sm uppercase text-primary text-center mb-2 font-medium w-full">% de avance del plan de desarrollo</p>
+                      <app-pie-chart [pending]="data?.total_pending_goals" [executed]="data?.total_executed_goals" ></app-pie-chart>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+        </div>
+    </div>
+  </div>
+  <div *ngIf="strategicLineSelected != null && !isLoading " class="w-full bg-gray-50 rounded-xl shadow-lg p-4 mb-6">
+      <div class="flex items-center justify-between mb-5">
+        <div>
+          <p class="text-lg text-primary font-medium uppercase">Sectores</p>
+        </div>
+        <div>
+          <select [(ngModel)]="sectorSelected" (change)="chooseSector()"  name="" class="max-w-80 w-full py-2.5 px-4 bg-primary  rounded-xl text-white" id="">
+            <option [ngValue]=null>Selecciona un sector</option>
+            <option *ngFor="let sL of strategicLineSelected.sectors" [ngValue]="sL">{{sL.name}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-5 grid-cols-1 gap-4">
+          <div class="grid xl:grid-cols-2 grid-cols-1 gap-3 lg:col-span-2">
+            <div>
+              <div class="stat-card h-full bg-white">
+                <div class="flex justify-between items-start mb-7">
+                  <div>
+                    <p class="text-primary font-normal  text-xs mb-8">Ejecutado sectores</p>
+                    <p class="text-black font-bold xl:text-3xl text-xl ">{{strategicLineSelected.total_executed_goals}}%</p>
+                  </div>
+                  <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 text-primary">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
+                    </svg>
+                  </div>
+                </div>
+                <!-- <div class="flex justify-start items-center gap-x-1">
+                  <img src="assets/icons/trending-up.png" alt="">
+                  <p class="text-[#00B69B] font-semibold text-sm ">{{statPercentage}}%</p>
+                  <p class="text-primary font-normal text-sm "> Up from yesterday</p>
+                </div> -->
+              </div>
+
+            </div>
+            <div>
+              <div class="stat-card h-full bg-white">
+                <div class="flex justify-between items-start mb-7">
+                  <div>
+                    <p class="text-primary font-normal  text-xs mb-8">Pendiente por ejecutar</p>
+                    <p class="text-black font-bold xl:text-3xl text-xl ">{{strategicLineSelected.total_pending_goals}}%</p>
+                  </div>
+                  <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 text-primary">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="">
+              <div class="stat-card h-full bg-white">
+                <div class="flex justify-between items-start mb-7">
+                  <div>
+                    <p class="text-primary font-normal  text-xs mb-8">Total  metas</p>
+                    <p class="text-black font-bold xl:text-3xl text-xl ">{{strategicLineSelected.total_goals}}</p>
+                  </div>
+                  <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 text-primary">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="">
+              <div class="stat-card h-full bg-white">
+                <div class="flex justify-between items-start mb-7">
+                  <div>
+                    <p class="text-primary font-normal  text-xs mb-8">Total sectores </p>
+                    <p class="text-black font-bold xl:text-3xl text-xl ">{{strategicLineSelected.total_sectors}}</p>
+                  </div>
+                  <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 text-primary">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
+                    </svg>
+                  </div>
+                </div>
+                <!-- <div class="flex justify-start items-center gap-x-1">
+                  <img src="assets/icons/trending-up.png" alt="">
+                  <p class="text-[#00B69B] font-semibold text-sm ">{{statPercentage}}%</p>
+                  <p class="text-primary font-normal text-sm "> Up from yesterday</p>
+                </div> -->
+              </div>
+
+            </div>
+
+          </div>
+          <div class="lg:col-span-3 col-span-1">
+            <div class="stat-card"  >
+              <app-strategic-line-chart [data]="strategicLineSelected.sectors" ></app-strategic-line-chart>
+            </div>
+          </div>
+      </div>
+  </div>
+
+  <div *ngIf="sectorSelected != null && !isLoading " class="w-full bg-gray-50 rounded-xl shadow-lg p-4 mb-6">
+      <div class="flex items-center justify-between mb-5">
+        <div>
+          <p class="text-lg text-primary font-medium uppercase">Códigos y programas</p>
+        </div>
+        <div>
+          <select [(ngModel)]="codeAndProgramSelected"    name="" class="max-w-80 w-full py-2.5 px-4 bg-primary  rounded-xl text-white" id="">
+            <option [ngValue]=null>Selecciona un código y programa</option>
+            <option *ngFor="let sL of sectorSelected.code_and_programs" [ngValue]="sL">{{sL.description}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-5 grid-cols-1 gap-4">
+          <div class="grid xl:grid-cols-2 grid-cols-1 gap-3 lg:col-span-2">
+            <div>
+              <div class="stat-card h-full bg-white">
+                <div class="flex justify-between items-start mb-7">
+                  <div>
+                    <p class="text-primary font-normal  text-xs mb-8">Ejecutado programas</p>
+                    <p class="text-black font-bold xl:text-3xl text-xl ">{{sectorSelected.total_executed_goals}}%</p>
+                  </div>
+                  <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 text-primary">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
+                    </svg>
+                  </div>
+                </div>
+                <!-- <div class="flex justify-start items-center gap-x-1">
+                  <img src="assets/icons/trending-up.png" alt="">
+                  <p class="text-[#00B69B] font-semibold text-sm ">{{statPercentage}}%</p>
+                  <p class="text-primary font-normal text-sm "> Up from yesterday</p>
+                </div> -->
+              </div>
+
+            </div>
+            <div>
+              <div class="stat-card h-full bg-white">
+                <div class="flex justify-between items-start mb-7">
+                  <div>
+                    <p class="text-primary font-normal  text-xs mb-8">Pendiente por ejecutar</p>
+                    <p class="text-black font-bold xl:text-3xl text-xl ">{{sectorSelected.total_pending_goals}}%</p>
+                  </div>
+                  <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 text-primary">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="">
+              <div class="stat-card h-full bg-white">
+                <div class="flex justify-between items-start mb-7">
+                  <div>
+                    <p class="text-primary font-normal  text-xs mb-8">Total  metas</p>
+                    <p class="text-black font-bold xl:text-3xl text-xl ">{{sectorSelected.total_goals}}</p>
+                  </div>
+                  <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 text-primary">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="">
+              <div class="stat-card h-full bg-white">
+                <div class="flex justify-between items-start mb-7">
+                  <div>
+                    <p class="text-primary font-normal  text-xs mb-8">Total códigos y programas </p>
+                    <p class="text-black font-bold xl:text-3xl text-xl ">{{sectorSelected.total_code_and_programs}}</p>
+                  </div>
+                  <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 text-primary">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
+                    </svg>
+                  </div>
+                </div>
+                <!-- <div class="flex justify-start items-center gap-x-1">
+                  <img src="assets/icons/trending-up.png" alt="">
+                  <p class="text-[#00B69B] font-semibold text-sm ">{{statPercentage}}%</p>
+                  <p class="text-primary font-normal text-sm "> Up from yesterday</p>
+                </div> -->
+              </div>
+
+            </div>
+
+          </div>
+          <div class="lg:col-span-3 col-span-1">
+            <div class="stat-card"  >
+              <app-strategic-line-chart [data]="sectorSelected.code_and_programs" ></app-strategic-line-chart>
+            </div>
+          </div>
+      </div>
+  </div>
+  <div *ngIf="codeAndProgramSelected != null && !isLoading " class="w-full bg-gray-50 rounded-xl shadow-lg p-4 mb-6">
+      <div class="flex items-center justify-between mb-5">
+        <div>
+          <p class="text-lg text-primary font-medium uppercase">Metas</p>
+        </div>
+        <!-- <div>
+          <select [(ngModel)]="goalSelected"   name="" class="max-w-80 w-full py-2.5 px-4 bg-primary  rounded-xl text-white" id="">
+            <option [ngValue]=null>Selecciona un código y programa</option>
+            <option *ngFor="let sL of codeAndProgramSelected.goals" [ngValue]="sL">{{sL.name}}</option>
+          </select>
+        </div> -->
+      </div>
+
+      <div class="grid lg:grid-cols-5 grid-cols-1 gap-4">
+          <div class="grid xl:grid-cols-2 grid-cols-1 gap-3 lg:col-span-2">
+            <div>
+              <div class="stat-card h-full bg-white">
+                <div class="flex justify-between items-start mb-7">
+                  <div>
+                    <p class="text-primary font-normal  text-xs mb-8">Ejecutado programas</p>
+                    <p class="text-black font-bold xl:text-3xl text-xl ">{{codeAndProgramSelected.total_executed_goals}}%</p>
+                  </div>
+                  <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 text-primary">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
+                    </svg>
+                  </div>
+                </div>
+                <!-- <div class="flex justify-start items-center gap-x-1">
+                  <img src="assets/icons/trending-up.png" alt="">
+                  <p class="text-[#00B69B] font-semibold text-sm ">{{statPercentage}}%</p>
+                  <p class="text-primary font-normal text-sm "> Up from yesterday</p>
+                </div> -->
+              </div>
+
+            </div>
+            <div>
+              <div class="stat-card h-full bg-white">
+                <div class="flex justify-between items-start mb-7">
+                  <div>
+                    <p class="text-primary font-normal  text-xs mb-8">Pendiente por ejecutar</p>
+                    <p class="text-black font-bold xl:text-3xl text-xl ">{{codeAndProgramSelected.total_pending_goals}}%</p>
+                  </div>
+                  <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 text-primary">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="xl:col-span-2">
+              <div class="stat-card h-full bg-white">
+                <div class="flex justify-between items-start mb-7">
+                  <div>
+                    <p class="text-primary font-normal  text-xs mb-8">Total  metas</p>
+                    <p class="text-black font-bold xl:text-3xl text-xl ">{{codeAndProgramSelected.total_goals}}</p>
+                  </div>
+                  <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 text-primary">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+          <div class="lg:col-span-3 col-span-1">
+            <div class="stat-card"  >
+              <app-strategic-line-chart [data]="codeAndProgramSelected.goals" ></app-strategic-line-chart>
+            </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="w-full bg-gray-50 rounded-xl shadow-lg p-4 mb-6"  *ngIf="!isLoading">
+    <div class="flex items-center justify-between mb-5">
+      <div>
+        <p class="text-lg text-primary font-medium uppercase">Total de recursos ejecutados en el plan</p>
+      </div>
+    </div>
+    <app-rubric-expense-sum-chart [data]="rubricExpenseSum"></app-rubric-expense-sum-chart>
+  </div>
+  <div *ngIf="isLoading" class="flex justify-center items-center py-6 h-full">
+    <app-loader></app-loader>
+  </div>
+</div>
