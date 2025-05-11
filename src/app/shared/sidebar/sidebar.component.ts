@@ -79,6 +79,12 @@ export class SidebarComponent implements OnInit {
       route:"/dashboard/incomes"
     },
 
+    {
+      label:'PAA',
+      icon:'assets/icons/incomes.svg',
+      route:"/dashboard/PAA"
+    },
+
   ];
 
 

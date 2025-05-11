@@ -1,0 +1,82 @@
+<div>
+  <div class="block bg-white p-3 rounded-xl">
+    <div class="grid lg:grid-cols-2 grid-cols-1 gap-5">
+      <div class="flex items-center gap-10">
+        <p class="text-black font-bold text-base">Plan de adquisición  </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="bg-white rounded-xl mt-10 p-3 py-5">
+
+  <div class=" flow-root">
+    <div  *ngIf="!isLoading" class=" overflow-x-auto mb-4">
+      <div  class="inline-block min-w-full py-2 align-middle ">
+        <table class="min-w-full divide-y divide-gray-300">
+          <thead>
+            <tr class="divide-x divide-gray-200">
+              <th class="text-left text-nowrap py-3 px-3 text-sm font-semibold text-primary">Código UNSPSC</th>
+              <th class="text-left text-nowrap px-3 text-sm font-semibold text-primary">Descripción</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Fecha estimada de inicio de proceso de selección (mes)</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Fecha estimada de presentación de ofertas (mes)</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Duración del contrato (número)</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Duración del contrato (intervalo: días, meses, años)</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Fuente de los recursos</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Valor total estimado</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">ADICION</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Valor estimado en la vigencia actual</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">¿Se requieren vigencias futuras?</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Estado de solicitud de vigencias futuras</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Unidad de contratación (referencia)</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Ubicación</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Nombre del responsable </th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Teléfono del responsable </th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Correo electrónico del responsable </th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">¿Este proceso es susceptible de limitarse a MiPymes?</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">¿Este proceso es susceptible de estructurarse por lotes o segmentos?</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">¿Debe cumplir con invertir mínimo el 30% de los recursos del presupuesto destinados a comprar alimentos, cumpliendo con lo establecido en la Ley 2046 de 2020, reglamentada por el Decreto 248 de 2021?</th>
+              <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">¿El contrato incluye el suministro de bienes y servicios distintos a alimentos?</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200 bg-white">
+              <tr *ngFor="let a of Acquisitions" class="cursor-pointer hover:bg-gray-100 divide-x divide-y divide-gray-200" >
+
+                <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.code_UNSPSC  }}</td>
+                <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.description }}</td>
+                <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.start_date }}</td>
+                <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.estimated_date_presentation }}</td>
+                <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.duration_contract }}</td>
+                <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.type_duration }}</td>
+                <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.type_source_resource }}</td>
+                <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.total_estimated_value}}</td>
+                <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.additional }}</td>
+                <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.estimated_value__current_period}}</td>
+                <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.future_vigencies_required }}</td>
+                <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.status_request_future_vigencias }}</td>
+                <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.contracting_unit }}</td>
+                <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.location }}</td>
+                <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.responsible_name }}</td>
+                <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.responsible_phone}}</td>
+                <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.responsible_email }}</td>
+                <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.answerIs_this_process_likely_to_be_limited_to_MSMEs }}</td>
+                <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.Can_this_process_be_structured_in_batches_or_segments }}</td>
+                <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.Must_invest_30_percent_in_local_food_purchases }}</td>
+                <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
+                  <span *ngFor="let x of a.does_the_contract_include_the_supply_of_goods_and_services_other_than_food">{{x}} </span>
+                </td>
+
+              </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="flex justify-center items-center py-5" *ngIf="isLoading">
+      <app-loader></app-loader>
+    </div>
+
+  </div>
+</div>
+
+

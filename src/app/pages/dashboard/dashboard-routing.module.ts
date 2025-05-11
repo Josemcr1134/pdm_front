@@ -74,6 +74,11 @@ const routes: Routes = [
         // canActivate:[AuthGuard]
       },
       {
+        path: 'PAA',
+        loadChildren: () => import('./paa/paa.module').then(m => m.PAAModule)
+        // canActivate:[AuthGuard]
+      },
+      {
         path:'**',
         redirectTo:'metricsBoard',
         pathMatch:'full'
