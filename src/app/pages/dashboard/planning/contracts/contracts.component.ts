@@ -9,6 +9,7 @@ import { LoaderComponent } from '../../../../shared/loader/loader.component';
 import { SourceFinancingService } from '../../../../core/services/sourceFinancing/source-financing.service';
 import { AuthService } from '../../../../core/services/auth/auth.service';
 import Swal from 'sweetalert2';
+import { ContractFormComponent } from '../../../../shared/contract-form/contract-form.component';
 
 @Component({
   selector: 'app-contracts',
@@ -19,7 +20,8 @@ import Swal from 'sweetalert2';
     PaginationComponent,
     LoaderComponent,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    ContractFormComponent
   ],
   templateUrl: './contracts.component.html',
   styleUrl: './contracts.component.css'
@@ -29,17 +31,7 @@ export class ContractsComponent implements OnInit {
   public years:any;
   public goalId:string ='';
   public showAddContractModal:boolean = false;
-  public contractExecutionLimit:number = 10;
-  public contractExecutionOffset:number = 0;
-  public modalityLimit:number = 40;
-  public modalityOffset:number = 0;
-  public catalogProductLimit:number = 100;
-  public catalogProductOffset:number = 0;
-  public contractExecutions:{
-    code:string,
-    id:string,
-    name:string
-  }[] = [];
+
   public catalogProducts:any[] = [];
   public modalities:any[] = [];
   public catalogProductsSelected:any[] = [];
@@ -48,10 +40,7 @@ export class ContractsComponent implements OnInit {
   public contracts:any[] = [];
   public contractsLimit:number = 10;
   public contractsOffset:number = 0;
-  public productMgaCode:string = '';
-  public searchCatalogProducts:string = '';
-  public searchCatalogWellness:string = '';
-  contractForm!: FormGroup;
+
   public isLoading:boolean = false;
   public showAddSourceModal:boolean = false;
   public contractSelected:any;
@@ -63,6 +52,7 @@ export class ContractsComponent implements OnInit {
   public sourcesFinancing:any[] = [];
   public contractSourceValue:number = 0;
   public companyUser:string = '';
+  public productMgaCode:string = '';
    constructor(private authSvc:AuthService, private sourceFinancingSvc:SourceFinancingService, private alertSvc:AlertsService, private pdmSvc:PlanningService, private activatedRoute:ActivatedRoute, private fb: FormBuilder){}
 
 
@@ -73,22 +63,9 @@ export class ContractsComponent implements OnInit {
       this.productMgaCode = params.codeProductMga;
     });
     this.getYears();
-    this.getContractExecutionUnit();
-    this.getProductsContracts();
-    this.getModality();
-    this.getWellnessCatalogue();
     this.getUser();
     this.getSourceFinancing();
-    this.contractForm = this.fb.group({
-      object: ['', Validators.required],
-      modality: ['', Validators.required],
-      start_date: ['', Validators.required],
-      end_date: ['', Validators.required],
-      year: [new Date().getFullYear(), [Validators.required, Validators.min(1900), Validators.max(32767)]],
-      goal: ['', Validators.required],
-      executing_unit: ['', Validators.required]
-    });
-    this.contractForm.get('goal')?.setValue(this.goalId);
+    this.getModality();
   }
 
 
@@ -102,7 +79,6 @@ export class ContractsComponent implements OnInit {
           },
           next:(resp:any) => {
             this.years = resp;
-            this.contractForm.get('year')?.setValue(resp.first_year);
             this.yearSelected = resp.first_year;
             this.isLoading = !this.isLoading
             this.getContracts();
@@ -110,123 +86,21 @@ export class ContractsComponent implements OnInit {
         });
   };
 
-  getContractExecutionUnit(){
-    this.pdmSvc.getContractExecutionUnits(this.contractExecutionLimit, this.contractExecutionOffset)
-        .subscribe({
-          error:(err:any) => {
-            console.log(err);
-          },
-          next:(resp:any) => {
-            console.log(resp);
-            this.contractExecutions = resp.results;
-          }
-        });
-  };
-
-  onPaginateContractExecution(event:number){
-    this.contractExecutionOffset = event;
-    this.getContractExecutionUnit();
-  };
-
-  getProductsContracts(){
-     this.pdmSvc.getCatalogProduct(this.productMgaCode, this.catalogProductLimit, this.catalogProductOffset , this.searchCatalogProducts)
-        .subscribe({
-          error:(err:any) => {
-            console.log(err);
-          },
-          next:(resp:any) => {
-            console.log(resp);
-            this.catalogProducts = resp.results;
-          }
-        })
-  };
-
-  chooseProduct(id:string, description:string){
-    const productSelected = this.catalogProductsSelected.find ( p => p.id == id)
-    if (productSelected) {
-      Swal.fire('Ooops', 'Producto ya fue seleccionado', 'info')
-    } else {
-
-      this.catalogProductsSelected.push({id:id, description:description});
-    }
-  };
-
-  chooseWellnessCatalogue(id:string, code:string, name:string){
-    const productSelected = this.wellnessCatalogueSelected.find ( p => p.id == id)
-    if (productSelected) {
-      Swal.fire('Ooops', 'Item del catálogo UNSPC ya fue seleccionado', 'info')
-    } else {
-      this.wellnessCatalogueSelected.push({id:id, code:code, name:name});
-    }
-  };
-
   getModality(){
-      this.pdmSvc.getModality(this.modalityLimit, this.modalityOffset)
-          .subscribe({
-            error:(err:any) => {
-              console.log(err);
-            },
-            next:(resp:any) => {
-              console.log(resp)
-              this.modalities = resp.results;
-            }
-          });
-  };
-
-  getWellnessCatalogue(){
-    this.pdmSvc.getWellnessCatalogue(10, 0, this.searchCatalogWellness)
+    this.pdmSvc.getModality(1000, 0 )
         .subscribe({
           error:(err:any) => {
             console.log(err);
           },
           next:(resp:any) => {
             console.log(resp)
-            this.wellnessCatalogue = resp.results;
+            this.modalities = resp.results;
           }
         });
   };
 
-  createContract(){
-    const data = {
-     contract: this.contractForm.value,
-      contract_unspsc: this.wellnessCatalogueSelected.map( item =>  {
-        return {
-          wellness_classification: item.id
-        }
-      }) ,
-      contract_product_contracted: this.catalogProductsSelected.map(item =>  {
-        return {
-          product_contracted: item.id
-        }
-      })
-    };
 
-    if (this.contractForm.valid && this.wellnessCatalogueSelected.length && this.catalogProductsSelected.length) {
-          this.isLoading = !this.isLoading;
-          this.pdmSvc.createContract(data)
-              .subscribe({
-                error:(err:any) => {
-                  console.log(err);
-                  this.alertSvc.handleErrors(err);
-                },
-                next:(resp:any) => {
-                  console.log(resp)
-                  this.alertSvc.currentAlert('Éxito', 'Contrato generado', 'success');
-                  this.contractForm.reset();
-                  this.wellnessCatalogueSelected = [];
-                  this.catalogProductsSelected = [];
-                  this.showAddContractModal = false;
-                  this.isLoading = !this.isLoading;
-                  this.getContracts();
-                }
-              });
-
-    } else {
-      this.alertSvc.currentAlert('', 'Todos los campos son requeridos', 'info');
-    };
-  };
-
-  getContracts(){
+  getContracts(event:boolean = false){
     this.isLoading = !this.isLoading;
     this.pdmSvc.getContracts(this.contractsLimit, this.contractsOffset,this.yearSelected, this.goalId)
         .subscribe({
@@ -237,6 +111,7 @@ export class ContractsComponent implements OnInit {
             next:(resp:any) => {
               this.contracts = resp.results;
               console.log(resp)
+              this.showAddContractModal = false;
               this.isLoading = !this.isLoading;
             }
         });
@@ -337,8 +212,6 @@ export class ContractsComponent implements OnInit {
           });
   };
 
-
-
   downloadProduct(productId:string){
     this.isLoading = !this.isLoading;
     const data = {
@@ -388,7 +261,6 @@ export class ContractsComponent implements OnInit {
           }
         })
   };
-
 
   updateContract(){
     this.isLoading = !this.isLoading;

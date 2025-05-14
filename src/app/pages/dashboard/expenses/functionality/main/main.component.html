@@ -98,6 +98,11 @@
                 <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ item.total_attributes.balance | currency }}</td>
                 <td class="whitespace-nowrap px-3 text-sm text-gray-500">
                   <button *ngIf="!item.children.length" class="text-blue-600 hover:text-blue-900">✏️</button>
+                  <button (click)="showContractModal = true" *ngIf="item.is_need_contract">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-green-400">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                  </button>
                 </td>
               </tr>
               <!-- Renderizar hijos -->
@@ -145,6 +150,11 @@
               <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.balance | currency}}</td>
               <td class="whitespace-nowrap px-3 text-sm text-gray-500">
                 <button (click)="selectItem(child)" *ngIf="!child.children.length" class="text-blue-600 hover:text-blue-900">✏️</button>
+                <button (click)="showContractModal = true" *ngIf="child.is_need_contract">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-green-400">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                  </svg>
+                </button>
               </td>
             </tr>
             <!-- Recursividad para subniveles -->
@@ -185,7 +195,9 @@
               <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.accumulated_payments  | currency}}</td>
               <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.obligations  | currency}}</td>
               <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ s.balance  | currency}}</td>
-              <td class="whitespace-nowrap px-3 text-sm text-gray-500">- </td>
+              <td class="whitespace-nowrap px-3 text-sm text-gray-500">
+                  -
+              </td>
             </tr>
           </ng-container>
         </ng-template>
@@ -198,3 +210,6 @@
 </div>
 
 <app-detail [data]="expenseSelected" (close)="refresh()" *ngIf="showExpenseDetail"></app-detail>
+
+
+<app-contract-form [goalId]="null" *ngIf="showContractModal" (close)="getExpenses()" > </app-contract-form>

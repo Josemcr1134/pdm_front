@@ -10,8 +10,8 @@ export class PaaService {
   constructor(private http:HttpClient, private authSvc:AuthService) { }
 
 
-  getAcquisitionsContracts(){
-    const url = `${this.authSvc.baseUrl}/contracts/acquisitions/`;
+  getAcquisitionsContracts(year:number){
+    const url = `${this.authSvc.baseUrl}/contracts/acquisitions/?year=${year}`;
     return this.http.get(url, this.authSvc.header);
   };
 }

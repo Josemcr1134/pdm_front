@@ -16,6 +16,7 @@ export class MainComponent implements OnInit {
   public executionCode:string = '';
   public expenseSelected:any;
   public showExpenseDetail:boolean = false;
+  public showContractModal:boolean = false;
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params:any) => {
       this.year = params.year;
@@ -37,6 +38,7 @@ export class MainComponent implements OnInit {
             this.expenses = resp.operating_expenses;
             console.log(this.expenses)
             this.isLoading = !this.isLoading;
+            this.showContractModal= false;
           }
         })
   };
