@@ -79,6 +79,11 @@ const routes: Routes = [
         // canActivate:[AuthGuard]
       },
       {
+        path: 'secop',
+        loadChildren: () => import('./secop/secop.module').then(m => m.SecopModule)
+        // canActivate:[AuthGuard]
+      },
+      {
         path:'**',
         redirectTo:'metricsBoard',
         pathMatch:'full'

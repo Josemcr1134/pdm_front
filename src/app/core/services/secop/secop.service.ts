@@ -1,0 +1,28 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { AuthService } from '../auth/auth.service';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class SecopService {
+
+  constructor(private http:HttpClient, private authSvc:AuthService) { }
+
+  getSecopList(fecha_de_firma_del_contrato:any, limit:number, offset:number){
+    let params = new HttpParams();
+    if (fecha_de_firma_del_contrato) {
+      params = params.set('fecha_de_firma_del_contrato', fecha_de_firma_del_contrato);
+    }
+    if (limit) {
+      params = params.set('limit', limit);
+    }
+    if (offset) {
+      params = params.set('offset', offset);
+    }
+
+    const url = `${this.authSvc.baseUrl}/secop/secop-data/`;
+    return this.http.get(url, { headers: this.authSvc.header.headers, params });
+  }
+
+}

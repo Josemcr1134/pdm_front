@@ -82,6 +82,11 @@ export class MobileMenuComponent {
       icon:'assets/icons/incomes.svg',
       route:"/dashboard/PAA"
     },
+    {
+      label:'SECOP',
+      icon:'assets/icons/incomes.svg',
+      route:"/dashboard/secop"
+    }
 
   ]
 

@@ -1,0 +1,92 @@
+<div>
+  <div class="block bg-white p-3 rounded-xl">
+    <div class="grid lg:grid-cols-2 grid-cols-1 gap-5">
+      <div class="flex items-center gap-10">
+        <p class="text-black font-bold text-base">SECOP </p>
+        <div class="grid grid-cols-1">
+          <select (change)="getSecopList()" [(ngModel)]="year"  aria-label="Select a tab" class="col-start-1 row-start-1 w-24 appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600">
+            <option [value]="Years?.first_year">{{Years?.first_year}}</option>
+            <option [value]="Years?.second_year">{{Years?.second_year}}</option>
+            <option [value]="Years?.third_year">{{Years?.third_year}}</option>
+            <option [value]="Years?.fourth_year">{{Years?.fourth_year}}</option>
+          </select>
+          <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end fill-gray-500" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
+            <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="bg-white rounded-xl mt-10 p-3 py-5">
+
+  <div class=" flow-root">
+    <div  *ngIf="!isLoading" class=" overflow-x-auto mb-4">
+      <div *ngIf="Secop.length"  class="inline-block min-w-full py-2 align-middle ">
+        <table class="min-w-full divide-y divide-gray-300">
+          <thead>
+            <tr class="divide-x divide-gray-200">
+              <th class="text-left text-nowrap py-3 px-3 text-sm font-semibold text-primary">Número del contrato</th>
+              <th class="text-left text-nowrap px-3 text-sm font-semibold text-primary">Número de proceso</th>
+              <th class="text-left text-nowrap px-3 text-sm font-semibold text-primary">Estado del proceso</th>
+              <th class="text-left text-nowrap px-3 text-sm font-semibold text-primary">Fecha de firma del contrato</th>
+              <th class="text-left text-nowrap px-3 text-sm font-semibold text-primary">Fecha fin de ejecución</th>
+              <th class="text-left text-nowrap px-3 text-sm font-semibold text-primary">Modalidad de contratación</th>
+              <th class="text-left text-nowrap px-3 text-sm font-semibold text-primary">Tipo de contrato</th>
+              <th class="text-left text-nowrap px-3 text-sm font-semibold text-primary">Objeto a contratar</th>
+              <th class="text-left text-nowrap px-3 text-sm font-semibold text-primary">Valor del contrato</th>
+              <th class="text-left text-nowrap px-3 text-sm font-semibold text-primary">Contratista</th>
+              <th class="text-left text-nowrap px-3 text-sm font-semibold text-primary">Tipo documento proveedor</th>
+              <th class="text-left text-nowrap px-3 text-sm font-semibold text-primary">Documento proveedor</th>
+              <th class="text-left text-nowrap px-3 text-sm font-semibold text-primary">Nombre de la entidad</th>
+              <th class="text-left text-nowrap px-3 text-sm font-semibold text-primary">NIT de la entidad</th>
+              <th class="text-left text-nowrap px-3 text-sm font-semibold text-primary">Código entidad en SECOP</th>
+              <th class="text-left text-nowrap px-3 text-sm font-semibold text-primary">Nivel de entidad</th>
+              <th class="text-left text-nowrap px-3 text-sm font-semibold text-primary">Departamento</th>
+              <th class="text-left text-nowrap px-3 text-sm font-semibold text-primary">Municipio</th>
+              <th class="text-left text-nowrap px-3 text-sm font-semibold text-primary">Origen</th>
+              <th class="text-left text-nowrap px-3 text-sm font-semibold text-primary">URL del contrato</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200 bg-white">
+            <tr *ngFor="let a of Secop" class="cursor-pointer hover:bg-gray-100 divide-x divide-gray-200">
+              <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.numero_del_contrato }}</td>
+              <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.numero_de_proceso }}</td>
+              <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.estado_del_proceso }}</td>
+              <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.fecha_de_firma_del_contrato | date }}</td>
+              <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.fecha_fin_ejecuci_n | date }}</td>
+              <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.modalidad_de_contrataci_n }}</td>
+              <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.tipo_de_contrato }}</td>
+              <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.objeto_a_contratar }}</td>
+              <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.valor_contrato | currency:'COP' }}</td>
+              <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.nom_raz_social_contratista }}</td>
+              <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.tipo_documento_proveedor }}</td>
+              <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.documento_proveedor }}</td>
+              <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.nombre_de_la_entidad }}</td>
+              <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.nit_de_la_entidad }}</td>
+              <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.codigo_entidad_en_secop }}</td>
+              <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.nivel_entidad }}</td>
+              <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.departamento_entidad }}</td>
+              <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.municipio_entidad }}</td>
+              <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.origen }}</td>
+              <td class="whitespace-nowrap px-3 py-2 text-sm text-blue-600 underline">
+                <a [href]="a.url_contrato" target="_blank">Ver contrato</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+      <app-alert [msg]="'No encontramos resultados'" *ngIf="!Secop.length"></app-alert>
+      <app-pagination [limit]="limit" [offset]="offset" [totalItems]="offset + Secop.length * 2 " (onPageChange)="onPageChange($event)" ></app-pagination>
+    </div>
+    <div class="flex justify-center items-center py-5" *ngIf="isLoading">
+      <app-loader></app-loader>
+    </div>
+
+  </div>
+</div>
+
+

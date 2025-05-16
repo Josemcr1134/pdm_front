@@ -51,6 +51,7 @@ export class ContractsComponent implements OnInit {
   public searchSources:string = '';
   public sourcesFinancing:any[] = [];
   public contractSourceValue:number = 0;
+  public contractSourceAdditionValue:number = 0;
   public companyUser:string = '';
   public productMgaCode:string = '';
    constructor(private authSvc:AuthService, private sourceFinancingSvc:SourceFinancingService, private alertSvc:AlertsService, private pdmSvc:PlanningService, private activatedRoute:ActivatedRoute, private fb: FormBuilder){}
@@ -132,6 +133,7 @@ export class ContractsComponent implements OnInit {
           },
           next:(resp:any) => {
             this.contractSelected = resp;
+            console.log(this.contractSelected)
             this.contractSelected.products_contracted.forEach( (p:any) => {
               p.product_contracted.catalogue_ccpet.isCollapsed = false;
               p.product_contracted.catalogue_central.isCollapsed = false;
@@ -155,7 +157,8 @@ export class ContractsComponent implements OnInit {
     const data = {
       contract_product_contracted: this.productSelected,
       source_financing: this.sourceSelected.id,
-      value: this.contractSourceValue
+      value: this.contractSourceValue,
+      additional_value: this.contractSourceAdditionValue
     };
 
     this.isLoading = !this.isLoading;
@@ -290,7 +293,9 @@ export class ContractsComponent implements OnInit {
 
   updateResponsableUser(){
     const data = {
-      name_responsible: this.contractSelected.name_responsible
+      name_responsible: this.contractSelected.name_responsible,
+      responsible_email: this.contractSelected.responsible_email,
+      responsible_phone: this.contractSelected.responsible_phone
     };
     this.isLoading = !this.isLoading;
     this.pdmSvc.updateResponsableUser(data, this.companyUser)
@@ -301,7 +306,7 @@ export class ContractsComponent implements OnInit {
             this.isLoading = !this.isLoading;
           },
           next:(resp:any) => {
-            console.log(resp)
+            console.log(data)
             this.alertSvc.currentAlert('Éxito', 'Responsable actualizado', 'success');
             this.isLoading = !this.isLoading;
             this.getContractById(this.contractSelected.id);
@@ -317,21 +322,20 @@ export class ContractsComponent implements OnInit {
             console.log(err);
           },
           next:(resp:any) => {
-            console.log(resp)
             this.companyUser = resp.company.id;
           }
         });
   };
 
   getTotalForSelectedArray(array: any[]): number {
-    return array.reduce((acc: number, item: any) => acc + (item.value || 0), 0);
+    return array.reduce((acc: number, item: any) => acc + (item.value + item.additional_value || 0), 0);
   }
 
   getTotalFor(): number {
     return this.contractSelected.products_contracted.reduce((acc: number, item: any) => {
       const total = item?.contract_product_contracted_source_financing?.reduce(
 
-        (sum: number, source: any) => sum + (source.value || 0),
+        (sum: number, source: any) => sum + (source.value + source.additional_value || 0),
         0
       );
       return acc + (total || 0);

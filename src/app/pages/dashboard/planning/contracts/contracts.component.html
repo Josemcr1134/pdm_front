@@ -79,6 +79,28 @@
               </textarea>
             </div>
             <div class="col-span-1">
+              <label class="block mb-1 text-sm font-medium text-primary truncate">Email del supervisor</label>
+              <textarea
+                rows="2"
+                [(ngModel)]="contractSelected.responsible_email"
+                (keydown.enter)="updateResponsableUser()"
+                placeholder="Ingresa el nombre del supervisor"
+                class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+              >
+              </textarea>
+            </div>
+            <div class="col-span-1">
+              <label class="block mb-1 text-sm font-medium text-primary truncate">Teléfono del supervisor</label>
+              <textarea
+                rows="2"
+                [(ngModel)]="contractSelected.responsible_phone"
+                (keydown.enter)="updateResponsableUser()"
+                placeholder="Ingresa el nombre del supervisor"
+                class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+              >
+              </textarea>
+            </div>
+            <div class="col-span-1">
               <label class="block mb-1 text-sm font-medium text-primary truncate">Fecha Contrato</label>
               <textarea
                 rows="2"
@@ -502,7 +524,7 @@
                   <ul class="bg-purple-100 rounded-xl w-full max-h-60 overflow-y-scroll divide-y divide-purple-700">
                     <li *ngFor="let pc of p.contract_product_contracted_source_financing" class="mb-2 w-auto flex items-center justify-between">
                         <p class="p-2 text-xs cursor-pointer font-normal text-purple-700 hover:bg-purple-100 ">
-                          {{pc.source_financing.code  }} - {{pc.source_financing.name  }} - {{pc.value | currency}}
+                          {{pc.source_financing.code  }} - {{pc.source_financing.name  }} - {{pc.value + pc.additional_value | currency}}
                         </p>
                         <button (click)="deleteSourceFinancing(pc.id)">
                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 text-red-500 hover:text-red-700">
@@ -569,6 +591,10 @@
                 <div class="mt-3">
                   <p class="text-primary font-normal text-sm">Valor</p>
                   <input  [(ngModel)]="contractSourceValue"  type="number" class="block w-full mb-2 rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600" name="search-products" placeholder="Buscar productos"  id="">
+                </div>
+                <div class="mt-3">
+                  <p class="text-primary font-normal text-sm">Valor Adicional</p>
+                  <input  [(ngModel)]="contractSourceAdditionValue"  type="number" class="block w-full mb-2 rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600" name="search-products" placeholder="Buscar productos"  id="">
                 </div>
 
               </div>
