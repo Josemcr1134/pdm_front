@@ -10,6 +10,7 @@ import { PlanningService } from '../../../../core/services/planning/planning.ser
 export class ListComponent implements OnInit {
   public year:number = 2025;
   public limit:number = 10;
+  public totalItems:number = 0;
   public offset:number = 0;
   public search:string = '';
   public isLoading:boolean = false;
@@ -31,8 +32,8 @@ export class ListComponent implements OnInit {
               this.isLoading = !this.isLoading;
             },
             next:(resp:any) => {
-              console.log(resp);
-              this.Secop = resp;
+              this.Secop = resp.results;
+              this.totalItems = resp.count;
               this.isLoading = !this.isLoading;
             }
           })
