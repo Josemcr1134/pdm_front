@@ -97,13 +97,13 @@ export class ContractFormComponent implements OnInit{
 
   createContract(){
     const data = {
-     contract: this.contractForm.value,
+     contract: {...this.contractForm.value,   product_classifications: this.productClasificationSelected[0].id},
       contract_unspsc: this.wellnessCatalogueSelected.map( item =>  {
         return {
           wellness_classification: item.id
         }
       }) ,
-      product_classifications: this.productClasificationSelected[0].id ,
+
       contract_product_contracted: this.catalogProductsSelected.map(item =>  {
         return {
           product_contracted: item.id
@@ -247,14 +247,14 @@ export class ContractFormComponent implements OnInit{
   };
 
   getProductClassification(){
-    this.pdmSvc.getProductClasification('')
+    this.pdmSvc.getProductClasification(this.searchProductClasification)
         .subscribe({
           error:(err:any) => {
             console.log(err);
           },
           next:(resp:any) => {
             console.log(resp)
-            this.productClasification = resp.results
+            this.productClasification = resp
           }
         })
   }

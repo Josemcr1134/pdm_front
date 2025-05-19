@@ -176,7 +176,7 @@ export class PlanningService {
   };
 
   getProductClasification(search:string){
-    const url = `${this.authSvc.baseUrl}/contracts/product-classification/?limit=200&offset=0`;
+    const url = `${this.authSvc.baseUrl}/contracts/product-classification/search/?search=${search}`;
     return this.http.get(url, this.authSvc.header);
   };
 }
