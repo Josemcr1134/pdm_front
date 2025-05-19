@@ -29,7 +29,9 @@
           <thead>
             <tr class="divide-x divide-gray-200">
               <th class="text-left text-nowrap py-3 px-3 text-sm font-semibold text-primary">Código UNSPSC</th>
+              <th class="text-left text-nowrap py-3 px-3 text-sm font-semibold text-primary">Código Clase</th>
               <th class="text-left text-nowrap px-3 text-sm font-semibold text-primary">Descripción</th>
+              <th class="text-left text-nowrap px-3 text-sm font-semibold text-primary">Código producto</th>
               <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Fecha estimada de inicio de proceso de selección (mes)</th>
               <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Fecha estimada de presentación de ofertas (mes)</th>
               <th scope="col" class="text-nowrap px-3 py-3.5 text-left text-sm font-semibold text-primary">Duración del contrato (número)</th>
@@ -55,7 +57,9 @@
               <tr *ngFor="let a of Acquisitions" class="cursor-pointer hover:bg-gray-100 divide-x divide-y divide-gray-200" >
 
                 <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.code_UNSPSC  }}</td>
+                <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.code_classification  }}</td>
                 <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.description }}</td>
+                <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.code_product_classification  }}</td>
                 <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.start_date }}</td>
                 <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.estimated_date_presentation }}</td>
                 <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{{ a.duration_contract }}</td>

@@ -174,4 +174,9 @@ export class PlanningService {
     const url = `${this.authSvc.baseUrl}/company/${id}/`;
     return this.http.patch(url, data, this.authSvc.header);
   };
+
+  getProductClasification(search:string){
+    const url = `${this.authSvc.baseUrl}/contracts/product-classification/?limit=200&offset=0`;
+    return this.http.get(url, this.authSvc.header);
+  };
 }
