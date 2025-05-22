@@ -30,7 +30,6 @@ export class ContractFormComponent implements OnInit{
   public modalities:any[] = [];
   public catalogProductsSelected:any[] = [];
   public wellnessCatalogueSelected:any[] = [];
-  public productClasificationSelected:any[] = [];
   public wellnessCatalogue:any[] = [];
   public searchCatalogProducts:string = '';
   public searchCatalogWellness:string = '';
@@ -45,12 +44,7 @@ export class ContractFormComponent implements OnInit{
     id:string,
     name:string
   }[] = [];
-  public productClasification:{
-    code:string,
-    id:string,
-    name:string,
-    classification:any
-  }[] = [];
+
 
   public contractExecutionLimit:number = 10;
   public contractExecutionOffset:number = 0;
@@ -92,12 +86,11 @@ export class ContractFormComponent implements OnInit{
     this.getProductsContracts();
     this.getModality();
     this.getWellnessCatalogue();
-    this.getProductClassification();
   }
 
   createContract(){
     const data = {
-     contract: {...this.contractForm.value,   product_classifications: this.productClasificationSelected[0].id},
+     contract: {...this.contractForm.value},
       contract_unspsc: this.wellnessCatalogueSelected.map( item =>  {
         return {
           wellness_classification: item.id
@@ -199,17 +192,7 @@ export class ContractFormComponent implements OnInit{
       this.wellnessCatalogueSelected.push({id:id, code:code, name:name});
     }
   };
-  chooseProductClasification(id:string, code:string, name:string){
-    const productSelected = this.productClasificationSelected.find ( p => p.id == id)
-    if (productSelected) {
-      Swal.fire('Ooops', 'Item de la clasificación de productos ya fue seleccionado', 'info')
-    } else if (this.productClasificationSelected.length > 0) {
-      this.productClasificationSelected[0] = {id:id, code:code, name:name};
 
-    } else{
-      this.productClasificationSelected.push({id:id, code:code, name:name});
-    }
-  };
 
   getProductsContracts(){
     this.pdmSvc.getCatalogProduct(this.productMgaCode, this.catalogProductLimit, this.catalogProductOffset , this.searchCatalogProducts)
@@ -246,16 +229,5 @@ export class ContractFormComponent implements OnInit{
     this.close.emit(true)
   };
 
-  getProductClassification(){
-    this.pdmSvc.getProductClasification(this.searchProductClasification)
-        .subscribe({
-          error:(err:any) => {
-            console.log(err);
-          },
-          next:(resp:any) => {
-            console.log(resp)
-            this.productClasification = resp
-          }
-        })
-  }
+
 }

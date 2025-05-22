@@ -68,7 +68,11 @@ export class PlanningService {
   };
 
   getCatalogProduct(code:string, limit:number, offset:number, search:string){
-    const url = `${this.authSvc.baseUrl}/catalogue/product-mga/?limit=${limit}&offset=${offset}&code_mga=${code}&search=${search}`;
+     let params = new HttpParams();
+    if (code !== undefined && code !== null) {
+      params = params.set('code_mga', code);
+    }
+    const url = `${this.authSvc.baseUrl}/catalogue/product-mga/?limit=${limit}&offset=${offset}&search=${search}`;
     return this.http.get(url, this.authSvc.header)
   };
 
