@@ -62,7 +62,6 @@ export class ContractFormComponent implements OnInit{
       executing_unit: [null, Validators.required],
       estimated_date_presentation: [null,  [Validators.required]],
       type_duration: ['', Validators.required],
-      duration_contract: [null, [Validators.required, Validators.pattern(/^\d+$/)]],
       type_source_resource: [null, [Validators.required, Validators.pattern(/^\d+$/)]],
       contracting_unit: ['', Validators.required],
       future_vigencies_required: ['', Validators.required],
@@ -71,8 +70,6 @@ export class ContractFormComponent implements OnInit{
       can_this_process_be_structured_in_batches_or_segments: ['', Validators.required],
       must_invest_30_percent_in_local_food_purchases: ['', Validators.required],
       does_the_contract_include_the_supply_of_goods_and_services_other_than_food: ['', Validators.required],
-      responsible_phone: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
-      responsible_email: ['', [Validators.required, Validators.email]],
     });
   }
 
@@ -90,12 +87,12 @@ export class ContractFormComponent implements OnInit{
 
   createContract(){
     const data = {
-     contract: {...this.contractForm.value},
-      contract_unspsc: this.wellnessCatalogueSelected.map( item =>  {
+     contract: {...this.contractForm.value, product_classification: this.wellnessCatalogueSelected.map( item =>  {
         return {
           wellness_classification: item.id
         }
-      }) ,
+      })
+      },
 
       contract_product_contracted: this.catalogProductsSelected.map(item =>  {
         return {
