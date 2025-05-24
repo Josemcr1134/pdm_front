@@ -64,7 +64,6 @@ export class ContractFormComponent implements OnInit{
       type_duration: ['', Validators.required],
       type_source_resource: [null, [Validators.required, Validators.pattern(/^\d+$/)]],
       contracting_unit: ['', Validators.required],
-      future_vigencies_required: ['', Validators.required],
 
     });
   }
