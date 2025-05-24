@@ -82,7 +82,7 @@ export class PlanningService {
   };
 
   getWellnessCatalogue(limit:number, offset: number, search:string){
-    const url = `${this.authSvc.baseUrl}/contracts/product-classification/?limit=${limit}&offset=${offset}&search=${search}`;
+    const url = `${this.authSvc.baseUrl}/contracts/product-classification/search/?limit=${limit}&offset=${offset}&search=${search}`;
     return this.http.get(url, this.authSvc.header);
   };
 

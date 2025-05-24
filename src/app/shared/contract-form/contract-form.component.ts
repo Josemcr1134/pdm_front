@@ -65,11 +65,7 @@ export class ContractFormComponent implements OnInit{
       type_source_resource: [null, [Validators.required, Validators.pattern(/^\d+$/)]],
       contracting_unit: ['', Validators.required],
       future_vigencies_required: ['', Validators.required],
-      status_request_future_vigencias: ['', Validators.required],
-      answer_is_this_process_likely_to_be_limited_to_msm_es: ['', Validators.required],
-      can_this_process_be_structured_in_batches_or_segments: ['', Validators.required],
-      must_invest_30_percent_in_local_food_purchases: ['', Validators.required],
-      does_the_contract_include_the_supply_of_goods_and_services_other_than_food: ['', Validators.required],
+
     });
   }
 
@@ -87,11 +83,7 @@ export class ContractFormComponent implements OnInit{
 
   createContract(){
     const data = {
-     contract: {...this.contractForm.value, product_classification: this.wellnessCatalogueSelected.map( item =>  {
-        return {
-          wellness_classification: item.id
-        }
-      })
+     contract: {...this.contractForm.value, product_classifications: this.wellnessCatalogueSelected.map( item =>item.id )
       },
 
       contract_product_contracted: this.catalogProductsSelected.map(item =>  {
