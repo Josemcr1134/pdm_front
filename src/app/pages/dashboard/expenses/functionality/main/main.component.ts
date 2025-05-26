@@ -14,6 +14,7 @@ export class MainComponent implements OnInit {
   public expenses:any[] = [];
   public year:string = '';
   public executionCode:string = '';
+  public operatingExpenseSelected:string = '';
   public expenseSelected:any;
   public showExpenseDetail:boolean = false;
   public showContractModal:boolean = false;
@@ -104,4 +105,9 @@ export class MainComponent implements OnInit {
       }
     };
   };
+
+  addContract(id:string){
+    this.operatingExpenseSelected = id;
+    this.showContractModal = true
+  }
 }

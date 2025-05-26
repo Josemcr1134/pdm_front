@@ -150,7 +150,7 @@
               <td class="whitespace-nowrap px-3 text-sm text-gray-500">{{ child.total_attributes.balance | currency}}</td>
               <td class="whitespace-nowrap px-3 text-sm text-gray-500">
                 <button (click)="selectItem(child)" *ngIf="!child.children.length" class="text-blue-600 hover:text-blue-900">✏️</button>
-                <button (click)="showContractModal = true" *ngIf="child.is_need_contract">
+                <button (click)="addContract(child.id)" *ngIf="child.is_need_contract">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-green-400">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                   </svg>
@@ -212,4 +212,4 @@
 <app-detail [data]="expenseSelected" (close)="refresh()" *ngIf="showExpenseDetail"></app-detail>
 
 
-<app-contract-form [goalId]="null" *ngIf="showContractModal" (close)="getExpenses()" > </app-contract-form>
+<app-contract-form [goalId]="null" [operatingExpense]="operatingExpenseSelected" *ngIf="showContractModal" (close)="getExpenses()" > </app-contract-form>

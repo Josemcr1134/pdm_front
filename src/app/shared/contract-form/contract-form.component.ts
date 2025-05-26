@@ -23,7 +23,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ContractFormComponent implements OnInit{
   @Input() goalId:any = null;
-
+  @Input() operatingExpense:any = null
   contractForm!: FormGroup;
   public isLoading:boolean = false;
   public catalogProducts:any[] = [];
@@ -58,13 +58,13 @@ export class ContractFormComponent implements OnInit{
       start_date: ['', Validators.required],
       end_date: ['', Validators.required],
       year: [new Date().getFullYear(), [Validators.required, Validators.min(1900), Validators.max(32767)]],
-      goal: ['', Validators.required],
+      goal: [''],
       executing_unit: [null, Validators.required],
       estimated_date_presentation: [null,  [Validators.required]],
       type_duration: ['', Validators.required],
       type_source_resource: [null, [Validators.required, Validators.pattern(/^\d+$/)]],
       contracting_unit: ['', Validators.required],
-
+      operating_expense:[null]
     });
   }
 
@@ -73,6 +73,7 @@ export class ContractFormComponent implements OnInit{
       this.productMgaCode = params.codeProductMga;
     });
     this.contractForm.get('goal')?.setValue(this.goalId);
+    this.contractForm.get('operating_expense')?.setValue(this.operatingExpense);
     this.getYears();
     this.getContractExecutionUnit();
     this.getProductsContracts();
