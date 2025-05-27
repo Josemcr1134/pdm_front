@@ -18,6 +18,7 @@ export class MainComponent implements OnInit {
   public expenseSelected:any;
   public showExpenseDetail:boolean = false;
   public showContractModal:boolean = false;
+  public showContractListModal:boolean = false;
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params:any) => {
       this.year = params.year;
@@ -109,5 +110,17 @@ export class MainComponent implements OnInit {
   addContract(id:string){
     this.operatingExpenseSelected = id;
     this.showContractModal = true
+  }
+  viewContracts(id:string){
+    this.operatingExpenseSelected = id;
+    this.showContractListModal = true
+  }
+
+  handleContractList(event:any){
+    console.log(event)
+    this.showContractListModal = false;
+    if (event == false) {
+      this.showContractModal = true;
+    }
   }
 }

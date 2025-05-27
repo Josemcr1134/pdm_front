@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoaderComponent } from '../../../../shared/loader/loader.component';
 import { AlertComponent } from '../../../../shared/alert/alert.component';
 import { ContractFormComponent } from '../../../../shared/contract-form/contract-form.component';
+import { ContractListComponent } from '../../../../shared/contract-list/contract-list.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { ContractFormComponent } from '../../../../shared/contract-form/contract
     FormsModule,
     LoaderComponent,
     AlertComponent,
-    ContractFormComponent
+    ContractFormComponent,
+    ContractListComponent
   ]
 })
 export class FunctionalityModule { }

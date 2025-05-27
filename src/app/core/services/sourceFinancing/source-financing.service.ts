@@ -21,9 +21,12 @@ export class SourceFinancingService {
     const url = `${this.authSvc.baseUrl}/source-financing/`;
     return this.http.get(url,  { headers: this.authSvc.header.headers, params });
   };
-  getSourceFinancingByGoal(goal:string, year:any){
+  getSourceFinancingByGoal(goal:string, year:any, operatingExpense:any = null){
     let params = new HttpParams();
 
+    if (operatingExpense) {
+      params = params.set('operating_expense', operatingExpense);
+    };
     if (goal) {
       params = params.set('goal', goal);
     };
@@ -31,6 +34,19 @@ export class SourceFinancingService {
       params = params.set('year', year);
     };
     const url = `${this.authSvc.baseUrl}/source-financing/list-by-meta/`;
+    return this.http.get(url,  { headers: this.authSvc.header.headers, params });
+  };
+  getSourceFinancingByExpense( year:any, operatingExpense:any = null){
+    let params = new HttpParams();
+
+    if (operatingExpense) {
+      params = params.set('operating_expense', operatingExpense);
+    };
+
+    if (year) {
+      params = params.set('year', year);
+    };
+    const url = `${this.authSvc.baseUrl}/source-financing/list-by-operating-expense/`;
     return this.http.get(url,  { headers: this.authSvc.header.headers, params });
   };
 }
