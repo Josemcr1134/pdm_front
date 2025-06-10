@@ -23,6 +23,8 @@ export class ExecutedGoalComponent implements OnInit {
   public goal:number = 0;
   public sourcesSelected:any[] = [];
   public hasGoal:boolean = false;
+      public monthSelected:any = null
+
   constructor(private pdmSvc: PlanningService, private alertSvc:AlertsService){}
 
   ngOnInit(): void {
@@ -34,7 +36,7 @@ export class ExecutedGoalComponent implements OnInit {
 
 
   getExecutedGoals(){
-      this.pdmSvc.getExecutedGoal(this.goalId, this.yearSelected)
+      this.pdmSvc.getExecutedGoal(this.goalId, this.yearSelected, this.monthSelected)
           .subscribe({
             error:(err:any) => {
               console.log(err);

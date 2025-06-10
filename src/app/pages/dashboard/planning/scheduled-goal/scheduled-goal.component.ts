@@ -25,6 +25,7 @@ export class ScheduledGoalComponent implements OnInit{
   public goal:number = 0;
   public sourcesSelected:any[] = [];
   public hasGoal:boolean = false;
+  public monthSelected:any = null
   constructor(private pdmSvc: PlanningService, private alertSvc:AlertsService){}
 
   ngOnInit(): void {
@@ -37,7 +38,7 @@ export class ScheduledGoalComponent implements OnInit{
 
 
   getScheduledGoals(){
-      this.pdmSvc.getScheduledGoal(this.goalId, this.yearSelected)
+      this.pdmSvc.getScheduledGoal(this.goalId, this.yearSelected, this.monthSelected)
           .subscribe({
             error:(err:any) => {
               this.hasGoal = false;

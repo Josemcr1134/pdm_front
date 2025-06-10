@@ -16,7 +16,8 @@ export class ListComponent implements OnInit {
   public isLoading:boolean = false;
   public Secop:any[] = [];
   public Years:any;
-
+  public nom_raz_social_contratista:string  = '';
+  public numero_del_contrato:string  = '';
   constructor(private secopSvc:SecopService, private planningSvc:PlanningService){}
 
   ngOnInit(): void {
@@ -25,7 +26,7 @@ export class ListComponent implements OnInit {
 
   getSecopList(){
     this.isLoading = !this.isLoading;
-    this.secopSvc.getSecopList(this.year, this.limit, this.offset)
+    this.secopSvc.getSecopList(this.year, this.limit, this.offset, this.nom_raz_social_contratista, this.numero_del_contrato)
           .subscribe({
             error:(err:any) => {
               console.log(err);

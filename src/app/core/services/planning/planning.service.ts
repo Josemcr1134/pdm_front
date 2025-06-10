@@ -45,15 +45,23 @@ export class PlanningService {
     return this.http.get(url, this.authSvc.header);
   };
 
-  getScheduledGoal(goalId:string, year:number){
+  getScheduledGoal(goalId:string, year:number, month:any){
+    let params = new HttpParams();
+    if (month !== 'null' && month !== null) {
+      params = params.set('month', month);
+    }
     const url = `${this.authSvc.baseUrl}/pdm/goal/${goalId}/scheduled/?year=${year}`;
-    return this.http.get(url, this.authSvc.header);
+    return this.http.get(url,  { headers: this.authSvc.header.headers, params });
   };
 
 
-  getExecutedGoal(goalId:string, year:number){
+  getExecutedGoal(goalId:string, year:number, month:any){
+    let params = new HttpParams();
+    if (month !== 'null' && month !== null) {
+      params = params.set('month', month);
+    }
     const url = `${this.authSvc.baseUrl}/pdm/goal/${goalId}/executed/?year=${year}`;
-    return this.http.get(url, this.authSvc.header);
+    return this.http.get(url,  { headers: this.authSvc.header.headers, params });
   }
 
   getStatistics(goalId:string){
@@ -73,7 +81,7 @@ export class PlanningService {
       params = params.set('code_mga', code);
     }
     const url = `${this.authSvc.baseUrl}/catalogue/product-mga/?limit=${limit}&offset=${offset}&search=${search}`;
-    return this.http.get(url, this.authSvc.header)
+    return this.http.get(url,  { headers: this.authSvc.header.headers, params });
   };
 
   getModality(limit:number, offset:number){

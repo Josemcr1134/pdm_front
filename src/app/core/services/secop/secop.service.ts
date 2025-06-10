@@ -9,10 +9,16 @@ export class SecopService {
 
   constructor(private http:HttpClient, private authSvc:AuthService) { }
 
-  getSecopList(fecha_de_firma_del_contrato:any, limit:number, offset:number){
+  getSecopList(fecha_de_firma_del_contrato:any, limit:number, offset:number, nom_raz_social_contratista:string, numero_del_contrato:string){
     let params = new HttpParams();
     if (fecha_de_firma_del_contrato) {
       params = params.set('fecha_de_firma_del_contrato', fecha_de_firma_del_contrato);
+    }
+    if (nom_raz_social_contratista) {
+      params = params.set('nom_raz_social_contratista', nom_raz_social_contratista);
+    }
+    if (numero_del_contrato) {
+      params = params.set('numero_del_contrato', numero_del_contrato);
     }
     if (limit) {
       params = params.set('limit', limit);

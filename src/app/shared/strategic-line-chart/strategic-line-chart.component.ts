@@ -7,6 +7,7 @@ import {
   ApexDataLabels,
   ApexXAxis,
   ApexPlotOptions,
+  ApexStroke,
   NgApexchartsModule
 } from "ng-apexcharts";
 
@@ -16,6 +17,7 @@ export type ChartOptions = {
   dataLabels: ApexDataLabels | any;
   plotOptions: ApexPlotOptions | any;
   xaxis: ApexXAxis | any;
+  stroke: ApexStroke | any;
 };
 @Component({
   selector: 'app-strategic-line-chart',
@@ -29,43 +31,62 @@ export type ChartOptions = {
 })
 export class StrategicLineChartComponent implements OnChanges {
   @Input() data:any[] = [];
-
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions!: Partial<ChartOptions>;
-
-  constructor() {}
 
   ngOnChanges(changes: SimpleChanges): void {
      if (changes['data'] ) {
        let labels = this.data.map( d => d.name ||  d.description)
-       let series = this.data.map( d => d.executed)
-       this.buildChart(series,  labels)
+       let series1 = this.data.map( d => d.executed)
+       let series2 = this.data.map( d => d.pending);
+       console.log(series1)
+       this.buildChart(series1 , series2,  labels)
     }
   }
 
-  buildChart(series:any, labels:any){
-    this.chartOptions = {
+  constructor() { }
+
+  buildChart(series1:any, series2:any ,labels:any){
+     this.chartOptions = {
       series: [
         {
-          name: "Total aprobado por linea",
-          data:series
+          name: "Ejecutado",
+          data: series1
+        },
+        {
+          name: "Pendiente",
+
+          data: series2
         }
       ],
       chart: {
         type: "bar",
-        height: 250,
+        height: 430
       },
       plotOptions: {
         bar: {
           horizontal: true,
+          dataLabels: {
+            position: "top"
+          }
         }
       },
       dataLabels: {
-        enabled: false
+        enabled: true,
+        offsetX: -6,
+        style: {
+          fontSize: "12px",
+          colors: ["#6c69e9"]
+        }
+      },
+      stroke: {
+        show: true,
+        width: 1,
+        colors: ["#fff"]
       },
       xaxis: {
         categories: labels
-      },
+      }
     };
   }
 }

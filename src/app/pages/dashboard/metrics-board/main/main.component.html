@@ -1,9 +1,9 @@
 <div class="max-w-7xl mx-auto px-6 lg:px-8 py-12 lg:py-16">
   <div *ngIf="!isLoading">
     <div  class="w-full bg-gray-50 rounded-xl shadow-lg p-4 mb-6">
-        <div class="flex items-center justify-between mb-5">
+        <div class="flex items-center justify-between gap-3 mb-5">
           <div>
-            <p class="text-lg text-primary font-medium uppercase">Lineas estratégicas</p>
+            <p class="text-xs lg:text-lg text-primary font-medium uppercase">Lineas estratégicas</p>
           </div>
           <div>
             <select [(ngModel)]="strategicLineSelected" (change)="chooseStrategicLine()" name="" class="max-w-80 w-full py-2.5 px-4 bg-primary  rounded-xl text-white" id="">
@@ -13,8 +13,8 @@
           </div>
         </div>
 
-        <div class="grid lg:grid-cols-6 grid-cols-1 gap-4">
-            <div class="grid xl:grid-cols-2 grid-cols-1 gap-3 lg:col-span-2">
+        <div class="grid grid-cols-1 gap-4">
+            <div class="grid  grid-cols-2 md:grid-cols-4  gap-3">
               <div>
                 <div class="stat-card h-full bg-white">
                   <div class="flex justify-between items-start mb-7">
@@ -52,8 +52,8 @@
                   <div class="flex justify-between items-start mb-7">
                     <div>
                       <p class="text-primary font-normal  text-xs mb-8">Total metas</p>
-                       <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="strategicLineSelected == null" >{{data.total_goals}}%</p>
-                      <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="strategicLineSelected !== null" >{{strategicLineSelected?.total_goals }}%</p>
+                       <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="strategicLineSelected == null" >{{data.total_goals}}</p>
+                      <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="strategicLineSelected !== null" >{{strategicLineSelected?.total_goals }}</p>
                     </div>
 
                   </div>
@@ -64,7 +64,7 @@
                   <div class="flex justify-between items-start mb-7">
                     <div>
                       <p class="text-primary font-normal  text-xs mb-8">Total líneas estratégicas</p>
-                      <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="strategicLineSelected == null" >{{data.total_strategic_lines}}%</p>
+                      <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="strategicLineSelected == null" >{{data.total_strategic_lines}}</p>
                       <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="strategicLineSelected !== null" >1</p>
                     </div>
 
@@ -79,7 +79,7 @@
               </div>
 
             </div>
-            <div class="lg:col-span-4 col-span-1">
+            <div class="col-span-1">
               <div class="stat-card "  >
                 <div class="grid xl:grid-cols-6 grid-cols-1 gap-3 items-center">
                   <div class="xl:col-span-3">
@@ -114,8 +114,8 @@
         </div>
       </div>
 
-      <div class="grid lg:grid-cols-5 grid-cols-1 gap-4">
-          <div class="grid xl:grid-cols-2 grid-cols-1 gap-3 lg:col-span-2">
+      <div class="grid grid-cols-1 gap-4">
+          <div class="grid lg:grid-cols-4 grid-cols-2 gap-3 lg:col-span-2">
             <div>
               <div class="stat-card h-full bg-white">
                 <div class="flex justify-between items-start mb-7">
@@ -161,8 +161,8 @@
                 <div class="flex justify-between items-start mb-7">
                   <div>
                     <p class="text-primary font-normal  text-xs mb-8">Total  metas</p>
-                        <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="sectorSelected == null">{{strategicLineSelected.total_goals}}%</p>
-                    <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="sectorSelected !== null">{{sectorSelected.total_goals}}%</p>
+                        <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="sectorSelected == null">{{strategicLineSelected.total_goals}}</p>
+                    <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="sectorSelected !== null">{{sectorSelected.total_goals}}</p>
                   </div>
                   <div>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 text-primary">
@@ -177,7 +177,7 @@
                 <div class="flex justify-between items-start mb-7">
                   <div>
                     <p class="text-primary font-normal  text-xs mb-8">Total sectores </p>
-                     <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="sectorSelected == null">{{strategicLineSelected.total_sectors}}%</p>
+                     <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="sectorSelected == null">{{strategicLineSelected.total_sectors}}</p>
                     <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="sectorSelected !== null">1</p>
                   </div>
                   <div>
@@ -196,7 +196,7 @@
             </div>
 
           </div>
-          <div class="lg:col-span-3 col-span-1">
+          <div class=" col-span-1">
             <div class="stat-card"  >
               <app-strategic-line-chart *ngIf="sectorSelected == null"  [data]="strategicLineSelected.sectors" ></app-strategic-line-chart>
               <app-strategic-line-chart *ngIf="sectorSelected !== null"  [data]="[sectorSelected]" ></app-strategic-line-chart>
@@ -218,8 +218,8 @@
         </div>
       </div>
 
-      <div class="grid lg:grid-cols-5 grid-cols-1 gap-4">
-          <div class="grid xl:grid-cols-2 grid-cols-1 gap-3 lg:col-span-2">
+      <div class="grid grid-cols-1 gap-4">
+          <div class="grid lg:grid-cols-4 grid-cols-2 gap-3 ">
             <div>
               <div class="stat-card h-full bg-white">
                 <div class="flex justify-between items-start mb-7">
@@ -300,7 +300,7 @@
             </div>
 
           </div>
-          <div class="lg:col-span-3 col-span-1">
+          <div class=" col-span-1">
             <div class="stat-card"  >
               <app-strategic-line-chart *ngIf="sectorSelected == null" [data]="sectorSelected.code_and_programs" ></app-strategic-line-chart>
               <app-strategic-line-chart *ngIf="sectorSelected !== null" [data]="[sectorSelected]" ></app-strategic-line-chart>
@@ -319,8 +319,8 @@
           </select>
       </div>
 
-      <div class="grid lg:grid-cols-5 grid-cols-1 gap-4">
-          <div class="grid xl:grid-cols-2 grid-cols-1 gap-3 lg:col-span-2">
+      <div class="grid  grid-cols-1 gap-4">
+          <div class="grid lg:grid-cols-4 grid-cols-2 gap-3 ">
             <div>
               <div class="stat-card h-full bg-white">
                 <div class="flex justify-between items-start mb-7">
@@ -380,7 +380,7 @@
 
 
           </div>
-          <div class="lg:col-span-3 col-span-1">
+          <div class="l col-span-1">
             <div class="stat-card"  >
               <app-strategic-line-chart *ngIf="goalSelected == null" [data]="codeAndProgramSelected.goals" ></app-strategic-line-chart>
               <app-strategic-line-chart *ngIf="goalSelected !== null" [data]="[goalSelected]" ></app-strategic-line-chart>
