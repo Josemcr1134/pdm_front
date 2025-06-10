@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 
@@ -9,9 +9,13 @@ export class IncomesService {
 
   constructor(private http:HttpClient, private authSvc:AuthService) { }
 
-  getIncomes(year:number){
+  getIncomes(year:number, month:any){
+    let params = new HttpParams();
+    if (month != 'null' && month != null) {
+      params = params.set('month', month);
+    }
      const url = `${this.authSvc.baseUrl}/incomes/?year=${year}`;
-     return this.http.get(url, this.authSvc.header);
+    return this.http.get(url, { headers: this.authSvc.header.headers, params });
   };
 
   updateIncomeDetail(id:string, data:{}){

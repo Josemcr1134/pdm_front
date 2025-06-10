@@ -20,7 +20,8 @@
                   <div class="flex justify-between items-start mb-7">
                     <div>
                       <p class="text-primary font-normal  text-xs mb-8">Ejecutado línea</p>
-                      <p class="text-black font-bold xl:text-3xl text-xl ">{{data.total_executed_goals}}%</p>
+                      <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="strategicLineSelected == null" >{{data.total_executed_goals}}%</p>
+                      <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="strategicLineSelected !== null" >{{strategicLineSelected?.total_executed_goals }}%</p>
                     </div>
 
                   </div>
@@ -37,7 +38,8 @@
                   <div class="flex justify-between items-start mb-7">
                     <div>
                       <p class="text-primary font-normal  text-xs mb-8">Pendiente por ejecutar</p>
-                      <p class="text-black font-bold xl:text-3xl text-xl ">{{data.total_pending_goals}}%</p>
+                      <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="strategicLineSelected == null" >{{data.total_pending_goals}}%</p>
+                      <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="strategicLineSelected !== null" >{{strategicLineSelected?.total_pending_goals }}%</p>
                     </div>
 
                   </div>
@@ -50,7 +52,8 @@
                   <div class="flex justify-between items-start mb-7">
                     <div>
                       <p class="text-primary font-normal  text-xs mb-8">Total metas</p>
-                      <p class="text-black font-bold xl:text-3xl text-xl ">{{data.total_goals}}</p>
+                       <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="strategicLineSelected == null" >{{data.total_goals}}%</p>
+                      <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="strategicLineSelected !== null" >{{strategicLineSelected?.total_goals }}%</p>
                     </div>
 
                   </div>
@@ -61,7 +64,8 @@
                   <div class="flex justify-between items-start mb-7">
                     <div>
                       <p class="text-primary font-normal  text-xs mb-8">Total líneas estratégicas</p>
-                      <p class="text-black font-bold xl:text-3xl text-xl ">{{data.total_strategic_lines}}</p>
+                      <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="strategicLineSelected == null" >{{data.total_strategic_lines}}%</p>
+                      <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="strategicLineSelected !== null" >1</p>
                     </div>
 
                   </div>
@@ -79,12 +83,14 @@
               <div class="stat-card "  >
                 <div class="grid xl:grid-cols-6 grid-cols-1 gap-3 items-center">
                   <div class="xl:col-span-3">
-                    <app-strategic-line-chart [data]="strategicLines" ></app-strategic-line-chart>
+                    <app-strategic-line-chart *ngIf="strategicLineSelected == null" [data]=" strategicLines" ></app-strategic-line-chart>
+                    <app-strategic-line-chart *ngIf="strategicLineSelected !== null" [data]=" [strategicLineSelected]" ></app-strategic-line-chart>
                   </div>
                   <div class="xl:col-span-3">
                     <div>
                       <p class="text-sm uppercase text-primary text-center mb-2 font-medium w-full">% de avance del plan de desarrollo</p>
-                      <app-pie-chart [pending]="data?.total_pending_goals" [executed]="data?.total_executed_goals" ></app-pie-chart>
+                      <app-pie-chart *ngIf="strategicLineSelected == null" [pending]="data?.total_pending_goals" [executed]="data?.total_executed_goals" ></app-pie-chart>
+                      <app-pie-chart *ngIf="strategicLineSelected !== null" [pending]="strategicLineSelected?.total_pending_goals" [executed]="strategicLineSelected?.total_executed_goals" ></app-pie-chart>
                     </div>
 
                   </div>
@@ -115,7 +121,8 @@
                 <div class="flex justify-between items-start mb-7">
                   <div>
                     <p class="text-primary font-normal  text-xs mb-8">Ejecutado sectores</p>
-                    <p class="text-black font-bold xl:text-3xl text-xl ">{{strategicLineSelected.total_executed_goals}}%</p>
+                    <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="sectorSelected == null">{{strategicLineSelected.total_executed_goals}}%</p>
+                    <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="sectorSelected !== null">{{sectorSelected.total_executed_goals}}%</p>
                   </div>
                   <div>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 text-primary">
@@ -136,7 +143,8 @@
                 <div class="flex justify-between items-start mb-7">
                   <div>
                     <p class="text-primary font-normal  text-xs mb-8">Pendiente por ejecutar</p>
-                    <p class="text-black font-bold xl:text-3xl text-xl ">{{strategicLineSelected.total_pending_goals}}%</p>
+                     <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="sectorSelected == null">{{strategicLineSelected.total_pending_goals}}%</p>
+                    <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="sectorSelected !== null">{{sectorSelected.total_pending_goals}}%</p>
                   </div>
                   <div>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 text-primary">
@@ -153,7 +161,8 @@
                 <div class="flex justify-between items-start mb-7">
                   <div>
                     <p class="text-primary font-normal  text-xs mb-8">Total  metas</p>
-                    <p class="text-black font-bold xl:text-3xl text-xl ">{{strategicLineSelected.total_goals}}</p>
+                        <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="sectorSelected == null">{{strategicLineSelected.total_goals}}%</p>
+                    <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="sectorSelected !== null">{{sectorSelected.total_goals}}%</p>
                   </div>
                   <div>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 text-primary">
@@ -168,7 +177,8 @@
                 <div class="flex justify-between items-start mb-7">
                   <div>
                     <p class="text-primary font-normal  text-xs mb-8">Total sectores </p>
-                    <p class="text-black font-bold xl:text-3xl text-xl ">{{strategicLineSelected.total_sectors}}</p>
+                     <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="sectorSelected == null">{{strategicLineSelected.total_sectors}}%</p>
+                    <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="sectorSelected !== null">1</p>
                   </div>
                   <div>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 text-primary">
@@ -188,7 +198,8 @@
           </div>
           <div class="lg:col-span-3 col-span-1">
             <div class="stat-card"  >
-              <app-strategic-line-chart [data]="strategicLineSelected.sectors" ></app-strategic-line-chart>
+              <app-strategic-line-chart *ngIf="sectorSelected == null"  [data]="strategicLineSelected.sectors" ></app-strategic-line-chart>
+              <app-strategic-line-chart *ngIf="sectorSelected !== null"  [data]="[sectorSelected]" ></app-strategic-line-chart>
             </div>
           </div>
       </div>
@@ -214,7 +225,8 @@
                 <div class="flex justify-between items-start mb-7">
                   <div>
                     <p class="text-primary font-normal  text-xs mb-8">Ejecutado programas</p>
-                    <p class="text-black font-bold xl:text-3xl text-xl ">{{sectorSelected.total_executed_goals}}%</p>
+                    <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="codeAndProgramSelected == null" >{{sectorSelected.total_executed_goals}}%</p>
+                    <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="codeAndProgramSelected !== null" >{{codeAndProgramSelected.total_executed_goals}}%</p>
                   </div>
                   <div>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 text-primary">
@@ -235,7 +247,8 @@
                 <div class="flex justify-between items-start mb-7">
                   <div>
                     <p class="text-primary font-normal  text-xs mb-8">Pendiente por ejecutar</p>
-                    <p class="text-black font-bold xl:text-3xl text-xl ">{{sectorSelected.total_pending_goals}}%</p>
+                    <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="codeAndProgramSelected == null" >{{sectorSelected.total_pending_goals}}%</p>
+                    <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="codeAndProgramSelected !== null" >{{codeAndProgramSelected.total_pending_goals}}%</p>
                   </div>
                   <div>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 text-primary">
@@ -252,7 +265,8 @@
                 <div class="flex justify-between items-start mb-7">
                   <div>
                     <p class="text-primary font-normal  text-xs mb-8">Total  metas</p>
-                    <p class="text-black font-bold xl:text-3xl text-xl ">{{sectorSelected.total_goals}}</p>
+                     <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="codeAndProgramSelected == null" >{{sectorSelected.total_goals}}</p>
+                    <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="codeAndProgramSelected !== null" >{{codeAndProgramSelected.total_goals}}</p>
                   </div>
                   <div>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 text-primary">
@@ -267,7 +281,8 @@
                 <div class="flex justify-between items-start mb-7">
                   <div>
                     <p class="text-primary font-normal  text-xs mb-8">Total códigos y programas </p>
-                    <p class="text-black font-bold xl:text-3xl text-xl ">{{sectorSelected.total_code_and_programs}}</p>
+                    <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="codeAndProgramSelected == null" >{{sectorSelected.total_code_and_programs}}</p>
+                    <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="codeAndProgramSelected !== null" >1</p>
                   </div>
                   <div>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 text-primary">
@@ -287,7 +302,8 @@
           </div>
           <div class="lg:col-span-3 col-span-1">
             <div class="stat-card"  >
-              <app-strategic-line-chart [data]="sectorSelected.code_and_programs" ></app-strategic-line-chart>
+              <app-strategic-line-chart *ngIf="sectorSelected == null" [data]="sectorSelected.code_and_programs" ></app-strategic-line-chart>
+              <app-strategic-line-chart *ngIf="sectorSelected !== null" [data]="[sectorSelected]" ></app-strategic-line-chart>
             </div>
           </div>
       </div>
@@ -297,12 +313,10 @@
         <div>
           <p class="text-lg text-primary font-medium uppercase">Metas</p>
         </div>
-        <!-- <div>
           <select [(ngModel)]="goalSelected"   name="" class="max-w-80 w-full py-2.5 px-4 bg-primary  rounded-xl text-white" id="">
-            <option [ngValue]=null>Selecciona un código y programa</option>
+            <option [ngValue]=null>Selecciona una meta</option>
             <option *ngFor="let sL of codeAndProgramSelected.goals" [ngValue]="sL">{{sL.name}}</option>
           </select>
-        </div> -->
       </div>
 
       <div class="grid lg:grid-cols-5 grid-cols-1 gap-4">
@@ -312,7 +326,8 @@
                 <div class="flex justify-between items-start mb-7">
                   <div>
                     <p class="text-primary font-normal  text-xs mb-8">Ejecutado programas</p>
-                    <p class="text-black font-bold xl:text-3xl text-xl ">{{codeAndProgramSelected.total_executed_goals}}%</p>
+                    <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="goalSelected == null" >{{codeAndProgramSelected.total_executed_goals}}%</p>
+                    <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="goalSelected !== null" >{{goalSelected.executed}}%</p>
                   </div>
                   <div>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 text-primary">
@@ -333,7 +348,8 @@
                 <div class="flex justify-between items-start mb-7">
                   <div>
                     <p class="text-primary font-normal  text-xs mb-8">Pendiente por ejecutar</p>
-                    <p class="text-black font-bold xl:text-3xl text-xl ">{{codeAndProgramSelected.total_pending_goals}}%</p>
+                     <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="goalSelected == null" >{{codeAndProgramSelected.total_pending_goals}}%</p>
+                    <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="goalSelected !== null" >{{goalSelected.pending}}%</p>
                   </div>
                   <div>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 text-primary">
@@ -350,7 +366,8 @@
                 <div class="flex justify-between items-start mb-7">
                   <div>
                     <p class="text-primary font-normal  text-xs mb-8">Total  metas</p>
-                    <p class="text-black font-bold xl:text-3xl text-xl ">{{codeAndProgramSelected.total_goals}}</p>
+                     <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="goalSelected == null" >{{codeAndProgramSelected.total_goals}}</p>
+                    <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="goalSelected !== null" >1</p>
                   </div>
                   <div>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 text-primary">
@@ -365,7 +382,8 @@
           </div>
           <div class="lg:col-span-3 col-span-1">
             <div class="stat-card"  >
-              <app-strategic-line-chart [data]="codeAndProgramSelected.goals" ></app-strategic-line-chart>
+              <app-strategic-line-chart *ngIf="goalSelected == null" [data]="codeAndProgramSelected.goals" ></app-strategic-line-chart>
+              <app-strategic-line-chart *ngIf="goalSelected !== null" [data]="[goalSelected]" ></app-strategic-line-chart>
             </div>
           </div>
       </div>

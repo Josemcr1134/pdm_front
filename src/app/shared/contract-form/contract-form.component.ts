@@ -7,7 +7,8 @@ import { AlertsService } from '../../core/services/alerts/alerts.service';
 import { PaginationComponent } from '../pagination/pagination.component';
 import Swal from 'sweetalert2';
 import { ActivatedRoute } from '@angular/router';
-
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 @Component({
   selector: 'app-contract-form',
   standalone: true,
@@ -60,14 +61,16 @@ export class ContractFormComponent implements OnInit{
       year: [new Date().getFullYear(), [Validators.required, Validators.min(1900), Validators.max(32767)]],
       goal: [''],
       executing_unit: [null, Validators.required],
-      estimated_date_presentation: [null,  [Validators.required]],
       type_duration: ['', Validators.required],
       type_source_resource: [null, [Validators.required, Validators.pattern(/^\d+$/)]],
       contracting_unit: ['', Validators.required],
       operating_expense:[null]
     });
   }
-
+  private searchSubject = new Subject<string>();
+  private searchWellnessSubject = new Subject<string>();
+  isSearching: boolean = false;
+  isWellnessSearching: boolean = false;
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params:any) => {
       this.productMgaCode = params.codeProductMga;
@@ -76,9 +79,44 @@ export class ContractFormComponent implements OnInit{
     this.contractForm.get('operating_expense')?.setValue(this.operatingExpense);
     this.getYears();
     this.getContractExecutionUnit();
-    this.getProductsContracts();
+    this.searchSubject.pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe(searchText => {
+      this.pdmSvc.getCatalogProduct(
+        this.productMgaCode,
+        this.catalogProductLimit,
+        this.catalogProductOffset,
+        searchText
+      ).subscribe({
+        error: (err: any) => {
+          console.log(err);
+          this.isSearching = false; // Desactiva el loader en caso de error
+        },
+        next: (resp: any) => {
+          console.log(resp);
+          this.catalogProducts = resp.results;
+          this.isSearching = false; // Desactiva el loader cuando llega la respuesta
+        }
+      });
+    });
+    this.searchWellnessSubject.pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe(searchText => {
+     this.pdmSvc.getWellnessCatalogue(10, 0, searchText)
+        .subscribe({
+          error:(err:any) => {
+            console.log(err);
+            this.isWellnessSearching = false; // Desactiva el loader en caso de error
+          },
+          next:(resp:any) => {
+            this.isWellnessSearching = false; // Desactiva el loader en caso de error
+            this.wellnessCatalogue = resp.results;
+          }
+        });
+    });
     this.getModality();
-    this.getWellnessCatalogue();
   }
 
   createContract(){
@@ -132,17 +170,9 @@ export class ContractFormComponent implements OnInit{
           });
   };
 
-  getWellnessCatalogue(){
-    this.pdmSvc.getWellnessCatalogue(10, 0, this.searchCatalogWellness)
-        .subscribe({
-          error:(err:any) => {
-            console.log(err);
-          },
-          next:(resp:any) => {
-            console.log(resp)
-            this.wellnessCatalogue = resp.results;
-          }
-        });
+  getWellnessCatalogue(searchText:string){
+    this.isWellnessSearching = true; // Activa el loader
+    this.searchWellnessSubject.next(searchText);
   };
 
 
@@ -183,20 +213,18 @@ export class ContractFormComponent implements OnInit{
   };
 
 
-  getProductsContracts(){
-    this.pdmSvc.getCatalogProduct(this.productMgaCode, this.catalogProductLimit, this.catalogProductOffset , this.searchCatalogProducts)
-       .subscribe({
-         error:(err:any) => {
-           console.log(err);
-         },
-         next:(resp:any) => {
-           console.log(resp);
-           this.catalogProducts = resp.results;
-         }
-       })
- };
+  getProductsContracts(searchText: string) {
+    this.isSearching = true; // Activa el loader
+    this.searchSubject.next(searchText);
+  }
 
- onPaginateContractExecution(event:number){
+  deleteProductContrated(index:number){
+    if (index > -1) { // Si el elemento existe
+      this.catalogProductsSelected.splice(index, 1); // Elimina 1 elemento en esa posición
+    }
+  }
+
+  onPaginateContractExecution(event:number){
     this.contractExecutionOffset = event;
     this.getContractExecutionUnit();
   };

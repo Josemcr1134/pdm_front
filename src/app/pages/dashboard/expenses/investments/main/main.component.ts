@@ -26,6 +26,7 @@ export class MainComponent implements OnInit {
   public itemSelected:number = 0;
   public collapsedStates = new Map<string, boolean>(); // Para rastrear el estado de cada sección
   public columnSelected:number = 0;
+  public monthSelected:any = null;
   public indexSelected!:number;
   public totalInvestments:any;
   constructor(private loadMatrixSvc:LoadMatrixService, private alertSvc:AlertsService, private expensesSvc:OperatingExpensesService, private activatedRoute:ActivatedRoute, private pdmSvc:PlanningService ){}
@@ -39,11 +40,13 @@ export class MainComponent implements OnInit {
 
   getInvestments(){
     this.isLoading = !this.isLoading;
-    this.expensesSvc.getInvestmentsExpenses( this.year, 10, 0)
+    this.expensesSvc.getInvestmentsExpenses( this.year, 10, 0, this.monthSelected)
       .subscribe({
         error:(err:any) => {
           console.log(err);
           this.isLoading = !this.isLoading;
+          this.investments = [];
+          this.totalInvestments = null;
         },
         next:(resp:any) => {
           console.log(resp);

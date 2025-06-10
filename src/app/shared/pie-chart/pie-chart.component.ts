@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { ChartComponent, NgApexchartsModule } from 'ng-apexcharts';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -30,20 +30,22 @@ export type ChartOptions = {
   templateUrl: './pie-chart.component.html',
   styleUrl: './pie-chart.component.css'
 })
-export class PieChartComponent implements OnInit {
-  @Input() pending:number = 0;
-  @Input() executed:number = 0;
-  @ViewChild("chart") chart!: ChartComponent;
-  public chartOptions!: Partial<ChartOptions>;
+export class PieChartComponent implements  OnChanges {
+  @Input() pending: number = 0;
+  @Input() executed: number = 0;
 
-  constructor() { }
+  chartOptions: any;
 
-  ngOnInit(): void {
-    this.buildChart()
+  ngOnChanges(changes: SimpleChanges): void {
+    // Si cambian pending o executed, reconstruye el gráfico
+    if (changes['pending'] || changes['executed']) {
+      this.buildChart();
+    }
   }
-  buildChart( ){
+
+  buildChart() {
     this.chartOptions = {
-      series: [ this.executed, this.pending ],
+      series: [this.executed, this.pending],
       chart: {
         width: 380,
         type: "pie"

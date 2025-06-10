@@ -15,7 +15,7 @@ export class MainComponent implements OnInit {
   public codeAndPrograms:any[] = [];
   public codeAndProgramSelected:any = null;
   public goals:any[] = [];
-  public goalSelected:any[] = [];
+  public goalSelected:any = null;
   public isLoading:boolean = false;
   public executedTotal: number = 0;
   public pendingTotal: number = 0;
@@ -41,7 +41,6 @@ export class MainComponent implements OnInit {
           this.data = resp;
           this.strategicLines = resp.strategic_lines;
            this.getRubricExpenseSum();
-  //  this.getStrategicLineExpenseSum();
         }
       })
   };

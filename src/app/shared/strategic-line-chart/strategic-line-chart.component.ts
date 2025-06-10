@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, Input, OnInit, ViewChild } from "@angular/core";
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from "@angular/core";
 import {
   ApexAxisChartSeries,
   ApexChart,
@@ -27,7 +27,7 @@ export type ChartOptions = {
   templateUrl: './strategic-line-chart.component.html',
   styleUrl: './strategic-line-chart.component.css'
 })
-export class StrategicLineChartComponent implements OnInit {
+export class StrategicLineChartComponent implements OnChanges {
   @Input() data:any[] = [];
 
   @ViewChild("chart") chart!: ChartComponent;
@@ -35,10 +35,12 @@ export class StrategicLineChartComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {
-    let labels = this.data.map( d => d.name ||  d.description)
-    let series = this.data.map( d => d.executed)
-    this.buildChart(series,  labels)
+  ngOnChanges(changes: SimpleChanges): void {
+     if (changes['data'] ) {
+       let labels = this.data.map( d => d.name ||  d.description)
+       let series = this.data.map( d => d.executed)
+       this.buildChart(series,  labels)
+    }
   }
 
   buildChart(series:any, labels:any){

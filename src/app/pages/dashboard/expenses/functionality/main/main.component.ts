@@ -19,6 +19,8 @@ export class MainComponent implements OnInit {
   public showExpenseDetail:boolean = false;
   public showContractModal:boolean = false;
   public showContractListModal:boolean = false;
+    public monthSelected:any = null
+
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params:any) => {
       this.year = params.year;
@@ -31,10 +33,11 @@ export class MainComponent implements OnInit {
 
   getExpenses(){
     this.isLoading = !this.isLoading;
-    this.expensesSvc.getOperatingExpenses(this.executionCode, this.year)
+    this.expensesSvc.getOperatingExpenses(this.executionCode, this.year, this.monthSelected)
         .subscribe({
           error:(err:any) => {
             this.isLoading = !this.isLoading;
+            this.expenses = [];
           },
           next:(resp:any) => {
             this.expenses = resp.operating_expenses;

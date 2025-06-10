@@ -16,6 +16,8 @@ export class MainComponent implements OnInit{
   public isLoading:boolean = false;
   public showIncomeDetail:boolean = false;
   public incomeDetail:any;
+    selectedFile: File | any = null;
+  public monthSelected:any = null
   constructor(private incomesSvc:IncomesService, private pdmSvc:PlanningService, private loadMatrixSvc:LoadMatrixService, private alertSvc:AlertsService){}
 
   ngOnInit(): void {
@@ -25,11 +27,12 @@ export class MainComponent implements OnInit{
 
   getIncomes(){
     this.isLoading = !this.isLoading;
-    this.incomesSvc.getIncomes(this.yearSelected)
+    this.incomesSvc.getIncomes(this.yearSelected, this.monthSelected)
         .subscribe({
           error:(err:any) => {
             console.log(err);
             this.isLoading = !this.isLoading;
+            this.incomes = [];
           },
           next:(resp:any) => {
             this.incomes = resp.incomes;
@@ -96,7 +99,6 @@ export class MainComponent implements OnInit{
         });
   };
 
-  selectedFile: File | any = null;
 
   onFileChange(event: any) {
     const file = event.target.files[0];
