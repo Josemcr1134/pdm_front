@@ -222,7 +222,13 @@ export class ContractFormComponent implements OnInit{
     if (index > -1) { // Si el elemento existe
       this.catalogProductsSelected.splice(index, 1); // Elimina 1 elemento en esa posición
     }
-  }
+  };
+
+  deleteWellness(index:number){
+    if (index > -1) { // Si el elemento existe
+      this.wellnessCatalogueSelected.splice(index, 1); // Elimina 1 elemento en esa posición
+    }
+  };
 
   onPaginateContractExecution(event:number){
     this.contractExecutionOffset = event;

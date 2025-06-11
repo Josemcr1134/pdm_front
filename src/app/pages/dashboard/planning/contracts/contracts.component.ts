@@ -37,6 +37,7 @@ export class ContractsComponent implements OnInit {
   public catalogProductsSelected:any[] = [];
   public wellnessCatalogueSelected:any[] = [];
   public wellnessCatalogue:any[] = [];
+  public contractExecutions:any[] = [];
   public contracts:any[] = [];
   public contractsLimit:number = 10;
   public contractsOffset:number = 0;
@@ -67,6 +68,7 @@ export class ContractsComponent implements OnInit {
     this.getUser();
     this.getSourceFinancing();
     this.getModality();
+    this.getContractExecutionUnit();
   }
 
 
@@ -272,6 +274,7 @@ export class ContractsComponent implements OnInit {
       "modality": this.contractSelected.modality.id,
       "start_date": this.contractSelected.start_date,
       "end_date": this.contractSelected.end_date,
+      "executing_unit": this.contractSelected.executing_unit.id,
     };
 
 
@@ -346,5 +349,20 @@ export class ContractsComponent implements OnInit {
     this.getContracts()
     this.getSourceFinancing();
   }
+
+
+  getContractExecutionUnit(){
+    this.pdmSvc.getContractExecutionUnits(10, 0)
+        .subscribe({
+          error:(err:any) => {
+            console.log(err);
+          },
+          next:(resp:any) => {
+            console.log(resp);
+            this.contractExecutions = resp.results;
+          }
+        });
+  };
+
 
 }
