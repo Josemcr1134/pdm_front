@@ -190,7 +190,7 @@ export class PlanningService {
   };
 
   updateResponsableUser(data:{},id:string){
-    const url = `${this.authSvc.baseUrl}/company/${id}/`;
+    const url = `${this.authSvc.baseUrl}/contracts/${id}/`;
     return this.http.patch(url, data, this.authSvc.header);
   };
 
