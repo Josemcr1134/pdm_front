@@ -162,6 +162,10 @@ export class PlanningService {
     const url = `${this.authSvc.baseUrl}/pdm/goal/${goalId}/bpin/`;
     return this.http.put(url, data, this.authSvc.header);
   };
+  updateNameProject(data:{}, goalId:string){
+    const url = `${this.authSvc.baseUrl}/pdm/goal/${goalId}/name-project/`;
+    return this.http.put(url, data, this.authSvc.header);
+  };
 
   createGoalExecuted(goalId:string, year:number, data:{}){
     const url = `${this.authSvc.baseUrl}/pdm/goal/${goalId}/executed/?year=${year}`;

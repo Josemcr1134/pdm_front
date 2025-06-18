@@ -301,7 +301,7 @@ export class ContractsComponent implements OnInit {
       responsible_phone: this.contractSelected.responsible_phone
     };
     this.isLoading = !this.isLoading;
-    this.pdmSvc.updateResponsableUser(data, this.companyUser)
+    this.pdmSvc.updateResponsableUser(data, this.contractSelected.id)
         .subscribe({
           error:(err:any) => {
             console.log(err);
