@@ -65,7 +65,7 @@
       <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
       <p class="text-primary text-sm  font-semibold  ">Nombre de contrato</p>
       <div class="flex items-center justify-between flex-wrap">
-        <input class="text-primary text-sm font-medium" placeholder="Ingresa el bpin de la meta" [disabled]="!toEditContractName" type="text" [(ngModel)]="contractName" >
+        <input class="text-primary text-sm font-medium" placeholder="Ingresa el nombre del contrato" [disabled]="!toEditContractName" type="text" [(ngModel)]="contractName" >
         <div class="flex items-center gap-2">
           <button (click)="toEditContractName = true" *ngIf="!toEditContractName" class="text-green-400 hover:text-green-700">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
