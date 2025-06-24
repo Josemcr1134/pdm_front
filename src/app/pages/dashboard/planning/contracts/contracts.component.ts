@@ -358,11 +358,27 @@ export class ContractsComponent implements OnInit {
             console.log(err);
           },
           next:(resp:any) => {
-            console.log(resp);
             this.contractExecutions = resp.results;
           }
         });
   };
 
-
+  updateContractingUnit(){
+    const data = {
+      contracting_unit: this.contractSelected.contracting_unit
+    };
+    this.isLoading = !this.isLoading;
+    this.pdmSvc.updateContractingUnit(data, this.contractSelected.id)
+        .subscribe({
+          error:(err:any) => {
+            console.log(err);
+            Swal.fire('Oooops', 'Error al actualizar la unidad de contratación', 'error');
+            this.isLoading = !this.isLoading;
+          },
+          next:(resp:any) => {
+            Swal.fire('Éxito', 'Unidad de contratación actualizada', 'success');
+            this.isLoading = !this.isLoading;
+          }
+        })
+  }
 }

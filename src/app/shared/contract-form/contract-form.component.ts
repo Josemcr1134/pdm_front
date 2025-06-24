@@ -61,9 +61,6 @@ export class ContractFormComponent implements OnInit{
       year: [new Date().getFullYear(), [Validators.required, Validators.min(1900), Validators.max(32767)]],
       goal: [''],
       executing_unit: [null, Validators.required],
-      type_duration: ['', Validators.required],
-      type_source_resource: [null, [Validators.required, Validators.pattern(/^\d+$/)]],
-      contracting_unit: ['', Validators.required],
       operating_expense:[null]
     });
   }

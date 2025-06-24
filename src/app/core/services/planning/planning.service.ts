@@ -202,4 +202,9 @@ export class PlanningService {
     const url = `${this.authSvc.baseUrl}/contracts/product-classification/search/?search=${search}`;
     return this.http.get(url, this.authSvc.header);
   };
+
+  updateContractingUnit(data:{}, id:string){
+    const url = `${this.authSvc.baseUrl}/contracts/contracting-unit/${id}/update_contracting_unit/`;
+    return this.http.patch(url, data, this.authSvc.header);
+  };
 }

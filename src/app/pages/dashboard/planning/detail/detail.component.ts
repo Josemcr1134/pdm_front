@@ -51,6 +51,8 @@ export class DetailComponent implements OnInit {
           }
         });
   };
+
+
   updateNameProject(){
     const data = {
       name_project: this.contractName
