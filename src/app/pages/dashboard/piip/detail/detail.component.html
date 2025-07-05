@@ -1,0 +1,40 @@
+<div class="m-4 bg-white  rounded-lg w-full">
+
+  <section class="tab-nav flex justify-start gap-4 items-center flex-wrap p-3">
+    <a   class="text-green-400 text-sm font-medium">Código de producto</a>
+    <a [routerLink]="['/dashboard/piip' ,'detail', codeSelected?.id, 'goalCurrency']" routerLinkActive="active"  class="text-primary text-sm font-medium">Meta de vigencia</a>
+    <a [routerLink]="['/dashboard/piip' ,'detail', codeSelected?.id, 'progressMade']" routerLinkActive="active"  class="text-primary text-sm font-medium">Avance ejecutado</a>
+  </section>
+
+  <hr >
+  <div class="grid xl:grid-cols-10 lg:grid-cols-5 md:grid-cols-4 grid-cols-1">
+    <div class="xl:col-span-2 md:col-span-1 hidden md:block bg-gray-100 rounded-bl-xl p-2">
+        <hr class=" border-[3px] rounded-xl my-2 border-[#ebebff]"/>
+        <p class="text-primary text-[14px] font-semibold  ">UMP </p>
+        <p class="text-wrap text-[12px]">{{codeSelected?.ump}} </p>
+        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
+        <p class="text-primary text-[14px] font-semibold text-wrap  ">Codigo Indicador</p>
+        <p class="text-wrap text-[12px]">{{codeSelected?.indicator_code}} </p>
+        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
+        <p class="text-primary text-[14px] font-semibold  ">Indicador </p>
+        <p class="text-wrap text-[12px]">{{codeSelected?.indicator_name}} </p>
+        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
+        <p class="text-primary text-[14px] font-semibold  ">UMI </p>
+        <p class="text-wrap text-[12px]">{{codeSelected?.umi}}  </p>
+        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
+        <p class="text-primary text-[14px] font-semibold  ">Meta Total Indicador </p>
+        <p class="text-wrap text-[12px]">{{codeSelected?.total_indicator_goal}}  </p>
+        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
+        <p class="text-primary text-[14px] font-semibold  ">Tipo Indicador</p>
+        <p class="text-wrap text-[12px]">{{codeSelected?.indicator_type}}  </p>
+        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
+        <p class="text-primary text-[14px] font-semibold  ">Etapa</p>
+        <p class="text-wrap text-[12px]">{{codeSelected?.stage}}  </p>
+        <p class="text-primary text-[14px] font-semibold  ">Acumula</p>
+        <p class="text-wrap text-[12px]">{{codeSelected?.accumulate}}  </p>
+    </div>
+    <div class="xl:col-span-8 lg:col-span-4 md:col-span-3 col-span-1 ">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

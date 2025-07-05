@@ -1,13 +1,27 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AlertsService } from '../../../../../core/services/alerts/alerts.service';
 import { OperatingExpensesService } from '../../../../../core/services/operatingExpenses/operating-expenses.service';
 import { SourceFinancingService } from '../../../../../core/services/sourceFinancing/source-financing.service';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { AlertComponent } from '../../../../../shared/alert/alert.component';
+import { PaginationComponent } from '../../../../../shared/pagination/pagination.component';
+import { LoaderComponent } from '../../../../../shared/loader/loader.component';
 
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
-  styleUrl: './detail.component.css'
+  styleUrl: './detail.component.css',
+  standalone:true,
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AlertComponent,
+    LoaderComponent
+  ]
 })
 export class DetailComponent implements OnInit{
   @Input() data!:any;

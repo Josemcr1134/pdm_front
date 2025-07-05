@@ -14,8 +14,6 @@ import { AddRubricComponent } from './add-rubric/add-rubric.component';
 @NgModule({
   declarations: [
     MainComponent,
-    DetailComponent,
-    AddRubricComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +22,9 @@ import { AddRubricComponent } from './add-rubric/add-rubric.component';
     AlertComponent,
     ReactiveFormsModule,
     FormsModule,
-    PaginationComponent
+    PaginationComponent,
+    DetailComponent,
+    AddRubricComponent
   ]
 })
 export class InvestmentsModule { }

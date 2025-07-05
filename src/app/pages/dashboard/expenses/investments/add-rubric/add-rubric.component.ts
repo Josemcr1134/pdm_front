@@ -1,11 +1,21 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { OperatingExpensesService } from '../../../../../core/services/operatingExpenses/operating-expenses.service';
 import { AlertsService } from '../../../../../core/services/alerts/alerts.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-add-rubric',
   templateUrl: './add-rubric.component.html',
-  styleUrl: './add-rubric.component.css'
+  styleUrl: './add-rubric.component.css',
+  standalone:true,
+  imports:[
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule
+  ]
 })
 export class AddRubricComponent {
   @Input() goalSelectedId:string = ''

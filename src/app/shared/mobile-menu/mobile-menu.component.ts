@@ -86,7 +86,17 @@ export class MobileMenuComponent {
       label:'SECOP',
       icon:'assets/icons/incomes.svg',
       route:"/dashboard/secop"
-    }
+    },
+      {
+      label:'PIIP',
+      icon:'assets/icons/incomes.svg',
+      route:"/dashboard/piip"
+    },
+      {
+      label:'Gastos PIIP',
+      icon:'assets/icons/incomes.svg',
+      route:"/dashboard/expenses-piip"
+    },
 
   ]
 

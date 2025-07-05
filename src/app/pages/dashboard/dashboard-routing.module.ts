@@ -84,6 +84,16 @@ const routes: Routes = [
         // canActivate:[AuthGuard]
       },
       {
+        path: 'piip',
+        loadChildren: () => import('./piip/piip.module').then(m => m.PIIPModule)
+        // canActivate:[AuthGuard]
+      },
+      {
+        path: 'expenses-piip',
+        loadChildren: () => import('./expenses-piip/expenses-piip.module').then(m => m.ExpensesPiipModule)
+        // canActivate:[AuthGuard]
+      },
+      {
         path:'**',
         redirectTo:'metricsBoard',
         pathMatch:'full'
