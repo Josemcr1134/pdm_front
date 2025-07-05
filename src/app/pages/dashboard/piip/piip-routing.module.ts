@@ -20,6 +20,10 @@ const routes: Routes = [
         loadComponent: () => import('./progress-made/progress-made.component').then( m => m.ProgressMadeComponent),
       },
       {
+        path:'deliverableActivity',
+        loadComponent: () => import('./deliverable-activities/deliverable-activities.component').then( m => m.DeliverableActivitiesComponent),
+      },
+      {
         path:'**',
         redirectTo:'goalCurrency',
         pathMatch:'full'

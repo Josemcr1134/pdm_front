@@ -79,4 +79,14 @@ export class PiipService {
     return this.http.get(url, { headers: this.authSvc.header.headers, params });
   }
 
+  getDeliverableActivity(year:number, codeId:any){
+    let params = new HttpParams();
+    if ( year != null) {
+      params = params.set('year', year);
+    }
+
+    const url = `${this.authSvc.baseUrl}/deliverable-activity/?code_product=${codeId}`;
+    return this.http.get(url, { headers: this.authSvc.header.headers, params });
+  };
+
 }

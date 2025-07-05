@@ -4,6 +4,7 @@ import { AlertsService } from '../../../../../core/services/alerts/alerts.servic
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { LoaderComponent } from '../../../../../shared/loader/loader.component';
 
 @Component({
   selector: 'app-add-rubric',
@@ -14,7 +15,8 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    LoaderComponent
   ]
 })
 export class AddRubricComponent {
