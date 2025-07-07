@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PiipService } from '../../../../core/services/piip/piip.service';
 import { Router, RouterModule } from '@angular/router';
+import { PlanningService } from '../../../../core/services/planning/planning.service';
 
 @Component({
   selector: 'app-list',
@@ -29,10 +30,12 @@ export class ListComponent implements OnInit {
 
   public isLoading:boolean = false;
   public searchProductCode:string = '';
-  constructor(private piipSvc:PiipService, private router:Router){}
+  public developmentPlan:any;
+  constructor(private piipSvc:PiipService, private router:Router, private planningSvc:PlanningService){}
 
   ngOnInit(): void {
     this.getSectors();
+    this.getDevelopmentPlan(false);
   };
 
   getSectors(){
@@ -109,4 +112,17 @@ export class ListComponent implements OnInit {
     this.router.navigateByUrl('/dashboard/piip/detail/' + this.codeSelected.id);
 
   }
+
+
+  getDevelopmentPlan(filter:boolean){
+    this.planningSvc.getDevelopmentPlan(filter)
+        .subscribe({
+          error:(err:any) => {
+            console.log(err);
+          },
+          next:(resp:any) => {
+            this.developmentPlan = resp;
+          }
+        });
+  };
 }

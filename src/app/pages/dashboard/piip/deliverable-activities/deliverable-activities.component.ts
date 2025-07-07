@@ -5,6 +5,7 @@ import { AlertComponent } from '../../../../shared/alert/alert.component';
 import { LoaderComponent } from '../../../../shared/loader/loader.component';
 import { PiipService } from '../../../../core/services/piip/piip.service';
 import { PlanningService } from '../../../../core/services/planning/planning.service';
+import { AlertsService } from '../../../../core/services/alerts/alerts.service';
 
 @Component({
   selector: 'app-deliverable-activities',
@@ -24,13 +25,11 @@ export class DeliverableActivitiesComponent implements OnInit {
   public years:any = null;
   public isLoading:boolean = false;
   public deliverableActivities:any[] = [];
-  constructor(private piipSvc:PiipService, private pdmSvc:PlanningService) { }
+  public totals:any;
+  constructor(private piipSvc:PiipService, private pdmSvc:PlanningService, private alertSvc:AlertsService) { }
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
     this.codeSelected = JSON.parse(localStorage.getItem('codeSelected') || '');
-    this.codeSelected.id = 'cc473dc5-7349-47d4-8783-6c825651b9d1';
     this.getYears();
     this.getDeliverableActivities()
   }
@@ -45,13 +44,14 @@ export class DeliverableActivitiesComponent implements OnInit {
         },
         next:(resp:any) => {
           console.log(resp)
-          this.deliverableActivities = resp;
+          this.deliverableActivities = resp.activities ;
+          this.totals = resp.totals_code_product;
           this.isLoading = !this.isLoading;
         }
       });
   };
 
-    getYears(){
+  getYears(){
     this.isLoading = !this.isLoading;
     this.pdmSvc.getYears()
         .subscribe({
@@ -68,5 +68,25 @@ export class DeliverableActivitiesComponent implements OnInit {
         });
   };
 
+  updateDeliverableActivity(data:any, activity:string){
+    this.isLoading = !this.isLoading;
+    delete data.id;
+    this.piipSvc.updateDeliverableActivity(data, activity)
+        .subscribe({
+          error:(err:any) => {
+            console.log(err);
+            this.alertSvc.handleErrors(err);
+            this.isLoading = !this.isLoading;
+          },
+          next:(resp:any) => {
+            this.alertSvc.currentAlert('Éxito', 'Actividad actualizada', 'success')
+            this.isLoading = !this.isLoading;
+            setTimeout(() => {
+              location.reload()
+
+            }, 2000);
+          }
+        })
+  }
 
 }

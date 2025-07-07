@@ -10,6 +10,7 @@ import { DetailComponent } from '../../expenses/investments/detail/detail.compon
 import { AddRubricComponent } from '../../expenses/investments/add-rubric/add-rubric.component';
 import { OperatingExpensesService } from '../../../../core/services/operatingExpenses/operating-expenses.service';
 import { LoadMatrixService } from '../../../../core/services/load-matrix/load-matrix.service';
+import { PlanningService } from '../../../../core/services/planning/planning.service';
 
 @Component({
   selector: 'app-main',
@@ -30,6 +31,7 @@ export class MainComponent  implements OnInit {
   public limit:number = 5;
   public offset:number = 0;
   public yearSelected:number = 2025;
+  public years:any;
   public month:any = null;
   public showRubricModal:boolean = false;
   public showRubricDetail:boolean = false;
@@ -52,10 +54,11 @@ export class MainComponent  implements OnInit {
   itemColapsed:number = 0;
 
   ngOnInit(): void {
+    this.getYears()
     this.getPiipExpenses();
   };
 
-  constructor(private loadMatrixSvc:LoadMatrixService, private piipSvc:PiipService, private alertSvc:AlertsService, private expensesSvc:OperatingExpensesService){}
+  constructor(private pdmSvc: PlanningService, private loadMatrixSvc:LoadMatrixService, private piipSvc:PiipService, private alertSvc:AlertsService, private expensesSvc:OperatingExpensesService){}
 
 
   getPiipExpenses(){
@@ -198,5 +201,23 @@ export class MainComponent  implements OnInit {
           }
         });
   };
+
+  getYears(){
+    this.isLoading = !this.isLoading;
+    this.pdmSvc.getYears()
+        .subscribe({
+          error:(err:any) => {
+            console.log(err);
+            this.isLoading = !this.isLoading;
+          },
+          next:(resp:any) => {
+            this.years = resp;
+            this.yearSelected = resp.first_year;
+            this.isLoading = !this.isLoading;
+
+          }
+        });
+  };
+
 
 }

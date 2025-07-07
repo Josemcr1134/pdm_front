@@ -2,10 +2,10 @@
   <div class="overflow-x-auto whitespace-nowrap lg:p-4 h-full">
     <ul *ngIf="!isLoading" class="flex space-x-4 h-full" >
       <li  class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:max-w-[380px]">
-        <div class="flex items-center justify-between">
-          <p class="text-primary text-sm md:text-[17px] font-black  ">Gasto total</p>
+        <p class="text-primary text-sm md:text-[17px] font-black  ">Gasto total</p>
+        <div class="flex items-center gap-2 justify-between mt-2">
           <div class="grid grid-cols-1">
-            <select (change)="getPiipExpenses()" [(ngModel)]="monthSelected" aria-label="Select a tab" class="col-start-1 row-start-1 w-24 appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600">
+            <select (change)="getPiipExpenses()" [(ngModel)]="monthSelected" aria-label="Select a tab" class="col-start-1 lg:w-40 row-start-1 block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-xs md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600">
               <option value=null>Mes</option>
               <option [value]="1">Enero</option>
               <option [value]="2">Febrero</option>
@@ -20,10 +20,19 @@
               <option [value]="11">Noviembre</option>
               <option [value]="12">Diciembre</option>
             </select>
+          </div>
+          <div class="grid grid-cols-1">
+            <div class="">
+              <div class=" grid grid-cols-1">
+                <select id="year" name="year" [(ngModel)]="yearSelected" (change)="getPiipExpenses()" class="col-start-1 lg:w-40 row-start-1 block w-full rounded-2xl bg-gray-100 px-3 py-1 md:py-1.5 text-xs md:text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600">
+                  <option [value]="years?.first_year">{{years?.first_year}}</option>
+                  <option [value]="years?.second_year">{{years?.second_year}}</option>
+                  <option [value]="years?.third_year">{{years?.third_year}}</option>
+                  <option [value]="years?.fourth_year">{{years?.fourth_year}}</option>
+                </select>
 
-            <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end fill-gray-500" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
-              <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
-            </svg>
+              </div>
+            </div>
           </div>
         </div>
         <div class="flex flex-col items-center gap-4 p-4 bg-gray-100 rounded-xl shadow-lg w-full my-5">
@@ -511,7 +520,7 @@
                 <div class="flex items-start justify-between">
                   <div class="mb-1 flex items-center flex-nowrap gap-x-2 justify-start">
                     <!-- Botón de colapsar/expandir -->
-                    <button *ngIf="s.source_financing.length > 0" (click)="toggleCollapse(s, i, indicator.task, iv)" class="text-primary">
+                    <button *ngIf="s.sources_financing.length > 0" (click)="toggleCollapse(s, i, indicator.task, iv)" class="text-primary">
                       <span *ngIf="isCollapsed(s, i, indicator.task, iv)">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                           <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
@@ -530,16 +539,16 @@
 
                 <!-- Fuentes de financiamiento (colapsable) -->
                 <div *ngIf="!isCollapsed(s, i, indicator.task, iv)">
-                  <p *ngIf="s.source_financing.length > 0" class="text-primary text-[10px] font-semibold truncate text-wrap">Fuente de financiamiento</p>
+                  <p *ngIf="s.sources_financing.length > 0" class="text-primary text-[10px] font-semibold truncate text-wrap">Fuente de financiamiento</p>
                   <ul role="list" class="mt-2">
-                    <li *ngFor="let sf of s.source_financing" class="w-full flex flex-col gap-3 rounded-md  bg-white shadow-sm mb-2">
+                    <li *ngFor="let sf of s.sources_financing" class="w-full flex flex-col gap-3 rounded-md  bg-white shadow-sm mb-2">
                       <div class="flex w-full items-center justify-center rounded-t-md  bg-purple-600 px-2 text-xs font-medium text-white">
-                        {{sf.source_financing_homologation?.homologation}} -   {{sf.source_financing.code}}
+                        {{sf.sources_financing_homologation?.homologation}} -   {{sf.sources_financing.code}}
                       </div>
                       <a class="font-medium text-wrap text-[10px] text-center text-gray-900 hover:text-gray-600 truncate">
-                        {{sf.source_financing.name}}
-                        <span *ngIf="sf.source_financing_homologation?.description">-</span>
-                        {{sf.source_financing_homologation?.description}}
+                        {{sf.sources_financing.name}}
+                        <span *ngIf="sf.sources_financing_homologation?.description">-</span>
+                        {{sf.sources_financing_homologation?.description}}
                       </a>
                       <p class="text-gray-500 text-xs pr-2 text-center">{{sf[indicator.key] | currency}}</p>
                     </li>

@@ -89,4 +89,16 @@ export class PiipService {
     return this.http.get(url, { headers: this.authSvc.header.headers, params });
   };
 
+  updateDeliverableActivity(data:{}, id:string){
+    const url = `${this.authSvc.baseUrl}/deliverable-activity/${id}/expense/`;
+    return this.http.patch(url, data, this.authSvc.header);
+  };
+
+  createDeliverableActivity(data:{}, id:string){
+    const url = `${this.authSvc.baseUrl}/deliverable-activity/${id}/expense/`;
+    return this.http.post(url, data, this.authSvc.header);
+  };
+
+
+
 }
