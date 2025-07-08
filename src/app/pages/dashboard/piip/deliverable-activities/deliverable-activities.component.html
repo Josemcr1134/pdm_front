@@ -30,10 +30,9 @@
               <th scope="col" class="px-4 py-3.5 text-left text-sm font-semibold text-primary">Créditos</th>
               <th scope="col" class="px-4 py-3.5 text-left text-sm font-semibold text-primary">Contra Crédito</th>
               <th scope="col" class="px-4 py-3.5 text-left text-sm font-semibold text-primary">Aplazamiento</th>
+              <th scope="col" class="px-4 py-3.5 text-left text-sm font-semibold text-primary">Adiciones</th>
               <th scope="col" class="px-4 py-3.5 text-left text-sm font-semibold text-primary">Reducciones</th>
               <th scope="col" class="px-4 py-3.5 text-left text-sm font-semibold text-primary">Apropiación Definitiva</th>
-              <th scope="col" class="px-4 py-3.5 text-left text-sm font-semibold text-primary">CDP Expedidos</th>
-              <th scope="col" class="px-4 py-3.5 text-left text-sm font-semibold text-primary">CDP Abiertos</th>
               <th scope="col" class="px-4 py-3.5 text-left text-sm font-semibold text-primary">Disponibilidad Mes</th>
               <th scope="col" class="px-4 py-3.5 text-left text-sm font-semibold text-primary">Compromisos</th>
               <th scope="col" class="px-4 py-3.5 text-left text-sm font-semibold text-primary">Compromisos Mes</th>
@@ -46,122 +45,222 @@
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-200 bg-white">
-            <tr *ngFor="let a of deliverableActivities" class="divide-x divide-gray-200">
-              <td class="py-4 pr-4 pl-4 text-sm font-medium whitespace-nowrap text-primary sm:pl-0 ">{{a.type == 'ACTIVITY' ? 'Actividad':'Entregable' }}...</td>
-              <td class="py-4 pr-4 pl-4 text-sm font-medium whitespace-nowrap text-primary sm:pl-0 ">{{a.name | slice:0:40}}...</td>
+          <tr *ngFor="let a of deliverableActivities; let i = index" class="divide-x divide-gray-200">
+              <!-- Columnas de texto -->
+              <td class="py-4 pr-4 pl-4 text-sm font-medium whitespace-nowrap text-primary sm:pl-0">
+                {{a.type == 'ACTIVITY' ? 'Actividad' : 'Entregable'}}
+              </td>
+              <td class="py-4 pr-4 pl-4 text-sm font-medium whitespace-nowrap text-primary sm:pl-0">
+                {{a.name | slice:0:40}}{{a.name.length > 40 ? '...' : ''}}
+              </td>
+
+              <!-- Inputs numéricos con formato de moneda -->
               <td class="p-4 text-sm whitespace-nowrap text-gray-500">
-                <input type="number" [(ngModel)]="a.expense.initial_approval" [name]="a.expense.initial_approval" class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base  outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40 " [id]="a.expense.initial_approval">
+                <input type="text"
+                  [ngModel]="a.expense.initial_approval | currency:'COP':'symbol':'1.2-2'"
+                  (ngModelChange)="a.expense.initial_approval = $event"
+                  (blur)="formatCurrency($event, a, 'initial_approval')"
+                  (focus)="removeFormatting($event, a, 'initial_approval')"
+                  [name]="'initial_approval_' + i"
+                  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 text-xs md:text-base outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40">
+              </td>
+
+              <td class="p-4 text-sm whitespace-nowrap text-gray-500">
+                <input type="text"
+                  [ngModel]="a.expense.credit_transfer | currency:'COP':'symbol':'1.2-2'"
+                  (ngModelChange)="a.expense.credit_transfer = $event"
+                  (blur)="formatCurrency($event, a, 'credit_transfer')"
+                  (focus)="removeFormatting($event, a, 'credit_transfer')"
+                  [name]="'credit_transfer_' + i"
+                  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 text-xs md:text-base outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40">
+              </td>
+
+              <td class="p-4 text-sm whitespace-nowrap text-gray-500">
+                <input type="text"
+                  [ngModel]="a.expense.transfer_with_credit | currency:'COP':'symbol':'1.2-2'"
+                  (ngModelChange)="a.expense.transfer_with_credit = $event"
+                  (blur)="formatCurrency($event, a, 'transfer_with_credit')"
+                  (focus)="removeFormatting($event, a, 'transfer_with_credit')"
+                  [name]="'transfer_with_credit_' + i"
+                  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 text-xs md:text-base outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40">
+              </td>
+
+              <td class="p-4 text-sm whitespace-nowrap text-gray-500">
+                <input type="text"
+                  [ngModel]="a.expense.displacement | currency:'COP':'symbol':'1.2-2'"
+                  (ngModelChange)="a.expense.displacement = $event"
+                  (blur)="formatCurrency($event, a, 'displacement')"
+                  (focus)="removeFormatting($event, a, 'displacement')"
+                  [name]="'displacement_' + i"
+                  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 text-xs md:text-base outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40">
               </td>
               <td class="p-4 text-sm whitespace-nowrap text-gray-500">
-                <input type="number" [(ngModel)]="a.expense.credit_transfer" [name]="a.expense.credit_transfer" class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base  outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40 " [id]="a.expense.credit_transfer">
+                <input type="text"
+                  [ngModel]="a.expense.additions | currency:'COP':'symbol':'1.2-2'"
+                  (ngModelChange)="a.expense.additions = $event"
+                  (blur)="formatCurrency($event, a, 'additions')"
+                  (focus)="removeFormatting($event, a, 'additions')"
+                  [name]="'additions_' + i"
+                  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 text-xs md:text-base outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40">
               </td>
+
               <td class="p-4 text-sm whitespace-nowrap text-gray-500">
-                <input type="number" [(ngModel)]="a.expense.transfer_with_credit" [name]="a.expense.transfer_with_credit" class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base  outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40 " [id]="a.expense.transfer_with_credit">
+                <input type="text"
+                  [ngModel]="a.expense.reductions | currency:'COP':'symbol':'1.2-2'"
+                  (ngModelChange)="a.expense.reductions = $event"
+                  (blur)="formatCurrency($event, a, 'reductions')"
+                  (focus)="removeFormatting($event, a, 'reductions')"
+                  [name]="'reductions_' + i"
+                  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 text-xs md:text-base outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40">
               </td>
+
               <td class="p-4 text-sm whitespace-nowrap text-gray-500">
-                <input type="number" [(ngModel)]="a.expense.displacement" [name]="a.expense.displacement" class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base  outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40 " [id]="a.expense.displacement">
+                <input type="text"
+                  [ngModel]="a.expense.total_approval | currency:'COP':'symbol':'1.2-2'"
+                  (ngModelChange)="a.expense.total_approval = $event"
+                  (blur)="formatCurrency($event, a, 'total_approval')"
+                  (focus)="removeFormatting($event, a, 'total_approval')"
+                  [name]="'total_approval_' + i"
+                  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 text-xs md:text-base outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40">
               </td>
+
               <td class="p-4 text-sm whitespace-nowrap text-gray-500">
-                <input type="number" [(ngModel)]="a.expense.reductions" [name]="a.expense.reductions" class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base  outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40 " [id]="a.expense.reductions">
+                <input type="text"
+                  [ngModel]="a.expense.availability | currency:'COP':'symbol':'1.2-2'"
+                  (ngModelChange)="a.expense.availability = $event"
+                  (blur)="formatCurrency($event, a, 'availability')"
+                  (focus)="removeFormatting($event, a, 'availability')"
+                  [name]="'availability_' + i"
+                  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 text-xs md:text-base outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40">
               </td>
+
               <td class="p-4 text-sm whitespace-nowrap text-gray-500">
-                <input type="number" [(ngModel)]="a.expense.total_approval" [name]="a.expense.total_approval" class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base  outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40 " [id]="a.expense.total_approval">
+                <input type="text"
+                  [ngModel]="a.expense.cumulative_commitments | currency:'COP':'symbol':'1.2-2'"
+                  (ngModelChange)="a.expense.cumulative_commitments = $event"
+                  (blur)="formatCurrency($event, a, 'cumulative_commitments')"
+                  (focus)="removeFormatting($event, a, 'cumulative_commitments')"
+                  [name]="'cumulative_commitments_' + i"
+                  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 text-xs md:text-base outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40">
               </td>
+
               <td class="p-4 text-sm whitespace-nowrap text-gray-500">
-                <!-- <input type="number" [(ngModel)]="a.expense.total_approval" [name]="a.expense.total_approval" class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base  outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40 " [id]="a.expense.total_approval"> -->
+                <input type="text"
+                  [ngModel]="a.expense.commitments_month | currency:'COP':'symbol':'1.2-2'"
+                  (ngModelChange)="a.expense.commitments_month = $event"
+                  (blur)="formatCurrency($event, a, 'commitments_month')"
+                  (focus)="removeFormatting($event, a, 'commitments_month')"
+                  [name]="'commitments_month_' + i"
+                  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 text-xs md:text-base outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40">
               </td>
+
               <td class="p-4 text-sm whitespace-nowrap text-gray-500">
-                <!-- <input type="number" [(ngModel)]="a.expense.total_approval" [name]="a.expense.total_approval" class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base  outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40 " [id]="a.expense.total_approval"> -->
+                <input type="text"
+                  [ngModel]="a.expense.obligations | currency:'COP':'symbol':'1.2-2'"
+                  (ngModelChange)="a.expense.obligations = $event"
+                  (blur)="formatCurrency($event, a, 'obligations')"
+                  (focus)="removeFormatting($event, a, 'obligations')"
+                  [name]="'obligations_' + i"
+                  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 text-xs md:text-base outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40">
               </td>
+
               <td class="p-4 text-sm whitespace-nowrap text-gray-500">
-                <input type="number" [(ngModel)]="a.expense.availability" [name]="a.expense.availability" class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base  outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40 " [id]="a.expense.availability">
+                <input type="text"
+                  [ngModel]="a.expense.accumulated_payments | currency:'COP':'symbol':'1.2-2'"
+                  (ngModelChange)="a.expense.accumulated_payments = $event"
+                  (blur)="formatCurrency($event, a, 'accumulated_payments')"
+                  (focus)="removeFormatting($event, a, 'accumulated_payments')"
+                  [name]="'accumulated_payments_' + i"
+                  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 text-xs md:text-base outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40">
               </td>
+
               <td class="p-4 text-sm whitespace-nowrap text-gray-500">
-                <input type="number" [(ngModel)]="a.expense.cumulative_commitments" [name]="a.expense.cumulative_commitments" class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base  outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40 " [id]="a.expense.cumulative_commitments">
+                <input type="text"
+                  [ngModel]="a.expense.payments_month | currency:'COP':'symbol':'1.2-2'"
+                  (ngModelChange)="a.expense.payments_month = $event"
+                  (blur)="formatCurrency($event, a, 'payments_month')"
+                  (focus)="removeFormatting($event, a, 'payments_month')"
+                  [name]="'payments_month_' + i"
+                  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 text-xs md:text-base outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40">
               </td>
+
               <td class="p-4 text-sm whitespace-nowrap text-gray-500">
-                <input type="number" [(ngModel)]="a.expense.commitments_month" [name]="a.expense.commitments_month" class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base  outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40 " [id]="a.expense.commitments_month">
+                <input type="text"
+                  [ngModel]="a.expense.balance | currency:'COP':'symbol':'1.2-2'"
+                  (ngModelChange)="a.expense.balance = $event"
+                  (blur)="formatCurrency($event, a, 'balance')"
+                  (focus)="removeFormatting($event, a, 'balance')"
+                  [name]="'balance_' + i"
+                  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 text-xs md:text-base outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40">
               </td>
+
               <td class="p-4 text-sm whitespace-nowrap text-gray-500">
-                <input type="number" [(ngModel)]="a.expense.obligations" [name]="a.expense.obligations" class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base  outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40 " [id]="a.expense.obligations">
+                <input type="text"
+                  [ngModel]="a.expense.executed_balance | currency:'COP':'symbol':'1.2-2'"
+                  (ngModelChange)="a.expense.executed_balance = $event"
+                  (blur)="formatCurrency($event, a, 'executed_balance')"
+                  (focus)="removeFormatting($event, a, 'executed_balance')"
+                  [name]="'executed_balance_' + i"
+                  class="block w-full rounded-2xl bg-gray-100 px-3 py-1 text-xs md:text-base outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40">
               </td>
-              <td class="p-4 text-sm whitespace-nowrap text-gray-500">
-                <input type="number" [(ngModel)]="a.expense.accumulated_payments" [name]="a.expense.accumulated_payments" class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base  outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40 " [id]="a.expense.accumulated_payments">
-              </td>
-              <td class="p-4 text-sm whitespace-nowrap text-gray-500">
-                <input type="number" [(ngModel)]="a.expense.payments_month" [name]="a.expense.payments_month" class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base  outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40 " [id]="a.expense.payments_month">
-              </td>
-              <td class="p-4 text-sm whitespace-nowrap text-gray-500">
-                <input type="number" [(ngModel)]="a.expense.balance" [name]="a.expense.balance" class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base  outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40 " [id]="a.expense.balance">
-              </td>
-              <td class="p-4 text-sm whitespace-nowrap text-gray-500">
-                <input type="number" [(ngModel)]="a.expense.executed_balance" [name]="a.expense.executed_balance" class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base  outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40 " [id]="a.expense.executed_balance">
-              </td>
+
               <td class="py-4 pr-4 pl-4 text-sm whitespace-nowrap text-gray-500 sm:pr-0">
-
-                <button (click)="updateDeliverableActivity(a.expense, a.id)">
+                <button (click)="updateDeliverableActivity(a.expense, a.id)" class="hover:bg-gray-100 p-1 rounded">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 text-green-500 hover:text-green-700">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"/>
                   </svg>
-
                 </button>
               </td>
             </tr>
-            <tr  class="divide-x divide-gray-200">
-              <td class="py-4 pr-4 pl-4 text-sm font-medium whitespace-nowrap text-primary sm:pl-0 ">Total</td>
-              <td class="py-4 pr-4 pl-4 text-sm font-medium whitespace-nowrap text-primary sm:pl-0 ">{{codeSelected.name | slice:0:40}}</td>
-              <td class="p-4 text-sm whitespace-nowrap text-gray-500">
-                <input type="number" [(ngModel)]="totals.initial_approval" [name]="totals.initial_approval" class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base  outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40 " [id]="totals.initial_approval">
-              </td>
-              <td class="p-4 text-sm whitespace-nowrap text-gray-500">
-                <input type="number" [(ngModel)]="totals.credit_transfer" [name]="totals.credit_transfer" class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base  outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40 " [id]="totals.credit_transfer">
-              </td>
-              <td class="p-4 text-sm whitespace-nowrap text-gray-500">
-                <input type="number" [(ngModel)]="totals.transfer_with_credit" [name]="totals.transfer_with_credit" class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base  outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40 " [id]="totals.transfer_with_credit">
-              </td>
-              <td class="p-4 text-sm whitespace-nowrap text-gray-500">
-                <input type="number" [(ngModel)]="totals.displacement" [name]="totals.displacement" class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base  outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40 " [id]="totals.displacement">
-              </td>
-              <td class="p-4 text-sm whitespace-nowrap text-gray-500">
-                <input type="number" [(ngModel)]="totals.reductions" [name]="totals.reductions" class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base  outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40 " [id]="totals.reductions">
-              </td>
-              <td class="p-4 text-sm whitespace-nowrap text-gray-500">
-                <input type="number" [(ngModel)]="totals.total_approval" [name]="totals.total_approval" class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base  outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40 " [id]="totals.total_approval">
-              </td>
-              <td class="p-4 text-sm whitespace-nowrap text-gray-500">
-                <!-- <input type="number" [(ngModel)]="totals.total_approval" [name]="totals.total_approval" class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base  outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40 " [id]="totals.total_approval"> -->
-              </td>
-              <td class="p-4 text-sm whitespace-nowrap text-gray-500">
-                <!-- <input type="number" [(ngModel)]="totals.total_approval" [name]="totals.total_approval" class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base  outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40 " [id]="totals.total_approval"> -->
-              </td>
-              <td class="p-4 text-sm whitespace-nowrap text-gray-500">
-                <input type="number" [(ngModel)]="totals.availability" [name]="totals.availability" class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base  outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40 " [id]="totals.availability">
-              </td>
-              <td class="p-4 text-sm whitespace-nowrap text-gray-500">
-                <input type="number" [(ngModel)]="totals.cumulative_commitments" [name]="totals.cumulative_commitments" class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base  outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40 " [id]="totals.cumulative_commitments">
-              </td>
-              <td class="p-4 text-sm whitespace-nowrap text-gray-500">
-                <input type="number" [(ngModel)]="totals.commitments_month" [name]="totals.commitments_month" class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base  outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40 " [id]="totals.commitments_month">
-              </td>
-              <td class="p-4 text-sm whitespace-nowrap text-gray-500">
-                <input type="number" [(ngModel)]="totals.obligations" [name]="totals.obligations" class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base  outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40 " [id]="totals.obligations">
-              </td>
-              <td class="p-4 text-sm whitespace-nowrap text-gray-500">
-                <input type="number" [(ngModel)]="totals.accumulated_payments" [name]="totals.accumulated_payments" class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base  outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40 " [id]="totals.accumulated_payments">
-              </td>
-              <td class="p-4 text-sm whitespace-nowrap text-gray-500">
-                <input type="number" [(ngModel)]="totals.payments_month" [name]="totals.payments_month" class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base  outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40 " [id]="totals.payments_month">
-              </td>
-              <td class="p-4 text-sm whitespace-nowrap text-gray-500">
-                <input type="number" [(ngModel)]="totals.balance" [name]="totals.balance" class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base  outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40 " [id]="totals.balance">
-              </td>
-              <td class="p-4 text-sm whitespace-nowrap text-gray-500">
-                <input type="number" [(ngModel)]="totals.executed_balance" [name]="totals.executed_balance" class="block w-full rounded-2xl bg-gray-100 px-3 py-1  text-xs md:text-base  outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 min-w-40 " [id]="totals.executed_balance">
-              </td>
-              <td class="py-4 pr-4 pl-4 text-sm whitespace-nowrap text-gray-500 sm:pr-0">
-
-
-              </td>
+            <tr class="divide-x divide-gray-200">
+                <td class="py-4 pr-4 pl-4 text-sm font-medium whitespace-nowrap text-primary sm:pl-0">Total</td>
+                <td class="py-4 pr-4 pl-4 text-sm font-medium whitespace-nowrap text-primary sm:pl-0">{{codeSelected.name | slice:0:40}}</td>
+                <td class="p-4 text-sm whitespace-nowrap text-gray-500">
+                  <p>{{totals.initial_approval | currency}}</p>
+                </td>
+                <td class="p-4 text-sm whitespace-nowrap text-gray-500">
+                  <p>{{totals.credit_transfer | currency}}</p>
+                </td>
+                <td class="p-4 text-sm whitespace-nowrap text-gray-500">
+                  <p>{{totals.transfer_with_credit | currency}}</p>
+                </td>
+                <td class="p-4 text-sm whitespace-nowrap text-gray-500">
+                  <p>{{totals.displacement | currency}}</p>
+                </td>
+                <td class="p-4 text-sm whitespace-nowrap text-gray-500">
+                  <p>{{totals.additions | currency}}</p>
+                </td>
+                <td class="p-4 text-sm whitespace-nowrap text-gray-500">
+                  <p>{{totals.reductions | currency}}</p>
+                </td>
+                <td class="p-4 text-sm whitespace-nowrap text-gray-500">
+                  <p>{{totals.total_approval | currency}}</p>
+                </td>
+                <td class="p-4 text-sm whitespace-nowrap text-gray-500">
+                  <p>{{totals.availability | currency}}</p>
+                </td>
+                <td class="p-4 text-sm whitespace-nowrap text-gray-500">
+                  <p>{{totals.cumulative_commitments | currency}}</p>
+                </td>
+                <td class="p-4 text-sm whitespace-nowrap text-gray-500">
+                  <p>{{totals.commitments_month | currency}}</p>
+                </td>
+                <td class="p-4 text-sm whitespace-nowrap text-gray-500">
+                  <p>{{totals.obligations | currency}}</p>
+                </td>
+                <td class="p-4 text-sm whitespace-nowrap text-gray-500">
+                  <p>{{totals.accumulated_payments | currency}}</p>
+                </td>
+                <td class="p-4 text-sm whitespace-nowrap text-gray-500">
+                  <p>{{totals.payments_month | currency}}</p>
+                </td>
+                <td class="p-4 text-sm whitespace-nowrap text-gray-500">
+                  <p>{{totals.balance | currency}}</p>
+                </td>
+                <td class="p-4 text-sm whitespace-nowrap text-gray-500">
+                  <p>{{totals.executed_balance | currency}}</p>
+                </td>
+                <td class="py-4 pr-4 pl-4 text-sm whitespace-nowrap text-gray-500 sm:pr-0"></td>
             </tr>
 
             <!-- More people... -->

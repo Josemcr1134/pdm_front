@@ -40,6 +40,7 @@ export class MainComponent implements OnInit {
         next:(resp:any) => {
           this.data = resp;
           this.strategicLines = resp.strategic_lines;
+          console.log(this.strategicLines)
            this.getRubricExpenseSum();
         }
       })

@@ -37,8 +37,8 @@ export class StrategicLineChartComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
      if (changes['data'] ) {
        let labels = this.data.map( d => d.name ||  d.description);
-       let series1 = this.data.map( d => d.total_executed_goals);
-       let series2 = this.data.map( d => d.total_pending_goals);
+       let series1 = this.data.map( d => d.total_executed_goals || d.executed);
+       let series2 = this.data.map( d => d.total_pending_goals || d.pending);
        this.buildChart(series1 , series2,  labels)
     }
   }
@@ -60,7 +60,7 @@ export class StrategicLineChartComponent implements OnChanges {
       ],
       chart: {
         type: "bar",
-        height: 430
+        height: 550
       },
       plotOptions: {
         bar: {
