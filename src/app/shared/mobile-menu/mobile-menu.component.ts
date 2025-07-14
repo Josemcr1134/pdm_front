@@ -97,6 +97,12 @@ export class MobileMenuComponent {
       icon:'assets/icons/incomes.svg',
       route:"/dashboard/expenses-piip"
     },
+    {
+      label:'Consolidaciones',
+      icon:'assets/icons/incomes.svg',
+      route:"/dashboard/consolidations"
+    },
+
 
   ]
 

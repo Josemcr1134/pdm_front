@@ -100,6 +100,11 @@ export class SidebarComponent implements OnInit {
       icon:'assets/icons/incomes.svg',
       route:"/dashboard/expenses-piip"
     },
+    {
+      label:'Consolidaciones',
+      icon:'assets/icons/incomes.svg',
+      route:"/dashboard/consolidations"
+    },
 
   ];
 

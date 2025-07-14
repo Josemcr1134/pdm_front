@@ -1,0 +1,152 @@
+<div *ngIf="!isLoading">
+  <div class="block bg-white p-3 rounded-xl">
+    <div class="flex items-center gap-5 flex-wrap mb-5">
+      <div class="flex  items-center flex-wrap gap-4">
+          <p class="text-black font-bold text-base">Consolidaciones</p>
+      </div>
+
+    </div>
+    <div class="overflow-x-auto">
+      <table class="min-w-full  text-sm text-left text-gray-800">
+        <thead>
+          <tr class="bg-primary  rounded-t-lg text-white text-xs">
+            <th colspan="3" class="px-4 py-4  bg-yellow-400 rounded-tl-lg  text-center">PLAN DE DESARROLLO</th>
+            <th colspan="8" class="px-4 py-4  text-center">PLAN DE DESARROLLO</th>
+            <th colspan="9" class="px-4 py-4 border-x  text-center">REPORTE DE LA PIIP</th>
+            <th colspan="2" class="px-4 py-4  rounded-tr-lg  text-center">CONVERSIÓN DE LA UNIDAD DE MEDIDAD Y META DEL CUATRENIO ENTRE EL PDM Y LA PIB</th>
+          </tr>
+          <tr class=" text-white">
+            <th class="px-4 py-2.5 text-nowrap bg-yellow-400">META DEL PLAN DE DESARROLLO</th>
+            <th class="px-4 py-2.5 text-nowrap bg-yellow-400">UNIDAD DE MEDIDA</th>
+            <th class="px-4 py-2.5 text-nowrap bg-yellow-400">META DEL CUATRENIO</th>
+            <!-- PDM HEADERS -->
+            <th class="px-4 py-2.5 bg-blue-400 text-nowrap">SECTOR</th>
+            <th class="px-4 py-2.5 bg-green-400 text-nowrap">BPIN</th>
+
+            <th class="px-4 py-2.5 bg-orange-300 text-nowrap">CÓD. PRODUCTO MGA</th>
+            <th class="px-4 py-2.5  bg-yellow-500 text-nowrap ">PRODUCTO DE LA MGA</th>
+            <th class="px-4 py-2.5 bg-gray-500 text-nowrap">CÓD. INDICADOR DE PRODUCTO</th>
+            <th class="px-4 py-2.5 bg-red-500 text-nowrap">INDICADOR DE PRODUCTO MGA</th>
+            <th class="px-4 py-2.5 bg-orange-600 text-nowrap">APROPIACIÓN INICIAL</th>
+            <th class="px-4 py-2.5 bg-green-600  text-nowrap">TOTAL APROPIADO</th>
+
+            <!-- PIIP HEADERS -->
+            <th class="px-4 py-2.5 bg-blue-400 text-nowrap">SECTOR</th>
+            <th class="px-4 py-2.5 bg-green-400 text-nowrap">BPIN</th>
+
+            <th class="px-4 py-2.5 bg-orange-300 text-nowrap">CÓD. PRODUCTO MGA</th>
+            <th class="px-4 py-2.5 bg-yellow-500 text-nowrap ">PRODUCTO DE LA MGA</th>
+            <th class="px-4 py-2.5  bg-gray-500 text-nowrap">CÓD. INDICADOR DE PRODUCTO</th>
+            <th class="px-4 py-2.5 bg-red-500 text-nowrap">INDICADOR DE PRODUCTO MGA</th>
+            <th class="px-4 py-2.5 text-gray-800 text-nowrap">META TOTAL DE INDICADOR</th>
+            <th class="px-4 py-2.5 bg-orange-600  text-nowrap">APROPIACIÓN INICIAL</th>
+            <th class="px-4 py-2.5 bg-green-600  text-nowrap">TOTAL APROPIADO</th>
+
+
+            <th class="px-4 py-2.5 text-gray-800  text-nowrap">UNIDAD DE MEDIDA</th>
+            <th class="px-4 py-2 text-gray-800  text-nowrap">META TOTAL</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Ejemplo fila -->
+          <tr *ngFor="let c of Consolidations" class="hover:bg-gray-100">
+            <td class="px-4 py-2 border">{{c.goal_name || 'No definido'}}</td>
+            <td class="px-4 py-2 border">{{c.unit_measurement || 'No definido'}}</td>
+            <td class="px-4 py-2 border">{{c.goal_four_years || 'No definido'}} </td>
+
+            <!-- PDM VALUES -->
+            <td class="px-4 py-2 border">
+                {{c.pdm.sector || 'No definido'}}
+               <span *ngIf="hasAlert(c, 'sector')" class="text-red-500 ml-1">⚠️</span>
+            </td>
+            <td class="px-4 py-2 border">
+                {{c.pdm.bpin || 'No definido'}}
+                <span *ngIf="hasAlert(c, 'bpin')" class="text-red-500 ml-1">⚠️</span>
+            </td>
+            <td class="px-4 py-2 border">
+                {{c.pdm.code_producto_mga || 'No definido'}}
+                <span *ngIf="hasAlert(c, 'code_producto_mga')" class="text-red-500 ml-1">⚠️</span>
+            </td>
+            <td class="px-4 py-2 border">
+                {{c.pdm.producto_mga || 'No definido'}}
+                <span *ngIf="hasAlert(c, 'producto_mga')" class="text-red-500 ml-1">⚠️</span>
+            </td>
+            <td class="px-4 py-2 border">
+                {{c.pdm.code_indicator_mga || 'No definido'}}
+                <span *ngIf="hasAlert(c, 'code_indicator_mga')" class="text-red-500 ml-1">⚠️</span>
+            </td>
+            <td class="px-4 py-2 border">
+                {{c.pdm.indicator_mga || 'No definido'}}
+                <span *ngIf="hasAlert(c, 'indicator_mga')" class="text-red-500 ml-1">⚠️</span>
+            </td>
+            <td class="px-4 py-2 border">
+                {{c.pdm.initial_appropriation || 'No definido'}}
+                <span *ngIf="hasAlert(c, 'initial_appropriation')" class="text-red-500 ml-1">⚠️</span>
+            </td>
+            <td class="px-4 py-2 border">
+                {{c.pdm.total_appropriate || 'No definido'}}
+                <span *ngIf="hasAlert(c, 'total_appropriate')" class="text-red-500 ml-1">⚠️</span>
+            </td>
+
+            <!-- PIIP VALUES -->
+            <td class="px-4 py-2 border">
+              {{c.piip.sector_piip || 'No definido'}}
+              <span *ngIf="hasAlert(c, 'sector_piip')" class="text-red-500 ml-1">⚠️</span>
+            </td>
+            <td class="px-4 py-2 border">
+              {{c.piip.bpin_piip || 'No definido'}}
+              <span *ngIf="hasAlert(c, 'bpin_piip')" class="text-red-500 ml-1">⚠️</span>
+            </td>
+
+            <td class="px-4 py-2 border">
+              {{c.piip.code_producto_mga_piip || 'No definido'}}
+              <span *ngIf="hasAlert(c, 'code_producto_mga_piip')" class="text-red-500 ml-1">⚠️</span>
+            </td>
+            <td class="px-4 py-2 border">
+              {{c.piip.producto_mga_piip || 'No definido'}}
+              <span *ngIf="hasAlert(c, 'producto_mga_piip')" class="text-red-500 ml-1">⚠️</span>
+            </td>
+            <td class="px-4 py-2 border">
+              {{c.piip.code_indicator_mga_piip || 'No definido'}}
+              <span *ngIf="hasAlert(c, 'code_indicator_mga_piip')" class="text-red-500 ml-1">⚠️</span>
+            </td>
+            <td class="px-4 py-2 border">
+              {{c.piip.indicator_mga_piip || 'No definido'}}
+              <span *ngIf="hasAlert(c, 'indicator_mga_piip')" class="text-red-500 ml-1">⚠️</span>
+            </td>
+
+            <td class="px-4 py-2 border">
+              {{c.piip.total_indicator_goal_piip || 'No definido'}}
+              <span *ngIf="hasAlert(c, 'total_indicator_goal_piip')" class="text-red-500 ml-1">⚠️</span>
+            </td>
+            <td class="px-4 py-2 border">
+              {{c.piip.initial_appropriation_piip || 'No definido'}}
+              <span *ngIf="hasAlert(c, 'initial_appropriation_piip')" class="text-red-500 ml-1">⚠️</span>
+            </td>
+            <td class="px-4 py-2 border">
+              {{c.piip.total_appropriate_piip || 'No definido'}}
+              <span *ngIf="hasAlert(c, 'total_appropriate_piip')" class="text-red-500 ml-1">⚠️</span>
+            </td>
+
+            <!-- COMPARATIONS -->
+            <td class="px-4 py-2 border">
+              {{c.unit_measurement || 'No definido'}}
+              <span *ngIf="hasAlert(c, 'total_appropriate_piip')" class="text-red-500 ml-1">⚠️</span>
+            </td>
+            <td class="px-4 py-2 border">
+              <span *ngIf="hasAlert(c, 'total_indicator_goal_piip')" class="text-red-500 ml-1">⚠️</span>
+              {{c.piip.total_indicator_goal_piip || 'No definido'}}
+            </td>
+
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- PAGINATION -->
+     <app-pagination [limit]="limit" [offset]="offset" [totalItems]="totalItems" (onPageChange)="pageChange($event)" ></app-pagination>
+  </div>
+</div>
+<div *ngIf="isLoading" class="flex justify-center items-center h-full">
+  <app-loader></app-loader>
+</div>

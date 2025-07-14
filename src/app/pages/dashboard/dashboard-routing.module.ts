@@ -10,9 +10,7 @@ const routes: Routes = [
     children:[
       {
         path: 'metricsBoard',
-        loadChildren: () => import('./metrics-board/metrics-board.module').then(m => m.MetricsBoardModule)
-        // canActivate:[AuthGuard]
-      },
+        loadChildren: () => import('./metrics-board/metrics-board.module').then(m => m.MetricsBoardModule)      },
       {
         path: 'planning/:filterByDpt',
         loadChildren: () => import('./planning/planning.module').then(m => m.PlanningModule)
@@ -91,6 +89,16 @@ const routes: Routes = [
       {
         path: 'expenses-piip',
         loadChildren: () => import('./expenses-piip/expenses-piip.module').then(m => m.ExpensesPiipModule)
+        // canActivate:[AuthGuard]
+      },
+      {
+        path: 'expenses-piip',
+        loadChildren: () => import('./expenses-piip/expenses-piip.module').then(m => m.ExpensesPiipModule)
+        // canActivate:[AuthGuard]
+      },
+      {
+        path: 'consolidations',
+        loadChildren: () => import('./consolidations/consolidations.module').then(m => m.ConsolidationsModule)
         // canActivate:[AuthGuard]
       },
       {
