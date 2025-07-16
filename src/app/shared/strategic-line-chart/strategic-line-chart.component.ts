@@ -37,8 +37,8 @@ export class StrategicLineChartComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
      if (changes['data'] ) {
        let labels = this.data.map( d => d.name ||  d.description);
-       let series1 = this.data.map( d => d.total_executed_goals || d.executed);
-       let series2 = this.data.map( d => d.total_pending_goals || d.pending);
+       let series1 = this.data.map( d => d.total_executed_goals || d.percent_executed);
+       let series2 = this.data.map( d => d.total_pending_goals || d.percent_pending);
        this.buildChart(series1 , series2,  labels)
     }
   }
