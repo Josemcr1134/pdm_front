@@ -52,7 +52,7 @@
           <tr *ngFor="let c of Consolidations" class="hover:bg-gray-100">
             <td class="px-4 py-2 border">{{c.goal_name || 'No definido'}}</td>
             <td class="px-4 py-2 border">{{c.unit_measurement || 'No definido'}}</td>
-            <td class="px-4 py-2 border">{{c.goal_four_years || 'No definido'}} </td>
+            <td class="px-4 py-2 border">{{c.goal_four_years | currency}} </td>
 
             <!-- PDM VALUES -->
             <td class="px-4 py-2 border">
@@ -60,11 +60,11 @@
                <span *ngIf="hasAlert(c, 'sector')" class="text-red-500 ml-1">⚠️</span>
             </td>
             <td class="px-4 py-2 border">
-                {{c.pdm.bpin || 'No definido'}}
+                {{c.pdm.bpin | currency}}
                 <span *ngIf="hasAlert(c, 'bpin')" class="text-red-500 ml-1">⚠️</span>
             </td>
             <td class="px-4 py-2 border">
-                {{c.pdm.code_producto_mga || 'No definido'}}
+                {{c.pdm.code_producto_mga | currency}}
                 <span *ngIf="hasAlert(c, 'code_producto_mga')" class="text-red-500 ml-1">⚠️</span>
             </td>
             <td class="px-4 py-2 border">
@@ -72,7 +72,7 @@
                 <span *ngIf="hasAlert(c, 'producto_mga')" class="text-red-500 ml-1">⚠️</span>
             </td>
             <td class="px-4 py-2 border">
-                {{c.pdm.code_indicator_mga || 'No definido'}}
+                {{c.pdm.code_indicator_mga  | currency}}
                 <span *ngIf="hasAlert(c, 'code_indicator_mga')" class="text-red-500 ml-1">⚠️</span>
             </td>
             <td class="px-4 py-2 border">
@@ -80,11 +80,11 @@
                 <span *ngIf="hasAlert(c, 'indicator_mga')" class="text-red-500 ml-1">⚠️</span>
             </td>
             <td class="px-4 py-2 border">
-                {{c.pdm.initial_appropriation || 'No definido'}}
+                {{c.pdm.initial_appropriation | currency}}
                 <span *ngIf="hasAlert(c, 'initial_appropriation')" class="text-red-500 ml-1">⚠️</span>
             </td>
             <td class="px-4 py-2 border">
-                {{c.pdm.total_appropriate || 'No definido'}}
+                {{c.pdm.total_appropriate | currency}}
                 <span *ngIf="hasAlert(c, 'total_appropriate')" class="text-red-500 ml-1">⚠️</span>
             </td>
 
@@ -94,12 +94,12 @@
               <span *ngIf="hasAlert(c, 'sector_piip')" class="text-red-500 ml-1">⚠️</span>
             </td>
             <td class="px-4 py-2 border">
-              {{c.piip.bpin_piip || 'No definido'}}
+              {{c.piip.bpin_piip | currency}}
               <span *ngIf="hasAlert(c, 'bpin_piip')" class="text-red-500 ml-1">⚠️</span>
             </td>
 
             <td class="px-4 py-2 border">
-              {{c.piip.code_producto_mga_piip || 'No definido'}}
+              {{c.piip.code_producto_mga_piip | currency}}
               <span *ngIf="hasAlert(c, 'code_producto_mga_piip')" class="text-red-500 ml-1">⚠️</span>
             </td>
             <td class="px-4 py-2 border">
@@ -107,7 +107,7 @@
               <span *ngIf="hasAlert(c, 'producto_mga_piip')" class="text-red-500 ml-1">⚠️</span>
             </td>
             <td class="px-4 py-2 border">
-              {{c.piip.code_indicator_mga_piip || 'No definido'}}
+              {{c.piip.code_indicator_mga_piip | currency}}
               <span *ngIf="hasAlert(c, 'code_indicator_mga_piip')" class="text-red-500 ml-1">⚠️</span>
             </td>
             <td class="px-4 py-2 border">
@@ -116,15 +116,15 @@
             </td>
 
             <td class="px-4 py-2 border">
-              {{c.piip.total_indicator_goal_piip || 'No definido'}}
+              {{c.piip.total_indicator_goal_piip | currency}}
               <span *ngIf="hasAlert(c, 'total_indicator_goal_piip')" class="text-red-500 ml-1">⚠️</span>
             </td>
             <td class="px-4 py-2 border">
-              {{c.piip.initial_appropriation_piip || 'No definido'}}
+              {{c.piip.initial_appropriation_piip  | currency}}
               <span *ngIf="hasAlert(c, 'initial_appropriation_piip')" class="text-red-500 ml-1">⚠️</span>
             </td>
             <td class="px-4 py-2 border">
-              {{c.piip.total_appropriate_piip || 'No definido'}}
+              {{c.piip.total_appropriate_piip | currency}}
               <span *ngIf="hasAlert(c, 'total_appropriate_piip')" class="text-red-500 ml-1">⚠️</span>
             </td>
 
@@ -135,7 +135,7 @@
             </td>
             <td class="px-4 py-2 border">
               <span *ngIf="hasAlert(c, 'total_indicator_goal_piip')" class="text-red-500 ml-1">⚠️</span>
-              {{c.piip.total_indicator_goal_piip || 'No definido'}}
+              {{c.piip.total_indicator_goal_piip | currency}}
             </td>
 
 
