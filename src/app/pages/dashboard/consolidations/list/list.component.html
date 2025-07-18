@@ -52,7 +52,7 @@
           <tr *ngFor="let c of Consolidations" class="hover:bg-gray-100">
             <td class="px-4 py-2 border">{{c.goal_name || 'No definido'}}</td>
             <td class="px-4 py-2 border">{{c.unit_measurement || 'No definido'}}</td>
-            <td class="px-4 py-2 border">{{c.goal_four_years | currency}} </td>
+            <td class="px-4 py-2 border">{{c.goal_four_years }} </td>
 
             <!-- PDM VALUES -->
             <td class="px-4 py-2 border">
@@ -116,7 +116,7 @@
             </td>
 
             <td class="px-4 py-2 border">
-              {{c.piip.total_indicator_goal_piip | currency}}
+              {{c.piip.total_indicator_goal_piip }}
               <span *ngIf="hasAlert(c, 'total_indicator_goal_piip')" class="text-red-500 ml-1">⚠️</span>
             </td>
             <td class="px-4 py-2 border">
@@ -135,7 +135,7 @@
             </td>
             <td class="px-4 py-2 border">
               <span *ngIf="hasAlert(c, 'total_indicator_goal_piip')" class="text-red-500 ml-1">⚠️</span>
-              {{c.piip.total_indicator_goal_piip | currency}}
+              {{c.piip.total_indicator_goal_piip }}
             </td>
 
 
