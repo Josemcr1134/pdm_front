@@ -9,8 +9,8 @@ export class ConsolidationsService {
 
   constructor(private http:HttpClient, private authSvc:AuthService) { }
 
-  getConsolidations(limit:number, offset:number){
-    const url = `${this.authSvc.baseUrl}/conversion-report?limit=${limit}&offset=${offset}`;
+  getConsolidations(limit:number, offset:number, year:number, search:string){
+    const url = `${this.authSvc.baseUrl}/conversion-report?limit=${limit}&offset=${offset}&year=${year}&search=${search}`;
     return this.http.get(url, this.authSvc.header);
   };
 

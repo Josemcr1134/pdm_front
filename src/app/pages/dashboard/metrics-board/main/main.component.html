@@ -326,8 +326,8 @@
                 <div class="flex justify-between items-start mb-7">
                   <div>
                     <p class="text-primary font-normal  text-xs mb-8">Ejecutado programas</p>
-                    <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="goalSelected == null" >{{codeAndProgramSelected.total_executed_goals}}</p>
-                    <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="goalSelected !== null" >{{goalSelected.executed}}</p>
+                    <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="goalSelected == null" >{{codeAndProgramSelected.percent_executed}}%</p>
+                    <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="goalSelected !== null" >{{goalSelected.percent_executed}}%</p>
                   </div>
                   <div>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 text-primary">
@@ -348,8 +348,8 @@
                 <div class="flex justify-between items-start mb-7">
                   <div>
                     <p class="text-primary font-normal  text-xs mb-8">Pendiente por ejecutar</p>
-                     <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="goalSelected == null" >{{codeAndProgramSelected.total_pending_goals}}</p>
-                    <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="goalSelected !== null" >{{goalSelected.pending}}</p>
+                     <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="goalSelected == null" >{{codeAndProgramSelected.percent_pending}}%</p>
+                    <p class="text-black font-bold xl:text-3xl text-xl " *ngIf="goalSelected !== null" >{{goalSelected.percent_pending}}%</p>
                   </div>
                   <div>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 text-primary">

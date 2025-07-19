@@ -6,6 +6,7 @@ import { ListComponent } from './list/list.component';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { LoaderComponent } from '../../../shared/loader/loader.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { LoaderComponent } from '../../../shared/loader/loader.component';
     ConsolidationsRoutingModule,
     PaginationComponent,
     AlertComponent,
-    LoaderComponent
+    LoaderComponent,
+    FormsModule
   ]
 })
 export class ConsolidationsModule { }
