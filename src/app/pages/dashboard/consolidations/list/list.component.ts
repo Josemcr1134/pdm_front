@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConsolidationsService } from '../../../../core/services/consolidations/consolidations.service';
 import { PlanningService } from '../../../../core/services/planning/planning.service';
+import { debounceTime, Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-list',
@@ -16,11 +17,27 @@ export class ListComponent implements OnInit{
   public years:any;
   public isLoading:boolean = false;
   public yearSelected:number = 2025;
-  public search:string = '';
+   search: string = '';
+  private searchSubject = new Subject<string>();
+  private searchSubscription!: Subscription;
+
   constructor(private consolidationSvc:ConsolidationsService, private pdmSvc:PlanningService){}
 
   ngOnInit(): void {
     this.getYears();
+    this.searchSubscription = this.searchSubject
+      .pipe(debounceTime(500)) // 300ms de retraso
+      .subscribe(searchTerm => {
+        this.getConsolidations();
+      });
+  }
+
+  ngOnDestroy() {
+    this.searchSubscription.unsubscribe();
+  }
+
+  onSearchInput() {
+    this.searchSubject.next(this.search);
   }
 
   getConsolidations(){
