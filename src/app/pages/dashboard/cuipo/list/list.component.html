@@ -37,6 +37,8 @@
               <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Ámbito Código</th>
               <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Ámbito Nombre</th>
               <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Cod Vigencia Del Gasto</th>
+              <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Número Vigencia Del Gasto</th>
+              <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Código Sección Presupuestal</th>
               <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Número Sección Presupuestal</th>
               <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Código Sector</th>
               <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Número Sector</th>
@@ -89,7 +91,6 @@
               <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.nom_politica_publica }}</td>
               <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.cod_terceros }}</td>
               <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.nom_terceros }}</td>
-              <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.cod_terceros }}</td>
               <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.compromisos | currency}}</td>
               <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.obligaciones | currency}}</td>
               <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.pagos | currency}}</td>
@@ -100,9 +101,9 @@
 
       </div>
       <app-alert [msg]="'No encontramos resultados'" *ngIf="!Data.length"></app-alert>
-      <app-pagination [limit]="limit" [offset]="offset" [totalItems]="totalItems"
-        (onPageChange)="onPageChange($event)"></app-pagination>
     </div>
+    <app-pagination [limit]="limit" [offset]="offset" [totalItems]="totalItems"
+      (onPageChange)="onPageChange($event)"></app-pagination>
     <div class="flex items-center justify-center py-5" *ngIf="loading">
       <app-loader></app-loader>
     </div>
