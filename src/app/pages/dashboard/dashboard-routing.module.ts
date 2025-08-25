@@ -5,12 +5,13 @@ import { NationalReportsModule } from './national-reports/national-reports.modul
 
 const routes: Routes = [
   {
-    path:'',
+    path: '',
     component: DashboardComponent,
-    children:[
+    children: [
       {
         path: 'metricsBoard',
-        loadChildren: () => import('./metrics-board/metrics-board.module').then(m => m.MetricsBoardModule)      },
+        loadChildren: () => import('./metrics-board/metrics-board.module').then(m => m.MetricsBoardModule)
+      },
       {
         path: 'planning/:filterByDpt',
         loadChildren: () => import('./planning/planning.module').then(m => m.PlanningModule)
@@ -102,9 +103,14 @@ const routes: Routes = [
         // canActivate:[AuthGuard]
       },
       {
-        path:'**',
-        redirectTo:'metricsBoard',
-        pathMatch:'full'
+        path: 'cuipo',
+        loadChildren: () => import('./cuipo/cuipo.module').then(m => m.CuipoModule)
+        // canActivate:[AuthGuard]
+      },
+      {
+        path: '**',
+        redirectTo: 'metricsBoard',
+        pathMatch: 'full'
       }
     ]
   }

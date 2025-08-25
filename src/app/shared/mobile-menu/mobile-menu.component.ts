@@ -15,20 +15,20 @@ import { RouterModule } from '@angular/router';
 export class MobileMenuComponent {
   @Output() close = new EventEmitter<boolean>();
 
-  public windowWith:any;
+  public windowWith: any;
 
 
 
-  public menuItems:{label:string, icon:string, route:string}[] = [
+  public menuItems: { label: string, icon: string, route: string }[] = [
     {
-      label:'Tablero ',
-      icon:'assets/icons/planning.svg',
-      route:"/dashboard/metricsBoard"
+      label: 'Tablero ',
+      icon: 'assets/icons/planning.svg',
+      route: "/dashboard/metricsBoard"
     },
     {
-      label:'Planeación',
-      icon:'assets/icons/planning.svg',
-      route:"/dashboard/planning/false"
+      label: 'Planeación',
+      icon: 'assets/icons/planning.svg',
+      route: "/dashboard/planning/false"
     },
     // {
     //   label:'Planeación Nacional',
@@ -47,15 +47,15 @@ export class MobileMenuComponent {
     //   route:"/dashboard/guidelines"
     // },
     {
-      label:'Normativas',
-      icon:'assets/icons/regulations.svg',
-      route:"/dashboard/regulations"
+      label: 'Normativas',
+      icon: 'assets/icons/regulations.svg',
+      route: "/dashboard/regulations"
 
     },
     {
-      label:'Planeación Departamental',
-      icon:'assets/icons/departamental-planning.svg',
-      route:"/dashboard/planning/true"
+      label: 'Planeación Departamental',
+      icon: 'assets/icons/departamental-planning.svg',
+      route: "/dashboard/planning/true"
     },
     // {
     //   label:'P.T.S',
@@ -68,45 +68,51 @@ export class MobileMenuComponent {
     //   route:"/dashboard/pdtv"
     // },
     {
-      label:'Gastos',
-      icon:'assets/icons/expenses.svg',
-      route:"/dashboard/expenses"
+      label: 'Gastos',
+      icon: 'assets/icons/expenses.svg',
+      route: "/dashboard/expenses"
     },
     {
-      label:'Ingresos',
-      icon:'assets/icons/incomes.svg',
-      route:"/dashboard/incomes"
+      label: 'Ingresos',
+      icon: 'assets/icons/incomes.svg',
+      route: "/dashboard/incomes"
     },
     {
-      label:'PAA',
-      icon:'assets/icons/incomes.svg',
-      route:"/dashboard/PAA"
+      label: 'PAA',
+      icon: 'assets/icons/incomes.svg',
+      route: "/dashboard/PAA"
     },
     {
-      label:'SECOP',
-      icon:'assets/icons/incomes.svg',
-      route:"/dashboard/secop"
-    },
-      {
-      label:'PIIP',
-      icon:'assets/icons/incomes.svg',
-      route:"/dashboard/piip"
-    },
-      {
-      label:'Gastos PIIP',
-      icon:'assets/icons/incomes.svg',
-      route:"/dashboard/expenses-piip"
+      label: 'SECOP',
+      icon: 'assets/icons/incomes.svg',
+      route: "/dashboard/secop"
     },
     {
-      label:'Consolidaciones',
-      icon:'assets/icons/incomes.svg',
-      route:"/dashboard/consolidations"
+      label: 'PIIP',
+      icon: 'assets/icons/incomes.svg',
+      route: "/dashboard/piip"
     },
+    {
+      label: 'Gastos PIIP',
+      icon: 'assets/icons/incomes.svg',
+      route: "/dashboard/expenses-piip"
+    },
+    {
+      label: 'Consolidaciones',
+      icon: 'assets/icons/incomes.svg',
+      route: "/dashboard/consolidations"
+    },
+    {
+      label: 'CUIPO',
+      icon: 'assets/icons/incomes.svg',
+      route: "/dashboard/cuipo"
+    },
+
 
 
   ]
 
-  closeMenu(){
+  closeMenu() {
     this.close.emit(true)
   }
 

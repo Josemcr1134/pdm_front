@@ -1,0 +1,111 @@
+<div>
+  <div class="block p-3 bg-white rounded-xl">
+    <div class="gap-5 ">
+      <div class="flex items-center w-full gap-10">
+        <p class="text-base font-bold text-black">CUIPO </p>
+
+        <div class="flex flex-wrap justify-start gap-3">
+          <div class="min-w-full md:min-w-48">
+            <input type="text" name="bpin" [(ngModel)]="bpin" id="bpin" autocomplete="bpin" placeholder="# BPIN"
+              required
+              class="block w-full rounded-2xl bg-gray-100 px-3 py-1.5 text-base text-primary outline outline-1 -outline-offset-1 outline-gray-100 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+          </div>
+        </div>
+        <div>
+          <button (click)="getCuipoData()" class="p-2 text-white rounded-lg bg-primary">Buscar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="p-3 py-5 mt-10 bg-white rounded-xl">
+
+  <div class="flow-root ">
+    <div *ngIf="!loading" class="mb-4 overflow-x-auto ">
+      <div *ngIf="Data.length" class="inline-block min-w-full py-2 align-middle ">
+        <table class="min-w-full divide-y divide-gray-300">
+          <thead>
+            <tr class="divide-x divide-gray-200">
+              <th class="px-3 py-3 text-sm font-semibold text-left text-nowrap text-primary">Periodo</th>
+              <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Código Entidad</th>
+              <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Nombre Entidad </th>
+              <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Cuenta</th>
+              <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Nombre Cuenta</th>
+              <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">BPIN</th>
+              <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Ámbito Código</th>
+              <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Ámbito Nombre</th>
+              <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Cod Vigencia Del Gasto</th>
+              <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Número Sección Presupuestal</th>
+              <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Código Sector</th>
+              <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Número Sector</th>
+              <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Código programático MGA</th>
+              <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Número programático MGA</th>
+              <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Código CPC</th>
+              <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Número CPC</th>
+              <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Código Sectorial</th>
+              <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Número Sectorial</th>
+              <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Código Fuentes Financiación</th>
+              <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Número Fuentes Financiación</th>
+              <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Código Situación De Fondos</th>
+              <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Número Situación De Fondos</th>
+              <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Código Política Pública</th>
+              <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Número Política Pública</th>
+              <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Código Terceros </th>
+              <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Número Terceros </th>
+              <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Compromisos</th>
+              <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Obligaciones </th>
+              <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Pagos</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <tr *ngFor="let a of Data" class="divide-x divide-gray-200 cursor-pointer hover:bg-gray-100">
+              <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.periodo }}</td>
+              <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.codigo_entidad }}</td>
+              <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.nombre_entidad }}</td>
+              <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.cuenta }}</td>
+              <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.nombre_cuenta }}</td>
+              <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.bpin }}</td>
+              <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.ambito_codigo }}</td>
+              <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.ambito_nombre }}</td>
+              <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.cod_vigencia_del_gasto }}</td>
+              <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.nom_vigencia_del_gasto }}</td>
+              <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.cod_seccion_presupuestal }}</td>
+              <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.nom_seccion_presupuestal }}</td>
+              <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.cod_sector }}</td>
+              <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.nom_sector }}</td>
+              <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.cod_programatico_mga }}</td>
+              <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.nom_programatico_mga }}</td>
+              <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.cod_cpc }}</td>
+              <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.nom_cpc }}</td>
+              <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.cod_sectorial }}</td>
+              <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.nom_sectorial }}</td>
+              <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.cod_fuentes_financiacion }}</td>
+              <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.nom_fuentes_financiacion }}</td>
+              <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.cod_situacion_de_fondos }}</td>
+              <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.nom_situacion_de_fondos }}</td>
+              <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.cod_politica_publica }}</td>
+              <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.nom_politica_publica }}</td>
+              <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.cod_terceros }}</td>
+              <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.nom_terceros }}</td>
+              <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.cod_terceros }}</td>
+              <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.compromisos | currency}}</td>
+              <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.obligaciones | currency}}</td>
+              <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.pagos | currency}}</td>
+
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+      <app-alert [msg]="'No encontramos resultados'" *ngIf="!Data.length"></app-alert>
+      <app-pagination [limit]="limit" [offset]="offset" [totalItems]="totalItems"
+        (onPageChange)="onPageChange($event)"></app-pagination>
+    </div>
+    <div class="flex items-center justify-center py-5" *ngIf="loading">
+      <app-loader></app-loader>
+    </div>
+
+  </div>
+</div>
