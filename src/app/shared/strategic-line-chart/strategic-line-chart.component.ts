@@ -30,23 +30,23 @@ export type ChartOptions = {
   styleUrl: './strategic-line-chart.component.css'
 })
 export class StrategicLineChartComponent implements OnChanges {
-  @Input() data:any[] = [];
+  @Input() data: any[] = [];
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions!: Partial<ChartOptions>;
 
   ngOnChanges(changes: SimpleChanges): void {
-     if (changes['data'] ) {
-       let labels = this.data.map( d => d.name ||  d.description);
-       let series1 = this.data.map( d => d.total_executed_goals || d.percent_executed);
-       let series2 = this.data.map( d => d.total_pending_goals || d.percent_pending);
-       this.buildChart(series1 , series2,  labels)
+    if (changes['data']) {
+      let labels = this.data.map(d => d.name || d.description);
+      let series1 = this.data.map(d => d.percent_executed);
+      let series2 = this.data.map(d => d.percent_pending);
+      this.buildChart(series1, series2, labels)
     }
   }
 
   constructor() { }
 
-  buildChart(series1:any, series2:any ,labels:any){
-     this.chartOptions = {
+  buildChart(series1: any, series2: any, labels: any) {
+    this.chartOptions = {
       series: [
         {
           name: "Ejecutado",
