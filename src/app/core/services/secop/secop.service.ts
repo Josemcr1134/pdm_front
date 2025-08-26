@@ -27,7 +27,7 @@ export class SecopService {
       params = params.set('offset', offset);
     }
 
-    const url = `${this.authSvc.baseUrl}/soda-apis/secop/secop-data/`;
+    const url = `${this.authSvc.baseUrl}/soda-apis/secop-data/`;
     return this.http.get(url, { headers: this.authSvc.header.headers, params });
   };
 

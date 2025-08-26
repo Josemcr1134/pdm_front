@@ -10,8 +10,21 @@ export class CuipoService {
   constructor(private http: HttpClient, private authSvc: AuthService) { }
 
 
-  getCuipoData(bpin: string, limit: number, offset: number) {
+  getCuipoData(bpin: string, limit: number, offset: number, nom_seccion_presupuestal: string, nom_vigencia_del_gasto: string, period: string, quarter: string) {
     let params = new HttpParams();
+    console.log(period)
+    if (nom_seccion_presupuestal) {
+      params = params.set('nom_seccion_presupuestal', nom_seccion_presupuestal);
+    }
+    if (nom_vigencia_del_gasto) {
+      params = params.set('nom_vigencia_del_gasto', nom_vigencia_del_gasto);
+    }
+    if (period) {
+      params = params.set('period', period);
+    }
+    if (quarter) {
+      params = params.set('quarter', quarter);
+    }
     if (bpin) {
       params = params.set('bpin', bpin);
     }
