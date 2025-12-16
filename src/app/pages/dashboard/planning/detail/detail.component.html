@@ -1,84 +1,168 @@
-<div class="m-4 bg-white  rounded-lg w-full">
+<div *ngIf="!isLoading" class="w-full m-4 bg-white rounded-lg">
 
-  <section class="tab-nav flex justify-between gap-4 items-center flex-wrap p-3">
-    <a   class="text-green-400 text-sm font-medium">Meta de producto</a>
-    <a [routerLink]="['/dashboard/planning',filter ,'detail', productGoal.id, 'scheduledGoal']" routerLinkActive="active"  class="text-primary text-sm font-medium">Meta programada</a>
-    <a [routerLink]="['/dashboard/planning',filter ,'detail', productGoal.id, 'executedGoal']" routerLinkActive="active"  class="text-primary text-sm font-medium">Meta ejecutada</a>
-    <a [routerLink]="['/dashboard/planning',filter ,'detail', productGoal.id, 'contracts', productGoal.code_product_mga]" routerLinkActive="active"  class="text-primary text-sm font-medium">Contratos</a>
-    <a [routerLink]="['/dashboard/planning',filter ,'detail', productGoal.id, 'statistics']" routerLinkActive="active"  class="text-primary text-sm font-medium">Estadisticas</a>
-    <a [routerLink]="['/dashboard/planning',filter ,'detail', productGoal.id, 'coverage']" routerLinkActive="active"  class="text-primary text-sm font-medium">Cobertura</a>
-    <a [routerLink]="['/dashboard/planning',filter ,'detail', productGoal.id, 'evidences']" routerLinkActive="active"  class="text-primary text-sm font-medium">Evidencias</a>
+  <section class="flex flex-wrap items-center justify-between gap-4 p-3 tab-nav">
+    <a class="text-sm font-medium text-green-400">Meta de producto</a>
+    <a [routerLink]="['/dashboard/planning',filter ,'detail', productGoal.id, 'scheduledGoal']"
+      routerLinkActive="active" class="text-sm font-medium text-primary">Meta programada</a>
+    <a [routerLink]="['/dashboard/planning',filter ,'detail', productGoal.id, 'executedGoal']" routerLinkActive="active"
+      class="text-sm font-medium text-primary">Meta ejecutada</a>
+    <a [routerLink]="['/dashboard/planning',filter ,'detail', productGoal.id, 'contracts', productGoal.code_product_mga, '', '', '', '', '']"
+      routerLinkActive="active" class="text-sm font-medium text-primary">Contratos</a>
+    <a [routerLink]="['/dashboard/planning',filter ,'detail', productGoal.id, 'statistics']" routerLinkActive="active"
+      class="text-sm font-medium text-primary">Estadisticas</a>
+    <a [routerLink]="['/dashboard/planning',filter ,'detail', productGoal.id, 'coverage']" routerLinkActive="active"
+      class="text-sm font-medium text-primary">Cobertura</a>
+    <a [routerLink]="['/dashboard/planning',filter ,'detail', productGoal.id, 'evidences']" routerLinkActive="active"
+      class="text-sm font-medium text-primary">Evidencias</a>
   </section>
 
-  <hr >
-  <div class="grid xl:grid-cols-10 lg:grid-cols-5 md:grid-cols-4 grid-cols-1">
-    <div class="xl:col-span-2 md:col-span-1 hidden md:block bg-gray-100 rounded-bl-xl p-2">
-      <p class="text-primary text-sm  font-semibold  ">Tipo de Meta: </p>
-      <p class="text-wrap md:text-sm text-xs">{{productGoal.goal_type}} </p>
-      <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
-      <p class="text-primary text-sm  font-semibold  ">Código de Producto MGA: </p>
-      <p class="text-wrap md:text-sm text-xs">{{productGoal.code_product_mga}} </p>
-      <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
-      <p class="text-primary text-sm  font-semibold  ">Producto de la MGA:</p>
-      <p class="text-wrap md:text-sm text-xs">{{productGoal.product_mga}} </p>
-      <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
-      <p class="text-primary text-sm  font-semibold  ">Indicador de Producto MGA:</p>
-      <p class="text-wrap md:text-sm text-xs">{{productGoal.indicator_product_mga}} </p>
-      <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
-      <p class="text-primary text-sm  font-semibold  ">Código Indicador de Producto MGA:</p>
-      <p class="text-wrap md:text-sm text-xs">{{productGoal.code_indicator_product_mga}} </p>
-      <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
-      <p class="text-primary text-sm  font-semibold  ">Código ODS</p>
-      <p class="text-wrap md:text-sm text-xs">{{productGoal.code_ods}} </p>
-      <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
-      <p class="text-primary text-sm  font-semibold  ">Unidad de Medida:</p>
-      <p class="text-wrap md:text-sm text-xs">{{productGoal.unit_measurement.name}} </p>
-      <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
-      <p class="text-primary text-sm  font-semibold  ">Meta del Cuatrienio:</p>
-      <p class="text-wrap md:text-sm text-xs">{{productGoal.goal_four_years}} </p>
-      <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
-      <p class="text-primary text-sm  font-semibold  ">Consecutivo de la Meta:</p>
-      <p class="text-wrap md:text-sm text-xs">{{productGoal.consecutive}} </p>
-      <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
-      <p class="text-primary text-sm  font-semibold  ">Bpin</p>
-      <div class="flex items-center justify-between flex-wrap">
-        <input class="text-primary text-sm font-medium" placeholder="Ingresa el bpin de la meta" [disabled]="!toEdit" type="text" [(ngModel)]="bpin" >
+  <hr>
+  <div class="grid grid-cols-1 xl:grid-cols-10 lg:grid-cols-5 md:grid-cols-4">
+    <div class="hidden p-2 bg-gray-100 xl:col-span-2 md:col-span-1 md:block rounded-bl-xl">
+      <p class="text-sm font-semibold text-primary ">Tipo de Meta: </p>
+      <p class="text-xs text-wrap md:text-sm">{{productGoal.goal_type}} </p>
+      <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]" />
+      <p class="text-sm font-semibold text-primary ">Código de Producto MGA: </p>
+      <p class="text-xs text-wrap md:text-sm">{{productGoal.code_product_mga}} </p>
+      <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]" />
+      <p class="text-sm font-semibold text-primary ">Producto de la MGA:</p>
+      <p class="text-xs text-wrap md:text-sm">{{productGoal.product_mga}} </p>
+      <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]" />
+      <p class="text-sm font-semibold text-primary ">Indicador de Producto MGA:</p>
+      <p class="text-xs text-wrap md:text-sm">{{productGoal.indicator_product_mga}} </p>
+      <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]" />
+      <p class="text-sm font-semibold text-primary ">Código Indicador de Producto MGA:</p>
+      <p class="text-xs text-wrap md:text-sm">{{productGoal.code_indicator_product_mga}} </p>
+      <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]" />
+      <p class="text-sm font-semibold text-primary ">Código ODS</p>
+      <p class="text-xs text-wrap md:text-sm">{{productGoal.code_ods}} </p>
+      <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]" />
+      <p class="text-sm font-semibold text-primary ">Unidad de Medida:</p>
+      <p class="text-xs text-wrap md:text-sm">{{productGoal.unit_measurement.name}} </p>
+      <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]" />
+      <p class="text-sm font-semibold text-primary ">Meta del Cuatrienio:</p>
+      <p class="text-xs text-wrap md:text-sm">{{productGoal.goal_four_years}} </p>
+      <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]" />
+      <p class="text-sm font-semibold text-primary ">Consecutivo de la Meta:</p>
+      <p class="text-xs text-wrap md:text-sm">{{productGoal.consecutive}} </p>
+      <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]" />
+      <p class="text-sm font-semibold text-primary ">Bpin</p>
+      <div class="flex flex-wrap items-center justify-between">
+        <input class="text-sm font-medium text-primary" placeholder="Ingresa el bpin de la meta" [disabled]="!toEdit"
+          type="text" [(ngModel)]="bpin">
         <div class="flex items-center gap-2">
           <button (click)="toEdit = true" *ngIf="!toEdit" class="text-green-400 hover:text-green-700">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
-              <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="size-4">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
             </svg>
           </button>
-          <button (click)="updateBpin()" *ngIf="toEdit" class="text-blue-400 hover:text-blue-700" >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0 1 20.25 6v12A2.25 2.25 0 0 1 18 20.25H6A2.25 2.25 0 0 1 3.75 18V6A2.25 2.25 0 0 1 6 3.75h1.5m9 0h-9" />
+          <button (click)="updateBpin()" *ngIf="toEdit" class="text-blue-400 hover:text-blue-700">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="size-4">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0 1 20.25 6v12A2.25 2.25 0 0 1 18 20.25H6A2.25 2.25 0 0 1 3.75 18V6A2.25 2.25 0 0 1 6 3.75h1.5m9 0h-9" />
             </svg>
           </button>
-          <button (click)="toEdit = false" *ngIf="toEdit" class="text-red-400 hover:text-red-700" >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+          <button (click)="toEdit = false" *ngIf="toEdit" class="text-red-400 hover:text-red-700">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="size-4">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
             </svg>
 
           </button>
         </div>
       </div>
-      <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
-      <p class="text-primary text-sm  font-semibold  ">Nombre de proyecto</p>
-      <div class="flex items-center justify-between flex-wrap">
-        <input class="text-primary text-sm font-medium" placeholder="Ingresa el nombre del proyecto" [disabled]="!toEditContractName" type="text" [(ngModel)]="contractName" >
+      <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]" />
+      <p class="text-sm font-semibold text-primary ">Nombre de proyecto</p>
+      <div class="flex flex-wrap items-center justify-between">
+        <input class="text-sm font-medium text-primary" placeholder="Ingresa el nombre del proyecto"
+          [disabled]="!toEditContractName" type="text" [(ngModel)]="contractName">
         <div class="flex items-center gap-2">
-          <button (click)="toEditContractName = true" *ngIf="!toEditContractName" class="text-green-400 hover:text-green-700">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
-              <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+          <button (click)="toEditContractName = true" *ngIf="!toEditContractName"
+            class="text-green-400 hover:text-green-700">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="size-4">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
             </svg>
           </button>
-          <button (click)="updateNameProject()" *ngIf="toEditContractName" class="text-blue-400 hover:text-blue-700" >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0 1 20.25 6v12A2.25 2.25 0 0 1 18 20.25H6A2.25 2.25 0 0 1 3.75 18V6A2.25 2.25 0 0 1 6 3.75h1.5m9 0h-9" />
+          <button (click)="updateNameProject()" *ngIf="toEditContractName" class="text-blue-400 hover:text-blue-700">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="size-4">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0 1 20.25 6v12A2.25 2.25 0 0 1 18 20.25H6A2.25 2.25 0 0 1 3.75 18V6A2.25 2.25 0 0 1 6 3.75h1.5m9 0h-9" />
             </svg>
           </button>
-          <button (click)="toEditContractName = false" *ngIf="toEditContractName" class="text-red-400 hover:text-red-700" >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+          <button (click)="toEditContractName = false" *ngIf="toEditContractName"
+            class="text-red-400 hover:text-red-700">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="size-4">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+
+          </button>
+        </div>
+      </div>
+      <hr *ngIf="supervisorName  " class=" border-[1px] rounded-xl my-1 border-[#ebebff]" />
+      <p *ngIf="supervisorName  " class="text-sm font-semibold text-primary ">Nombre del supervisor</p>
+      <div *ngIf="supervisorName  " class="flex flex-wrap items-center justify-between">
+        <input class="text-sm font-medium text-primary" placeholder="Ingresa el nombre del supervisor"
+          [disabled]="!toEditSupervisorName" type="text" [(ngModel)]="supervisorName">
+        <div class="flex items-center gap-2">
+          <button (click)="toEditSupervisorName = true" *ngIf="!toEditSupervisorName"
+            class="text-green-400 hover:text-green-700">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="size-4">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+            </svg>
+          </button>
+          <button (click)="updateSupevisorName()" *ngIf="toEditSupervisorName"
+            class="text-blue-400 hover:text-blue-700">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="size-4">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0 1 20.25 6v12A2.25 2.25 0 0 1 18 20.25H6A2.25 2.25 0 0 1 3.75 18V6A2.25 2.25 0 0 1 6 3.75h1.5m9 0h-9" />
+            </svg>
+          </button>
+          <button (click)="toEditSupervisorName = false" *ngIf="toEditSupervisorName"
+            class="text-red-400 hover:text-red-700">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="size-4">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+
+          </button>
+        </div>
+      </div>
+      <hr *ngIf="contractingUnity  " class=" border-[1px] rounded-xl my-1 border-[#ebebff]" />
+      <p *ngIf="contractingUnity  " class="text-sm font-semibold text-primary ">Unidad de contratacion</p>
+      <div *ngIf="contractingUnity  " class="flex flex-wrap items-center justify-between">
+        <input class="text-sm font-medium text-primary" placeholder="Ingresa el unidad de contratacion"
+          [disabled]="!toEditContractingUnity" type="text" [(ngModel)]="contractingUnity">
+        <div class="flex items-center gap-2">
+          <button (click)="toEditContractingUnity = true" *ngIf="!toEditContractingUnity"
+            class="text-green-400 hover:text-green-700">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="size-4">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+            </svg>
+          </button>
+          <button (click)="updateContractingUnit()" *ngIf="toEditContractingUnity"
+            class="text-blue-400 hover:text-blue-700">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="size-4">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0 1 20.25 6v12A2.25 2.25 0 0 1 18 20.25H6A2.25 2.25 0 0 1 3.75 18V6A2.25 2.25 0 0 1 6 3.75h1.5m9 0h-9" />
+            </svg>
+          </button>
+          <button (click)="toEditContractingUnity = false" *ngIf="toEditContractingUnity"
+            class="text-red-400 hover:text-red-700">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="size-4">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
             </svg>
 
@@ -86,8 +170,10 @@
         </div>
       </div>
     </div>
-    <div class="xl:col-span-8 lg:col-span-4 md:col-span-3 col-span-1 ">
+    <div class="col-span-1 xl:col-span-8 lg:col-span-4 md:col-span-3 ">
       <router-outlet></router-outlet>
     </div>
   </div>
 </div>
+
+<app-loader *ngIf="isLoading"></app-loader>

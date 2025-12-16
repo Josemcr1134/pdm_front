@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { PlanningService } from '../../../../core/services/planning/planning.service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertsService } from '../../../../core/services/alerts/alerts.service';
 import { LoaderComponent } from '../../../../shared/loader/loader.component';
 import { SourceFinancingService } from '../../../../core/services/sourceFinancing/source-financing.service';
@@ -27,42 +27,51 @@ import { ContractFormComponent } from '../../../../shared/contract-form/contract
   styleUrl: './contracts.component.css'
 })
 export class ContractsComponent implements OnInit {
-  public yearSelected:number = 2024;
-  public years:any;
-  public goalId:string ='';
-  public showAddContractModal:boolean = false;
+  public yearSelected: number = 2024;
+  public years: any;
+  public goalId: string = '';
+  public showAddContractModal: boolean = false;
 
-  public catalogProducts:any[] = [];
-  public modalities:any[] = [];
-  public catalogProductsSelected:any[] = [];
-  public wellnessCatalogueSelected:any[] = [];
-  public wellnessCatalogue:any[] = [];
-  public contractExecutions:any[] = [];
-  public contracts:any[] = [];
-  public contractsLimit:number = 10;
-  public contractsOffset:number = 0;
+  public catalogProducts: any[] = [];
+  public modalities: any[] = [];
+  public catalogProductsSelected: any[] = [];
+  public wellnessCatalogueSelected: any[] = [];
+  public wellnessCatalogue: any[] = [];
+  public contractExecutions: any[] = [];
+  public contracts: any[] = [];
+  public contractsLimit: number = 10;
+  public contractsOffset: number = 0;
 
-  public isLoading:boolean = false;
-  public showAddSourceModal:boolean = false;
-  public contractSelected:any;
-  public productGoal:any;
-  public productSelected:string = '';
-  public sourceSelected:any = undefined;
-  public filterByHomologation:boolean = false;
-  public searchSources:string = '';
-  public sourcesFinancing:any[] = [];
-  public contractSourceValue:number = 0;
-  public contractSourceAdditionValue:number = 0;
-  public companyUser:string = '';
-  public productMgaCode:string = '';
-   constructor(private authSvc:AuthService, private sourceFinancingSvc:SourceFinancingService, private alertSvc:AlertsService, private pdmSvc:PlanningService, private activatedRoute:ActivatedRoute, private fb: FormBuilder){}
+  public isLoading: boolean = false;
+  public showAddSourceModal: boolean = false;
+  public contractSelected: any;
+  public productGoal: any;
+  public productSelected: string = '';
+  public sourceSelected: any = undefined;
+  public filterByHomologation: boolean = false;
+  public searchSources: string = '';
+  public sourcesFinancing: any[] = [];
+  public contractSourceValue: number = 0;
+  public contractSourceAdditionValue: number = 0;
+  public companyUser: string = '';
+  public productMgaCode: string = '';
+  public filter: boolean = false;
+  constructor(private router: Router, private authSvc: AuthService, private sourceFinancingSvc: SourceFinancingService, private alertSvc: AlertsService, private pdmSvc: PlanningService, private activatedRoute: ActivatedRoute, private fb: FormBuilder) { }
 
 
   ngOnInit(): void {
     this.productGoal = JSON.parse(sessionStorage.getItem('productGoal') || '');
     this.goalId = this.productGoal.id;
-    this.activatedRoute.params.subscribe((params:any) => {
+    this.filter = this.activatedRoute.parent?.parent?.snapshot.params['filterByDpt'] || '';
+    this.activatedRoute.params.subscribe((params: any) => {
       this.productMgaCode = params.codeProductMga;
+      this.cleanRouteIfNoContractSelected(
+        params.contractId,
+        params.contractingUnit,
+        params.supervisorName,
+        params.responsibleEmail,
+        params.responsiblePhone
+      );
     });
     this.getYears();
     this.getUser();
@@ -71,91 +80,126 @@ export class ContractsComponent implements OnInit {
     this.getContractExecutionUnit();
   }
 
+  private cleanRouteIfNoContractSelected(contractId: any, contractingUnit: any, supervisorName: any, responsibleEmail: any, responsiblePhone: any): void {
+    if (!this.filter || !this.productMgaCode || !this.goalId) {
+      return;
+    }
+    // If we landed here without a contract selected, wipe the contracting/supervisor params from the URL.
+    const sanitizedContractId = (!contractId || contractId === 'null') ? '' : contractId;
+    const sanitizedContractingUnit = (!contractingUnit || contractingUnit === 'null') ? '' : contractingUnit;
+    const sanitizedSupervisorName = (!supervisorName || supervisorName === 'null') ? '' : supervisorName;
+    const sanitizedResponsibleEmail = (!responsibleEmail || responsibleEmail === 'null') ? '' : responsibleEmail;
+    const sanitizedResponsiblePhone = (!responsiblePhone || responsiblePhone === 'null') ? '' : responsiblePhone;
 
-  getYears(){
+    if (
+      contractId !== sanitizedContractId ||
+      contractingUnit !== sanitizedContractingUnit ||
+      supervisorName !== sanitizedSupervisorName ||
+      responsibleEmail !== sanitizedResponsibleEmail ||
+      responsiblePhone !== sanitizedResponsiblePhone
+    ) {
+      this.router.navigate([
+        '/dashboard/planning',
+        this.filter,
+        'detail',
+        this.goalId,
+        'contracts',
+        this.productMgaCode,
+        sanitizedContractId,
+        sanitizedContractingUnit,
+        sanitizedSupervisorName,
+        sanitizedResponsibleEmail,
+        sanitizedResponsiblePhone
+      ], { replaceUrl: true });
+    }
+  }
+
+
+  getYears() {
     this.isLoading = !this.isLoading
     this.pdmSvc.getYears()
-        .subscribe({
-          error:(err:any) => {
-            console.log(err);
-            this.isLoading = !this.isLoading
-          },
-          next:(resp:any) => {
-            this.years = resp;
-            this.yearSelected = resp.first_year;
-            this.isLoading = !this.isLoading
-            this.getContracts();
-          }
-        });
+      .subscribe({
+        error: (err: any) => {
+          console.log(err);
+          this.isLoading = !this.isLoading
+        },
+        next: (resp: any) => {
+          this.years = resp;
+          this.yearSelected = resp.first_year;
+          this.isLoading = !this.isLoading
+          this.getContracts();
+        }
+      });
   };
 
-  getModality(){
-    this.pdmSvc.getModality(1000, 0 )
-        .subscribe({
-          error:(err:any) => {
-            console.log(err);
-          },
-          next:(resp:any) => {
-            console.log(resp)
-            this.modalities = resp.results;
-          }
-        });
+  getModality() {
+    this.pdmSvc.getModality(1000, 0)
+      .subscribe({
+        error: (err: any) => {
+          console.log(err);
+        },
+        next: (resp: any) => {
+          console.log(resp)
+          this.modalities = resp.results;
+        }
+      });
   };
 
 
-  getContracts(event:boolean = false){
+  getContracts(event: boolean = false) {
     this.isLoading = !this.isLoading;
-    this.pdmSvc.getContracts(this.contractsLimit, this.contractsOffset,this.yearSelected, this.goalId)
-        .subscribe({
-            error:(err:any) => {
-              console.log(err);
-              this.isLoading = !this.isLoading;
-            },
-            next:(resp:any) => {
-              this.contracts = resp.results;
-              console.log(resp)
-              this.showAddContractModal = false;
-              this.isLoading = !this.isLoading;
-            }
-        });
+    this.pdmSvc.getContracts(this.contractsLimit, this.contractsOffset, this.yearSelected, this.goalId)
+      .subscribe({
+        error: (err: any) => {
+          console.log(err);
+          this.isLoading = !this.isLoading;
+        },
+        next: (resp: any) => {
+          this.contracts = resp.results;
+          console.log(resp)
+          this.showAddContractModal = false;
+          this.isLoading = !this.isLoading;
+        }
+      });
   };
 
-  onPageChangeContractList(event:number){
+  onPageChangeContractList(event: number) {
     this.contractsOffset = event;
     this.getContracts();
   };
 
-  getContractById(id:string){
+  getContractById(id: string) {
     this.isLoading = !this.isLoading;
     this.pdmSvc.getContractById(id)
-        .subscribe({
-          error:(err:any) => {
-            console.log(err);
-            this.isLoading = !this.isLoading;
-          },
-          next:(resp:any) => {
-            this.contractSelected = resp;
-            console.log(this.contractSelected)
-            this.contractSelected.products_contracted.forEach( (p:any) => {
-              p.product_contracted.catalogue_ccpet.isCollapsed = false;
-              p.product_contracted.catalogue_central.isCollapsed = false;
-              p.product_contracted.catalogue_ciuu.isCollapsed = false;
-              p.product_contracted.catalogue_law.isCollapsed = false;
-              p.product_contracted.catalogue_normativity.isCollapsed = false;
-              p.product_contracted.catalogue_object_inversion.isCollapsed = false;
-              p.product_contracted.catalogue_ods.isCollapsed = false;
-              p.product_contracted.catalogue_plan.isCollapsed = false;
-              p.product_contracted.catalogue_politics.isCollapsed = false;
-              p.product_contracted.catalogue_sector.isCollapsed = false;
-              p.product_contracted.catalogue_sector_program.isCollapsed = false;
-              p.product_contracted.catalogue_wellness.isCollapsed = false;
-            })
-            this.isLoading = !this.isLoading;
-          }
-        });
+      .subscribe({
+        error: (err: any) => {
+          console.log(err);
+          this.isLoading = !this.isLoading;
+        },
+        next: (resp: any) => {
+          this.contractSelected = resp;
+          console.log(this.contractSelected)
+          this.contractSelected.products_contracted.forEach((p: any) => {
+            p.product_contracted.catalogue_ccpet.isCollapsed = false;
+            p.product_contracted.catalogue_central.isCollapsed = false;
+            p.product_contracted.catalogue_ciuu.isCollapsed = false;
+            p.product_contracted.catalogue_law.isCollapsed = false;
+            p.product_contracted.catalogue_normativity.isCollapsed = false;
+            p.product_contracted.catalogue_object_inversion.isCollapsed = false;
+            p.product_contracted.catalogue_ods.isCollapsed = false;
+            p.product_contracted.catalogue_plan.isCollapsed = false;
+            p.product_contracted.catalogue_politics.isCollapsed = false;
+            p.product_contracted.catalogue_sector.isCollapsed = false;
+            p.product_contracted.catalogue_sector_program.isCollapsed = false;
+            p.product_contracted.catalogue_wellness.isCollapsed = false;
+          });
+          this.router.navigateByUrl(`/dashboard/planning/${this.filter}/detail/${this.goalId}/contracts/${this.productMgaCode}/${this.contractSelected.id}/${this.contractSelected.contracting_unit}/${this.contractSelected.name_responsible}/${this.contractSelected.responsible_email}/${this.contractSelected.responsible_phone}`);
+          this.isLoading = !this.isLoading;
+        }
+      });
   };
 
-  addSourceFinancing(){
+  addSourceFinancing() {
     const data = {
       contract_product_contracted: this.productSelected,
       source_financing: this.sourceSelected.id,
@@ -165,109 +209,109 @@ export class ContractsComponent implements OnInit {
 
     this.isLoading = !this.isLoading;
     this.pdmSvc.addSourceFinancing(data)
-        .subscribe({
-          error:(err:any) => {
-            this.alertSvc.handleErrors(err);
-            this.isLoading = !this.isLoading;
-          },
-          next:(resp:any) => {
-            this.alertSvc.currentAlert('Éxito', 'Fuente de financiamiento agregada', 'success');
-            this.showAddSourceModal = false;
-            this.searchSources = '';
-            this.contractSourceValue = 0;
-            this.sourceSelected = undefined;
-            this.isLoading = !this.isLoading;
-            this.getContractById(this.contractSelected.id)
-          }
-        });
+      .subscribe({
+        error: (err: any) => {
+          this.alertSvc.handleErrors(err);
+          this.isLoading = !this.isLoading;
+        },
+        next: (resp: any) => {
+          this.alertSvc.currentAlert('Éxito', 'Fuente de financiamiento agregada', 'success');
+          this.showAddSourceModal = false;
+          this.searchSources = '';
+          this.contractSourceValue = 0;
+          this.sourceSelected = undefined;
+          this.isLoading = !this.isLoading;
+          this.getContractById(this.contractSelected.id)
+        }
+      });
   };
 
-  deleteSourceFinancing(id:string){
+  deleteSourceFinancing(id: string) {
     this.isLoading = !this.isLoading;
     this.pdmSvc.deleteSourceFinancing(id)
-        .subscribe({
-          error:(err:any) => {
-            this.isLoading = !this.isLoading;
-            this.alertSvc.handleErrors(err);
-          },
-          next:(resp:any) => {
-            this.isLoading = !this.isLoading;
-            this.alertSvc.currentAlert('Éxito', 'Fuente de financiación eliminado', 'success');
-            this.getContractById(this.contractSelected.id);
-          }
-        })
+      .subscribe({
+        error: (err: any) => {
+          this.isLoading = !this.isLoading;
+          this.alertSvc.handleErrors(err);
+        },
+        next: (resp: any) => {
+          this.isLoading = !this.isLoading;
+          this.alertSvc.currentAlert('Éxito', 'Fuente de financiación eliminado', 'success');
+          this.getContractById(this.contractSelected.id);
+        }
+      })
   }
 
-  showAddSource(product:string){
+  showAddSource(product: string) {
     this.showAddSourceModal = true;
     this.productSelected = product;
   };
 
-  getSourceFinancing(){
+  getSourceFinancing() {
     console.log(this.yearSelected)
     this.sourceFinancingSvc.getSourceFinancingByGoal(this.goalId, this.yearSelected)
-          .subscribe({
-            error:(err:any) => {
-              this.alertSvc.handleErrors(err);
-            },
-            next:(resp:any) => {
-              console.log(resp)
-              this.sourcesFinancing = resp;
-            }
-          });
+      .subscribe({
+        error: (err: any) => {
+          this.alertSvc.handleErrors(err);
+        },
+        next: (resp: any) => {
+          console.log(resp)
+          this.sourcesFinancing = resp;
+        }
+      });
   };
 
-  downloadProduct(productId:string){
+  downloadProduct(productId: string) {
     this.isLoading = !this.isLoading;
     const data = {
-      contract_product_contracted_id:productId,
-      year:this.yearSelected
+      contract_product_contracted_id: productId,
+      year: this.yearSelected
     }
     this.pdmSvc.createContractDownloadable(data)
-        .subscribe({
-          error:(err:any) => {
-            console.log(err);
-            this.alertSvc.handleErrors(err);
-            this.isLoading = !this.isLoading;
-          },
-          next:(resp:any) => {
-            console.log(resp);
-            setTimeout(() => {
-              this.pdmSvc.getContractDownloadable(resp.id)
-                .subscribe({
-                  error:(err:any) => {
-                    this.alertSvc.handleErrors(err);
-                    this.isLoading = !this.isLoading;
+      .subscribe({
+        error: (err: any) => {
+          console.log(err);
+          this.alertSvc.handleErrors(err);
+          this.isLoading = !this.isLoading;
+        },
+        next: (resp: any) => {
+          console.log(resp);
+          setTimeout(() => {
+            this.pdmSvc.getContractDownloadable(resp.id)
+              .subscribe({
+                error: (err: any) => {
+                  this.alertSvc.handleErrors(err);
+                  this.isLoading = !this.isLoading;
 
-                  },
-                  next:(resp:any) => {
-                    this.isLoading = !this.isLoading;
-                    window.open(resp.file, '_blank')
-                    console.log(resp)
-                  }
-                })
-            }, 3000);
-          }
-        });
+                },
+                next: (resp: any) => {
+                  this.isLoading = !this.isLoading;
+                  window.open(resp.file, '_blank')
+                  console.log(resp)
+                }
+              })
+          }, 3000);
+        }
+      });
   };
 
-  deleteContract(contractId:string){
+  deleteContract(contractId: string) {
     this.isLoading = !this.isLoading;
     this.pdmSvc.deleteContract(contractId)
-        .subscribe({
-          error:(err:any) => {
-                this.isLoading = !this.isLoading;
-                this.alertSvc.handleErrors(err);
-              },
-          next:(resp:any) => {
-            this.isLoading = !this.isLoading;
-            this.alertSvc.currentAlert('Éxito', 'Contrato eliminado', 'success');
-            this.getContracts();
-          }
-        })
+      .subscribe({
+        error: (err: any) => {
+          this.isLoading = !this.isLoading;
+          this.alertSvc.handleErrors(err);
+        },
+        next: (resp: any) => {
+          this.isLoading = !this.isLoading;
+          this.alertSvc.currentAlert('Éxito', 'Contrato eliminado', 'success');
+          this.getContracts();
+        }
+      })
   };
 
-  updateContract(){
+  updateContract() {
     this.isLoading = !this.isLoading;
     const data = {
       "object": this.contractSelected.object,
@@ -279,55 +323,34 @@ export class ContractsComponent implements OnInit {
 
 
     this.pdmSvc.updateContract(this.contractSelected.id, data)
-          .subscribe({
-            error:(err:any) => {
-              this.isLoading = !this.isLoading;
-              console.log(err);
-              this.alertSvc.handleErrors(err);
-            },
-            next:(resp:any) => {
-              console.log(resp)
-              this.isLoading = !this.isLoading;
-              this.alertSvc.currentAlert('Éxito', 'Contrato actualizado', 'success');
-              this.getContractById(this.contractSelected.id);
-            }
-          });
-  };
-
-  updateResponsableUser(){
-    const data = {
-      name_responsible: this.contractSelected.name_responsible,
-      responsible_email: this.contractSelected.responsible_email,
-      responsible_phone: this.contractSelected.responsible_phone
-    };
-    this.isLoading = !this.isLoading;
-    this.pdmSvc.updateResponsableUser(data, this.contractSelected.id)
-        .subscribe({
-          error:(err:any) => {
-            console.log(err);
-            this.alertSvc.handleErrors(err);
-            this.isLoading = !this.isLoading;
-          },
-          next:(resp:any) => {
-            console.log(data)
-            this.alertSvc.currentAlert('Éxito', 'Responsable actualizado', 'success');
-            this.isLoading = !this.isLoading;
-            this.getContractById(this.contractSelected.id);
-          }
-        });
+      .subscribe({
+        error: (err: any) => {
+          this.isLoading = !this.isLoading;
+          console.log(err);
+          this.alertSvc.handleErrors(err);
+        },
+        next: (resp: any) => {
+          console.log(resp)
+          this.isLoading = !this.isLoading;
+          this.alertSvc.currentAlert('Éxito', 'Contrato actualizado', 'success');
+          this.getContractById(this.contractSelected.id);
+        }
+      });
   };
 
 
-  getUser(){
+
+
+  getUser() {
     this.authSvc.getUserInfo()
-        .subscribe({
-          error:(err:any) => {
-            console.log(err);
-          },
-          next:(resp:any) => {
-            this.companyUser = resp.company.id;
-          }
-        });
+      .subscribe({
+        error: (err: any) => {
+          console.log(err);
+        },
+        next: (resp: any) => {
+          this.companyUser = resp.company.id;
+        }
+      });
   };
 
   getTotalForSelectedArray(array: any[]): number {
@@ -345,40 +368,23 @@ export class ContractsComponent implements OnInit {
     }, 0);
   };
 
-  refresh(){
+  refresh() {
     this.getContracts()
     this.getSourceFinancing();
   }
 
 
-  getContractExecutionUnit(){
+  getContractExecutionUnit() {
     this.pdmSvc.getContractExecutionUnits(10, 0)
-        .subscribe({
-          error:(err:any) => {
-            console.log(err);
-          },
-          next:(resp:any) => {
-            this.contractExecutions = resp.results;
-          }
-        });
+      .subscribe({
+        error: (err: any) => {
+          console.log(err);
+        },
+        next: (resp: any) => {
+          this.contractExecutions = resp.results;
+        }
+      });
   };
 
-  updateContractingUnit(){
-    const data = {
-      contracting_unit: this.contractSelected.contracting_unit
-    };
-    this.isLoading = !this.isLoading;
-    this.pdmSvc.updateContractingUnit(data, this.contractSelected.id)
-        .subscribe({
-          error:(err:any) => {
-            console.log(err);
-            Swal.fire('Oooops', 'Error al actualizar la unidad de contratación', 'error');
-            this.isLoading = !this.isLoading;
-          },
-          next:(resp:any) => {
-            Swal.fire('Éxito', 'Unidad de contratación actualizada', 'success');
-            this.isLoading = !this.isLoading;
-          }
-        })
-  }
+
 }

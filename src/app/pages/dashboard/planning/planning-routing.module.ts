@@ -11,49 +11,49 @@ import { EvidencesComponent } from './evidences/evidences.component';
 
 const routes: Routes = [
   {
-    path:'main',
+    path: 'main',
     component: MainComponent
   },
   {
-    path:'detail/:id',
+    path: 'detail/:id',
     component: DetailComponent,
-    children:[
+    children: [
       {
-        path:'scheduledGoal',
+        path: 'scheduledGoal',
         component: ScheduledGoalComponent
       },
       {
-        path:'executedGoal',
+        path: 'executedGoal',
         component: ExecutedGoalComponent
       },
       {
-        path:'contracts/:codeProductMga',
+        path: 'contracts/:codeProductMga/:contractId/:contractingUnit/:supervisorName/:responsibleEmail/:responsiblePhone',
         component: ContractsComponent
       },
       {
-        path:'statistics',
+        path: 'statistics',
         component: StatisticsComponent
       },
 
       {
-        path:'coverage',
+        path: 'coverage',
         component: CoverageComponent
       },
       {
-        path:'evidences',
+        path: 'evidences',
         component: EvidencesComponent
       },
       {
-        path:'**',
-        redirectTo:'scheduledGoal',
-        pathMatch:'full'
+        path: '**',
+        redirectTo: 'scheduledGoal',
+        pathMatch: 'full'
       }
     ]
   },
   {
-    path:'**',
-    redirectTo:'main',
-    pathMatch:'full'
+    path: '**',
+    redirectTo: 'main',
+    pathMatch: 'full'
   }
 ];
 
