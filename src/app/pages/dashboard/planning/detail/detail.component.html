@@ -137,9 +137,10 @@
           </button>
         </div>
       </div>
-      <hr *ngIf="contractingUnity  " class=" border-[1px] rounded-xl my-1 border-[#ebebff]" />
-      <p *ngIf="contractingUnity  " class="text-sm font-semibold text-primary ">Unidad de contratacion</p>
-      <div *ngIf="contractingUnity  " class="flex flex-wrap items-center justify-between">
+      <hr *ngIf="contractingUnity || supervisorName  " class=" border-[1px] rounded-xl my-1 border-[#ebebff]" />
+      <p *ngIf="contractingUnity || supervisorName  " class="text-sm font-semibold text-primary ">Unidad de contratacion
+      </p>
+      <div *ngIf="contractingUnity || supervisorName  " class="flex flex-wrap items-center justify-between">
         <input class="text-sm font-medium text-primary" placeholder="Ingresa el unidad de contratacion"
           [disabled]="!toEditContractingUnity" type="text" [(ngModel)]="contractingUnity">
         <div class="flex items-center gap-2">
