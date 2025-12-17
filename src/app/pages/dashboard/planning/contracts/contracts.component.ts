@@ -193,7 +193,7 @@ export class ContractsComponent implements OnInit {
             p.product_contracted.catalogue_sector_program.isCollapsed = false;
             p.product_contracted.catalogue_wellness.isCollapsed = false;
           });
-          this.router.navigateByUrl(`/dashboard/planning/${this.filter}/detail/${this.goalId}/contracts/${this.productMgaCode}/${this.contractSelected.id}/${this.contractSelected.contracting_unit}/${this.contractSelected.name_responsible}/${this.contractSelected.responsible_email}/${this.contractSelected.responsible_phone}`);
+          this.router.navigateByUrl(`/dashboard/planning/${this.filter}/detail/${this.goalId}/contracts/${this.productMgaCode}/${this.contractSelected.id}/${this.contractSelected.contracting_unit || null}/${this.contractSelected.name_responsible}/${this.contractSelected.responsible_email}/${this.contractSelected.responsible_phone}`);
           this.isLoading = !this.isLoading;
         }
       });
