@@ -63,6 +63,8 @@ export class DetailComponent implements OnInit, OnDestroy {
       this.contractId = '';
       this.responsibleEmail = '';
       this.responsiblePhone = '';
+      this.toEditSupervisorName = false;
+      this.toEditContractingUnity = false;
       return;
     }
     this.contractId = params.contractId || '';
@@ -70,6 +72,11 @@ export class DetailComponent implements OnInit, OnDestroy {
     this.contractingUnity = params.contractingUnit || '';
     this.responsibleEmail = params.responsibleEmail || '';
     this.responsiblePhone = params.responsiblePhone || '';
+
+    if (!this.contractId) {
+      this.toEditSupervisorName = false;
+      this.toEditContractingUnity = false;
+    }
   }
 
   updateBpin() {
@@ -118,6 +125,10 @@ export class DetailComponent implements OnInit, OnDestroy {
 
 
   updateContractingUnit() {
+    if (!this.contractId) {
+      this.alertSvc.currentAlert('Información', 'Selecciona un contrato para actualizar la unidad de contratación', 'info');
+      return;
+    }
     const data = {
       contracting_unit: this.contractingUnity
     };

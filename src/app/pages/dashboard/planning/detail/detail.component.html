@@ -105,9 +105,9 @@
           </button>
         </div>
       </div>
-      <hr *ngIf="supervisorName  " class=" border-[1px] rounded-xl my-1 border-[#ebebff]" />
-      <p *ngIf="supervisorName  " class="text-sm font-semibold text-primary ">Nombre del supervisor</p>
-      <div *ngIf="supervisorName  " class="flex flex-wrap items-center justify-between">
+      <hr *ngIf="contractId" class=" border-[1px] rounded-xl my-1 border-[#ebebff]" />
+      <p *ngIf="contractId" class="text-sm font-semibold text-primary ">Nombre del supervisor</p>
+      <div *ngIf="contractId" class="flex flex-wrap items-center justify-between">
         <input class="text-sm font-medium text-primary" placeholder="Ingresa el nombre del supervisor"
           [disabled]="!toEditSupervisorName" type="text" [(ngModel)]="supervisorName">
         <div class="flex items-center gap-2">
@@ -137,10 +137,10 @@
           </button>
         </div>
       </div>
-      <hr *ngIf="contractingUnity || supervisorName  " class=" border-[1px] rounded-xl my-1 border-[#ebebff]" />
-      <p *ngIf="contractingUnity || supervisorName  " class="text-sm font-semibold text-primary ">Unidad de contratacion
+      <hr *ngIf="contractId" class=" border-[1px] rounded-xl my-1 border-[#ebebff]" />
+      <p *ngIf="contractId" class="text-sm font-semibold text-primary ">Unidad de contratacion
       </p>
-      <div *ngIf="contractingUnity || supervisorName  " class="flex flex-wrap items-center justify-between">
+      <div *ngIf="contractId" class="flex flex-wrap items-center justify-between">
         <input class="text-sm font-medium text-primary" placeholder="Ingresa el unidad de contratacion"
           [disabled]="!toEditContractingUnity" type="text" [(ngModel)]="contractingUnity">
         <div class="flex items-center gap-2">
