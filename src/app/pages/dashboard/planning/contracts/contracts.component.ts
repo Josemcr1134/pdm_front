@@ -264,7 +264,7 @@ export class ContractsComponent implements OnInit {
   downloadProduct(productId: string) {
     this.isLoading = !this.isLoading;
     const data = {
-      contract_product_contracted_id: productId,
+      contract_product_contracted_id: this.contractSelected.id,
       year: this.yearSelected
     }
     this.pdmSvc.createContractDownloadable(data)
