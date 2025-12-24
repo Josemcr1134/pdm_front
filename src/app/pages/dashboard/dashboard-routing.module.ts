@@ -108,6 +108,11 @@ const routes: Routes = [
         // canActivate:[AuthGuard]
       },
       {
+        path: 'certificate-consultation',
+        loadChildren: () => import('./certificate-consultation/certificate-consultation.module').then(m => m.CertificateConsultationModule)
+        // canActivate:[AuthGuard]
+      },
+      {
         path: '**',
         redirectTo: 'metricsBoard',
         pathMatch: 'full'

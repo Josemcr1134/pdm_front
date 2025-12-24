@@ -199,7 +199,7 @@ export class ContractsComponent implements OnInit {
           const nameResponsible = this.contractSelected.name_responsible || 'null';
           const responsibleEmail = this.contractSelected.responsible_email || 'null';
           const responsiblePhone = this.contractSelected.responsible_phone || 'null';
-          
+
           this.router.navigateByUrl(`/dashboard/planning/${this.filter}/detail/${this.goalId}/contracts/${this.productMgaCode}/${this.contractSelected.id}/${contractingUnit}/${nameResponsible}/${responsibleEmail}/${responsiblePhone}`);
           this.isLoading = !this.isLoading;
         }
@@ -268,7 +268,7 @@ export class ContractsComponent implements OnInit {
       });
   };
 
-  downloadProduct(productId: string) {
+  downloadProduct() {
     this.isLoading = !this.isLoading;
     const data = {
       contract_product_contracted_id: this.contractSelected.id,

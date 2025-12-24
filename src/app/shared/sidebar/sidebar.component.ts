@@ -110,6 +110,11 @@ export class SidebarComponent implements OnInit {
       icon: 'assets/icons/incomes.svg',
       route: "/dashboard/cuipo"
     },
+    {
+      label: 'Consulta de Certificados',
+      icon: 'assets/icons/incomes.svg',
+      route: "/dashboard/certificate-consultation"
+    },
 
   ];
 

@@ -1,0 +1,65 @@
+<div *ngIf="!isLoading">
+  <div class="block p-3 bg-white rounded-t-xl">
+    <div class="flex flex-wrap items-center gap-5">
+      <div class="flex flex-wrap items-center gap-4">
+        <p class="text-base font-bold text-black">Consulta de certificados</p>
+        <div class="grid grid-cols-1">
+          <select (change)="getContractsHistory()" [(ngModel)]="yearSelected" aria-label="Select a tab"
+            class="w-24 col-start-1 row-start-1 py-2 pl-3 pr-8 text-base text-gray-900 bg-white rounded-md appearance-none outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600">
+            <option [value]="years?.first_year">{{years?.first_year}}</option>
+            <option [value]="years?.second_year">{{years?.second_year}}</option>
+            <option [value]="years?.third_year">{{years?.third_year}}</option>
+            <option [value]="years?.fourth_year">{{years?.fourth_year}}</option>
+          </select>
+          <svg
+            class="self-center col-start-1 row-start-1 mr-2 pointer-events-none size-5 justify-self-end fill-gray-500"
+            viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
+            <path fill-rule="evenodd"
+              d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
+              clip-rule="evenodd" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!isLoading" class="mb-4 overflow-x-auto ">
+  <div *ngIf="certificatesConsultation.length" class="inline-block min-w-full py-2 align-middle bg-white ">
+    <table class="min-w-full divide-y divide-gray-300">
+      <thead>
+        <tr class="divide-x divide-gray-200">
+          <th class="px-3 py-3 text-sm font-semibold text-left text-nowrap text-primary">Nombre </th>
+          <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Exportado por:</th>
+          <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Año</th>
+          <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Fecha</th>
+          <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Detalle de Error</th>
+
+          <th class="px-3 text-sm font-semibold text-left text-nowrap text-primary">Archivo</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        <tr *ngFor="let a of certificatesConsultation"
+          class="divide-x divide-gray-200 cursor-pointer hover:bg-gray-100">
+          <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.exported_by_name }}</td>
+          <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.exported_by }}</td>
+          <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.year }}</td>
+
+          <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.created }}</td>
+          <td class="px-3 py-2 text-sm text-gray-500 whitespace-nowrap">{{ a.error_detail }}</td>
+
+          <td class="px-3 py-2 text-sm text-blue-600 underline whitespace-nowrap">
+            <a [href]="a.file_url" target="_blank">Ver archivo</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+  <app-alert [msg]="'No encontramos resultados'" *ngIf="!certificatesConsultation.length"></app-alert>
+  <div class="px-4 pb-4 bg-white rounded-b-xl">
+
+    <app-pagination [limit]="limit" [offset]="offset" [totalItems]="offset + certificatesConsultation.length * 2 "
+      (onPageChange)="onPageChange($event)"></app-pagination>
+  </div>
+</div>

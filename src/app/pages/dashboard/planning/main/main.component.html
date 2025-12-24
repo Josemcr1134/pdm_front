@@ -1,120 +1,150 @@
-<div class="mx-auto   sm:px-6 lg:px-8 h-full">
-  <div class="overflow-x-auto whitespace-nowrap p-4 h-full">
-    <ul class="flex space-x-4 h-full" *ngIf="!isLoading">
+<div class="h-full mx-auto sm:px-6 lg:px-8">
+  <div class="h-full p-4 overflow-x-auto whitespace-nowrap">
+    <ul class="flex h-full space-x-4" *ngIf="!isLoading">
       <!-- MUNICIPALITY PLANNING -->
       <li class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:max-w-[350px]  ">
-        <p class=" text-sm text-wrap  text-primary md:text-[17px] font-bold  ">Planeación  {{filterByDpt == 'true' ? 'Departamental': ''}} </p>
-        <p class="text-base text-black font-black truncate text-wrap ">{{developmentPlan?.name}} </p>
-        <p class="text-wrap md:text-sm text-xs">Selecciona tu categoría de preferencia</p>
+        <p class=" text-sm text-wrap  text-primary md:text-[17px] font-bold  ">Planeación {{filterByDpt == 'true' ?
+          'Departamental': ''}} </p>
+        <p class="text-base font-black text-black truncate text-wrap ">{{developmentPlan?.name}} </p>
+        <p class="text-xs text-wrap md:text-sm">Selecciona tu categoría de preferencia</p>
 
-        <div class="grid md:grid-cols-2 gap-2 mt-5">
-            <button (click)="categoryTypeSelected = 1" [ngClass]="{'badge-primary': categoryTypeSelected == 1}" class="text-primary px-3  text-xs md:text-sm py-1.5 text-center rounded-xl">Líneas Estratégicas</button>
-            <button (click)="getGeneralGoals() " *ngIf="filterByDpt == 'false'" [ngClass]="{'badge-primary': categoryTypeSelected == 2}" class="text-primary font-medium px-3  text-xs md:text-sm py-1.5 text-center rounded-xl ">Metas Producto</button>
-            <!-- <button class="badge-green text-xs md:text-sm py-1.5 text-center rounded-2xl ">Descargar reporte</button> -->
+        <div class="grid gap-2 mt-5 md:grid-cols-2">
+          <button (click)="categoryTypeSelected = 1" [ngClass]="{'badge-primary': categoryTypeSelected == 1}"
+            class="text-primary px-3  text-xs md:text-sm py-1.5 text-center rounded-xl">Líneas Estratégicas</button>
+          <button (click)="getGeneralGoals() " *ngIf="filterByDpt == 'false'"
+            [ngClass]="{'badge-primary': categoryTypeSelected == 2}"
+            class="text-primary font-medium px-3  text-xs md:text-sm py-1.5 text-center rounded-xl ">Metas
+            Producto</button>
+          <!-- <button class="badge-green text-xs md:text-sm py-1.5 text-center rounded-2xl ">Descargar reporte</button> -->
         </div>
-        <ul *ngIf="categoryTypeSelected == 1" class="strategicLinesList w-full">
-          <li *ngFor="let sL of strategicLines" (click)="chooseStrategicLine(sL.id)" [ngClass]="{'strategicLineActive':  sL.id == strategicLine }" class="strategicLine text-wrap md:text-base text-xs">
-              {{sL.name}}
+        <ul *ngIf="categoryTypeSelected == 1" class="w-full strategicLinesList">
+          <li *ngFor="let sL of strategicLines" (click)="chooseStrategicLine(sL.id)"
+            [ngClass]="{'strategicLineActive':  sL.id == strategicLine }"
+            class="text-xs strategicLine text-wrap md:text-base">
+            {{sL.name}}
           </li>
         </ul>
         <div>
-          <input  [formControl]="searchControl"  *ngIf="categoryTypeSelected == 2" type="text" class="input w-full rounded-lg px-4 my-2 py-2 bg-gray-100 text-gray-700 ring-[1px] ring-gray-100"  placeholder="Buscar...">
-          <ul *ngIf="categoryTypeSelected == 2" class="productGoalsList w-full">
-            <li *ngFor="let pG of productGoals | search: searchControl.value ? searchControl.value : ''" (click)="chooseProductGoal(pG)"  [ngClass]="{'goalSelected': productGoal?.id == pG.id}" class="productGoal text-wrap">
+          <input [formControl]="searchControl" *ngIf="categoryTypeSelected == 2" type="text"
+            class="input w-full rounded-lg px-4 my-2 py-2 bg-gray-100 text-gray-700 ring-[1px] ring-gray-100"
+            placeholder="Buscar...">
+          <ul *ngIf="categoryTypeSelected == 2" class="w-full productGoalsList">
+            <li *ngFor="let pG of productGoals | search: searchControl.value ? searchControl.value : ''"
+              (click)="chooseProductGoal(pG)" [ngClass]="{'goalSelected': productGoal?.id == pG.id}"
+              class="productGoal text-wrap">
               {{pG.name}}
 
             </li>
-            <app-pagination [limit]="10" [totalItems]="totalItemsGeneral" [offset]="offsetGeneral" (onPageChange)="onPageChangeGeneral($event)" ></app-pagination>
+            <app-pagination [limit]="10" [totalItems]="totalItemsGeneral" [offset]="offsetGeneral"
+              (onPageChange)="onPageChangeGeneral($event)"></app-pagination>
           </ul>
         </div>
       </li>
 
       <!-- SECTORS LIST  -->
-      <li *ngIf="categoryTypeSelected == 1 && strategicLine.length" class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:max-w-[350px] ">
+      <li *ngIf="categoryTypeSelected == 1 && strategicLine.length"
+        class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:max-w-[350px] ">
         <p class="text-primary text-sm text-wrap md:text-[17px] font-black  ">Sectores</p>
-        <hr class=" border-[3px] rounded-xl my-2 border-[#ebebff]"/>
+        <hr class=" border-[3px] rounded-xl my-2 border-[#ebebff]" />
 
-        <ul  class="strategicLinesList w-full">
-          <li *ngFor="let s of sectors" (click)="chooseSector(s.id)" [ngClass]="{'strategicLineActive':  s.id == sector }"  class="strategicLine text-wrap md:text-base text-xs">
-              {{s.name}}
+        <ul class="w-full strategicLinesList">
+          <li *ngFor="let s of sectors" (click)="chooseSector(s.id)"
+            [ngClass]="{'strategicLineActive':  s.id == sector }" class="text-xs strategicLine text-wrap md:text-base">
+            {{s.name}}
           </li>
         </ul>
       </li>
 
       <!-- CODE LIST  -->
-      <li *ngIf="categoryTypeSelected == 1 && strategicLine.length && sector.length" class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:max-w-[350px] ">
+      <li *ngIf="categoryTypeSelected == 1 && strategicLine.length && sector.length"
+        class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:max-w-[350px] ">
         <p class="text-primary text-sm text-wrap md:text-[17px] font-black  ">Códigos - programa</p>
-        <hr class=" border-[3px] rounded-xl my-2 border-[#ebebff]"/>
+        <hr class=" border-[3px] rounded-xl my-2 border-[#ebebff]" />
 
-        <ul  class="strategicLinesList w-full">
-          <li *ngFor="let s of programCodes" (click)="chooseCode(s.id)" [ngClass]="{'strategicLineActive':  s.id == code }"  class="strategicLine text-wrap md:text-base text-xs">
-              {{s.name}}
+        <ul class="w-full strategicLinesList">
+          <li *ngFor="let s of programCodes" (click)="chooseCode(s.id)"
+            [ngClass]="{'strategicLineActive':  s.id == code }" class="text-xs strategicLine text-wrap md:text-base">
+            {{s.name}}
           </li>
         </ul>
       </li>
 
       <!-- INDICATORS OF WELFARE    -->
-      <li *ngIf="categoryTypeSelected == 1 && strategicLine.length && code.length && sector.length " class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:max-w-[350px] ">
+      <li *ngIf="categoryTypeSelected == 1 && strategicLine.length && code.length && sector.length "
+        class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:max-w-[350px] ">
         <p class="text-primary text-sm text-wrap md:text-[17px] font-black  ">Metas Producto: </p>
-        <input  [formControl]="searchControl"  *ngIf="categoryTypeSelected == 1" type="text" class="input w-full rounded-lg px-4 my-2 py-2 bg-gray-100 text-gray-700 ring-[1px] ring-gray-100"  placeholder="Buscar...">
+        <input [formControl]="searchControl" *ngIf="categoryTypeSelected == 1" type="text"
+          class="input w-full rounded-lg px-4 my-2 py-2 bg-gray-100 text-gray-700 ring-[1px] ring-gray-100"
+          placeholder="Buscar...">
 
-        <ul  class="strategicLinesList w-full max-h-[600px] overflow-y-auto">
-          <li *ngFor="let s of productGoals  | search: searchControl.value ? searchControl.value : ''" (click)="chooseProductGoal(s)" [ngClass]="{'goalSelected': productGoal?.id == s.id}" class="productGoal  text-wrap md:text-base text-xs cursor-pointer">
-              {{s.name}}
+        <ul class="strategicLinesList w-full max-h-[600px] overflow-y-auto">
+          <li *ngFor="let s of productGoals  | search: searchControl.value ? searchControl.value : ''"
+            (click)="chooseProductGoal(s)" [ngClass]="{'goalSelected': productGoal?.id == s.id}"
+            class="text-xs cursor-pointer productGoal text-wrap md:text-base">
+            {{s.name}}
           </li>
         </ul>
-        <app-pagination [limit]="10" [totalItems]="totalItems" [offset]="offset" (onPageChange)="onPageChange($event)" ></app-pagination>
+        <app-pagination [limit]="10" [totalItems]="totalItems" [offset]="offset"
+          (onPageChange)="onPageChange($event)"></app-pagination>
 
       </li>
 
       <!-- PRODUCT GOALS -->
-       <li *ngIf=" productGoal !== undefined" class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:max-w-[350px] ">
-         <div class="flex justify-between items-center gap-2 md:flex-nowrap flex-wrap">
+      <li *ngIf=" productGoal !== undefined"
+        class="h-full bg-white rounded-2xl shadow-md md:p-4 p-2 w-[90%] flex-shrink-0 md:max-w-[350px] ">
+        <div class="flex flex-wrap items-center justify-between gap-2 md:flex-nowrap">
           <p class="text-primary text-sm text-wrap md:text-[17px] font-black   ">{{productGoal.name}}</p>
-          <a *ngIf="filterByDpt === 'false'" (click)="goToDetail()" class="cursor-pointer" >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-green-500">
-              <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+          <a *ngIf="filterByDpt === 'false'" (click)="goToDetail()" class="cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="text-green-500 size-6">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
             </svg>
           </a>
         </div>
-        <hr class=" border-[3px] rounded-xl my-2 border-[#ebebff]"/>
+        <hr class=" border-[3px] rounded-xl my-2 border-[#ebebff]" />
 
         <p class="text-primary text-sm md:text-[16px] font-semibold  ">Unidad de Medida:</p>
-        <p class="text-wrap md:text-sm text-xs">{{productGoal.unit_measurement.name}} </p>
-        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
+        <p class="text-xs text-wrap md:text-sm">{{productGoal.unit_measurement.name}} </p>
+        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]" />
         <p class="text-primary text-sm md:text-[16px] font-semibold  ">Meta del Cuatrienio:</p>
-        <p class="text-wrap md:text-sm text-xs">{{productGoal.goal_four_years}} </p>
-        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
+        <p class="text-xs text-wrap md:text-sm">{{productGoal.goal_four_years}} </p>
+        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]" />
         <p class="text-primary text-sm md:text-[16px] font-semibold  ">Tipo de Meta: </p>
-        <p class="text-wrap md:text-sm text-xs">{{productGoal.goal_type}} </p>
-        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
+        <p class="text-xs text-wrap md:text-sm">{{productGoal.goal_type}} </p>
+        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]" />
         <p class="text-primary text-sm md:text-[16px] font-semibold  ">Código de Producto MGA: </p>
-        <p class="text-wrap md:text-sm text-xs">{{productGoal.code_product_mga}} </p>
-        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
+        <p class="text-xs text-wrap md:text-sm">{{productGoal.code_product_mga}} </p>
+        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]" />
         <p class="text-primary text-sm md:text-[16px] font-semibold  ">Producto de la MGA:</p>
-        <p class="text-wrap md:text-sm text-xs">{{productGoal.product_mga}} </p>
-        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
+        <p class="text-xs text-wrap md:text-sm">{{productGoal.product_mga}} </p>
+        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]" />
         <p class="text-primary text-sm md:text-[16px] font-semibold  ">Indicador de Producto MGA:</p>
-        <p class="text-wrap md:text-sm text-xs">{{productGoal.indicator_product_mga}} </p>
-        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
+        <p class="text-xs text-wrap md:text-sm">{{productGoal.indicator_product_mga}} </p>
+        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]" />
         <p class="text-primary text-sm md:text-[16px] font-semibold  ">Código Indicador de Producto MGA:</p>
-        <p class="text-wrap md:text-sm text-xs">{{productGoal.code_indicator_product_mga}} </p>
-        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
+        <p class="text-xs text-wrap md:text-sm">{{productGoal.code_indicator_product_mga}} </p>
+        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]" />
         <p class="text-primary text-sm md:text-[16px] font-semibold  ">Código ODS</p>
-        <p class="text-wrap md:text-sm text-xs">{{productGoal.code_ods}} </p>
-        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
+        <p class="text-xs text-wrap md:text-sm">{{productGoal.code_ods}} </p>
+        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]" />
 
         <p class="text-primary text-sm md:text-[16px] font-semibold  ">Consecutivo de la Meta:</p>
-        <p class="text-wrap md:text-sm text-xs">{{productGoal.consecutive}} </p>
-        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
+        <p class="text-xs text-wrap md:text-sm">{{productGoal.consecutive}} </p>
+        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]" />
         <p class="text-primary text-sm md:text-[16px] font-semibold  ">Bpin</p>
-        <p class="text-wrap md:text-sm text-xs">{{productGoal.bpin || '-' }} </p>
-        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]"/>
+        <p class="text-xs text-wrap md:text-sm">{{productGoal.bpin || '-' }} </p>
+        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]" />
+        <p class="text-primary text-sm md:text-[16px] font-semibold  ">Responsable</p>
+        <p class="text-xs text-wrap md:text-sm">{{productGoal.responsible || '-' }} </p>
+        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]" />
+        <p class="text-primary text-sm md:text-[16px] font-semibold  ">Unidad de contratación</p>
+        <p class="text-xs text-wrap md:text-sm">{{productGoal.unit_contract || '-' }} </p>
+        <hr class=" border-[1px] rounded-xl my-1 border-[#ebebff]" />
       </li>
     </ul>
-    <div class="flex justify-center items-center py-6" *ngIf="isLoading">
+    <div class="flex items-center justify-center py-6" *ngIf="isLoading">
       <app-loader></app-loader>
     </div>
   </div>
 </div>
-

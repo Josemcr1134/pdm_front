@@ -107,16 +107,14 @@ export class MobileMenuComponent {
       icon: 'assets/icons/incomes.svg',
       route: "/dashboard/cuipo"
     },
-
-
-
+    {
+      label: 'Consulta de Certificados',
+      icon: 'assets/icons/incomes.svg',
+      route: "/dashboard/certificate-consultation"
+    },
   ]
 
   closeMenu() {
     this.close.emit(true)
   }
-
-
-
-
 }

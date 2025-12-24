@@ -35,7 +35,6 @@ export class DetailComponent implements OnInit, OnDestroy {
     this.activatedRoute.params.subscribe((params: any) => {
       this.filter = params.filterByDpt;
     });
-    this.listenContractRouteParams();
     this.productGoal = JSON.parse(sessionStorage.getItem('productGoal') || '');
     this.bpin = this.productGoal.bpin
     this.contractName = this.productGoal.name_project
@@ -45,39 +44,8 @@ export class DetailComponent implements OnInit, OnDestroy {
     this.childRouteSub?.unsubscribe();
   }
 
-  private listenContractRouteParams(): void {
-    // Capture current child params (if already on the contracts route).
-    this.updateContractParams(this.activatedRoute.firstChild?.snapshot?.params);
 
-    // Keep listening for child route param changes while this component is alive.
-    this.childRouteSub = this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd),
-      switchMap(() => this.activatedRoute.firstChild?.params ?? of({}))
-    ).subscribe((params: any) => this.updateContractParams(params));
-  }
 
-  private updateContractParams(params: any): void {
-    if (!params) {
-      this.supervisorName = '';
-      this.contractingUnity = '';
-      this.contractId = '';
-      this.responsibleEmail = '';
-      this.responsiblePhone = '';
-      this.toEditSupervisorName = false;
-      this.toEditContractingUnity = false;
-      return;
-    }
-    this.contractId = params.contractId || '';
-    this.supervisorName = params.supervisorName || '';
-    this.contractingUnity = params.contractingUnit || '';
-    this.responsibleEmail = params.responsibleEmail || '';
-    this.responsiblePhone = params.responsiblePhone || '';
-
-    if (!this.contractId) {
-      this.toEditSupervisorName = false;
-      this.toEditContractingUnity = false;
-    }
-  }
 
   updateBpin() {
     const data = {
@@ -124,56 +92,8 @@ export class DetailComponent implements OnInit, OnDestroy {
 
 
 
-  updateContractingUnit() {
-    if (!this.contractId) {
-      this.alertSvc.currentAlert('Información', 'Selecciona un contrato para actualizar la unidad de contratación', 'info');
-      return;
-    }
-    const data = {
-      contracting_unit: this.contractingUnity
-    };
-    this.isLoading = !this.isLoading;
-    this.pdmSvc.updateContractingUnit(data, this.contractId)
-      .subscribe({
-        error: (err: any) => {
-          console.log(err);
-          Swal.fire('Oooops', 'Error al actualizar la unidad de contratación', 'error');
-          this.isLoading = !this.isLoading;
-        },
-        next: (resp: any) => {
-          Swal.fire('Éxito', 'Unidad de contratación actualizada', 'success');
-          this.isLoading = !this.isLoading;
-          this.toEditContractingUnity = false;
-        }
-      })
-  }
 
-  updateSupevisorName() {
-    if (!this.contractId) {
-      this.alertSvc.currentAlert('Información', 'Selecciona un contrato para actualizar el supervisor', 'info');
-      return;
-    }
-    const data = {
-      name_responsible: this.supervisorName,
-      responsible_email: this.responsibleEmail,
-      responsible_phone: this.responsiblePhone
-    };
-    this.isLoading = !this.isLoading;
-    this.pdmSvc.updateResponsableUser(data, this.contractId)
-      .subscribe({
-        error: (err: any) => {
-          console.log(err);
-          this.alertSvc.handleErrors(err);
-          this.isLoading = !this.isLoading;
-        },
-        next: () => {
-          this.toEditSupervisorName = false;
-          this.isLoading = !this.isLoading;
 
-          this.alertSvc.currentAlert('Éxito', 'Responsable actualizado', 'success');
-        }
-      });
-  };
 
 
 
