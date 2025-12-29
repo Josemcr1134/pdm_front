@@ -11,28 +11,31 @@ import { ProductGoal } from '../../models/product-goal.model';
 })
 export class PlanningService {
 
-  constructor(private http:HttpClient, private authSvc:AuthService) { }
+  constructor(private http: HttpClient, private authSvc: AuthService) { }
 
 
-  getStrategicLines(developPlan:string){
+  getStrategicLines(developPlan: string) {
     const url = `${this.authSvc.baseUrl}/pdm/strategic-line/?development_plan_id=${developPlan}`;
     return this.http.get<StrategicLine[]>(url, this.authSvc.header);
   };
 
-  getSectors(strategicLine:string){
+  getSectors(strategicLine: string) {
     const url = `${this.authSvc.baseUrl}/pdm/sector/?strategic_line_id=${strategicLine}`;
-    return this.http.get<Sector[]> (url, this.authSvc.header);
+    return this.http.get<Sector[]>(url, this.authSvc.header);
   };
 
-  getCodeAndProgram(sectorId:string){
+  getCodeAndProgram(sectorId: string) {
     const url = `${this.authSvc.baseUrl}/pdm/code-and-program/?sector_id=${sectorId}`;
     return this.http.get<ProgramCode[]>(url, this.authSvc.header);
   };
 
-  getGoals(limit:number, offset:number, codeId?:string){
+  getGoals(limit: number, offset: number, codeId?: string, search?: string) {
     let params = new HttpParams();
     if (codeId) {
       params = params.set('code_and_program_id', codeId);
+    }
+    if (search) {
+      params = params.set('search', search);
     }
 
 
@@ -40,73 +43,73 @@ export class PlanningService {
     return this.http.get<ProductGoal[]>(url, { headers: this.authSvc.header.headers, params });
   };
 
-  getYears(){
+  getYears() {
     const url = `${this.authSvc.baseUrl}/pdm/development-plan/years-of-plan-execution/`;
     return this.http.get(url, this.authSvc.header);
   };
 
-  getScheduledGoal(goalId:string, year:number, month:any){
+  getScheduledGoal(goalId: string, year: number, month: any) {
     let params = new HttpParams();
     if (month !== 'null' && month !== null) {
       params = params.set('month', month);
     }
     const url = `${this.authSvc.baseUrl}/pdm/goal/${goalId}/scheduled/?year=${year}`;
-    return this.http.get(url,  { headers: this.authSvc.header.headers, params });
+    return this.http.get(url, { headers: this.authSvc.header.headers, params });
   };
 
 
-  getExecutedGoal(goalId:string, year:number, month:any){
+  getExecutedGoal(goalId: string, year: number, month: any) {
     let params = new HttpParams();
     if (month !== 'null' && month !== null) {
       params = params.set('month', month);
     }
     const url = `${this.authSvc.baseUrl}/pdm/goal/${goalId}/executed/?year=${year}`;
-    return this.http.get(url,  { headers: this.authSvc.header.headers, params });
+    return this.http.get(url, { headers: this.authSvc.header.headers, params });
   }
 
-  getStatistics(goalId:string){
+  getStatistics(goalId: string) {
     const url = `${this.authSvc.baseUrl}/pdm/goal/${goalId}/statistics/`;
     return this.http.get(url, this.authSvc.header);
   };
 
 
-  getContractExecutionUnits(limit:number, offset:number){
+  getContractExecutionUnits(limit: number, offset: number) {
     const url = `${this.authSvc.baseUrl}/contracts/execution-unit/?limit=${limit}&offset=${offset}`;
     return this.http.get(url, this.authSvc.header);
   };
 
-  getCatalogProduct(code:string, limit:number, offset:number, search:string){
-     let params = new HttpParams();
+  getCatalogProduct(code: string, limit: number, offset: number, search: string) {
+    let params = new HttpParams();
     if (code !== undefined && code !== null) {
       params = params.set('code_mga', code);
     }
     const url = `${this.authSvc.baseUrl}/catalogue/product-mga/?limit=${limit}&offset=${offset}&search=${search}`;
-    return this.http.get(url,  { headers: this.authSvc.header.headers, params });
+    return this.http.get(url, { headers: this.authSvc.header.headers, params });
   };
 
-  getModality(limit:number, offset:number){
+  getModality(limit: number, offset: number) {
     const url = `${this.authSvc.baseUrl}/modality/?limit=${limit}&offset=${offset}`;
     return this.http.get(url, this.authSvc.header);
   };
 
-  getWellnessCatalogue(limit:number, offset: number, search:string){
+  getWellnessCatalogue(limit: number, offset: number, search: string) {
     const url = `${this.authSvc.baseUrl}/contracts/product-classification/search/?limit=${limit}&offset=${offset}&search=${search}`;
     return this.http.get(url, this.authSvc.header);
   };
 
-  createContract(data:{}){
+  createContract(data: {}) {
     const url = `${this.authSvc.baseUrl}/contracts/`;
     return this.http.post(url, data, this.authSvc.header);
   };
 
 
-  deleteContract(id:string){
+  deleteContract(id: string) {
     const url = `${this.authSvc.baseUrl}/contracts/${id}/`;
     return this.http.delete(url, this.authSvc.header);
   };
 
 
-  getContracts(limit:number, offset:number, year:number, goal:string, operatingExpense:any = null){
+  getContracts(limit: number, offset: number, year: number, goal: string, operatingExpense: any = null) {
     let params = new HttpParams();
     if (goal !== undefined && goal !== null && goal.length) {
       params = params.set('goal', goal);
@@ -115,95 +118,95 @@ export class PlanningService {
       params = params.set('operating_expense', operatingExpense);
     }
     const url = `${this.authSvc.baseUrl}/contracts/?limit=${limit}&offset=${offset}&year=${year}`;
-    return this.http.get(url,  { headers: this.authSvc.header.headers, params });
+    return this.http.get(url, { headers: this.authSvc.header.headers, params });
   };
 
-  getContractById(id:string){
+  getContractById(id: string) {
     const url = `${this.authSvc.baseUrl}/contracts/${id}/`;
     return this.http.get(url, this.authSvc.header);
   };
 
-  addSourceFinancing(data:{}){
+  addSourceFinancing(data: {}) {
     const url = `${this.authSvc.baseUrl}/contracts/contract-product-contracted-source-financing/`;
     return this.http.post(url, data, this.authSvc.header);
   };
 
-  deleteSourceFinancing(id:string){
+  deleteSourceFinancing(id: string) {
     const url = `${this.authSvc.baseUrl}/contracts/contract-product-contracted-source-financing/${id}/`;
     return this.http.delete(url, this.authSvc.header);
   };
 
-  getCoverage(limit:number, offset:number, goalSelected:string){
+  getCoverage(limit: number, offset: number, goalSelected: string) {
     const url = `${this.authSvc.baseUrl}/coverage/?limit=${limit}&offset=${offset}&goal=${goalSelected}`;
     return this.http.get(url, this.authSvc.header);
   };
 
-  updateCoverage(data:{}, id:string){
+  updateCoverage(data: {}, id: string) {
     const url = `${this.authSvc.baseUrl}/coverage/${id}/`;
     return this.http.patch(url, data, this.authSvc.header);
   };
 
-  getDevelopmentPlan(isDpt:boolean){
+  getDevelopmentPlan(isDpt: boolean) {
     const url = `${this.authSvc.baseUrl}/pdm/development-plan/active/?is_department=${isDpt}`;
     return this.http.get(url, this.authSvc.header);
   };
 
-  createContractDownloadable(data:{}){
+  createContractDownloadable(data: {}) {
     const url = `${this.authSvc.baseUrl}/contracts/generate-project-bank-certificate/`;
-    return this.http.post(url,data, this.authSvc.header);
+    return this.http.post(url, data, this.authSvc.header);
   };
 
-  getContractDownloadable(id:string){
+  getContractDownloadable(id: string) {
     const url = `${this.authSvc.baseUrl}/contracts/generate-project-bank-certificate/${id}/`;
     return this.http.get(url, this.authSvc.header);
   };
 
-  updateBpin(data:{}, goalId:string){
+  updateBpin(data: {}, goalId: string) {
     const url = `${this.authSvc.baseUrl}/pdm/goal/${goalId}/bpin/`;
     return this.http.put(url, data, this.authSvc.header);
   };
-  updateNameProject(data:{}, goalId:string){
+  updateNameProject(data: {}, goalId: string) {
     const url = `${this.authSvc.baseUrl}/pdm/goal/${goalId}/name-project/`;
     return this.http.put(url, data, this.authSvc.header);
   };
 
-  createGoalExecuted(goalId:string, year:number, data:{}){
+  createGoalExecuted(goalId: string, year: number, data: {}) {
     const url = `${this.authSvc.baseUrl}/pdm/goal/${goalId}/executed/?year=${year}`;
-    return this.http.post(url,data, this.authSvc.header);
+    return this.http.post(url, data, this.authSvc.header);
   };
 
-  updateGoalExecuted(goalId:string, year:number, data:{}){
+  updateGoalExecuted(goalId: string, year: number, data: {}) {
     const url = `${this.authSvc.baseUrl}/pdm/goal/${goalId}/executed/?year=${year}`;
-    return this.http.patch(url,data, this.authSvc.header);
+    return this.http.patch(url, data, this.authSvc.header);
   };
 
-  createGoalScheduled(goalId:string, year:number, data:{}){
+  createGoalScheduled(goalId: string, year: number, data: {}) {
     const url = `${this.authSvc.baseUrl}/pdm/goal/${goalId}/scheduled/?year=${year}`;
-    return this.http.post(url,data, this.authSvc.header);
+    return this.http.post(url, data, this.authSvc.header);
   };
 
-  updateGoalScheduled(goalId:string, year:number, data:{}){
+  updateGoalScheduled(goalId: string, year: number, data: {}) {
     const url = `${this.authSvc.baseUrl}/pdm/goal/${goalId}/scheduled/?year=${year}`;
-    return this.http.patch(url,data, this.authSvc.header);
+    return this.http.patch(url, data, this.authSvc.header);
   };
 
 
-  updateContract(id:string, data:{}){
+  updateContract(id: string, data: {}) {
     const url = `${this.authSvc.baseUrl}/contracts/${id}/`;
     return this.http.patch(url, data, this.authSvc.header);
   };
 
-  updateResponsableUser(data:{},id:string){
+  updateResponsableUser(data: {}, id: string) {
     const url = `${this.authSvc.baseUrl}/contracts/${id}/`;
     return this.http.patch(url, data, this.authSvc.header);
   };
 
-  getProductClasification(search:string){
+  getProductClasification(search: string) {
     const url = `${this.authSvc.baseUrl}/contracts/product-classification/search/?search=${search}`;
     return this.http.get(url, this.authSvc.header);
   };
 
-  updateContractingUnit(data:{}, id:string){
+  updateContractingUnit(data: {}, id: string) {
     const url = `${this.authSvc.baseUrl}/contracts/contracting-unit/${id}/update_contracting_unit/`;
     return this.http.patch(url, data, this.authSvc.header);
   };

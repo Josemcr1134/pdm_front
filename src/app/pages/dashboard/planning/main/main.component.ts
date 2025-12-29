@@ -6,6 +6,7 @@ import { ProductGoal } from '../../../../core/models/product-goal.model';
 import { PlanningService } from '../../../../core/services/planning/planning.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 
 @Component({
@@ -22,7 +23,6 @@ export class MainComponent implements OnInit {
   public filterByDpt:string = '';
   public strategicLines: StrategicLine[] = [];
   public productGoals:ProductGoal[] = [];
-  public productGoalsFiltered:ProductGoal[] = [];
   public sectors:Sector[] = [];
   public  programCodes: ProgramCode[] = [];
   public isLoading:boolean = false;
@@ -34,9 +34,9 @@ export class MainComponent implements OnInit {
   public searchText: string  ='';
   public offsetGeneral:number = 0;
   constructor(private planningSvc:PlanningService, private router:Router, private activatedRoute:ActivatedRoute){
-    this.searchControl.valueChanges.subscribe(value => {
-      this.searchText = value?.toLowerCase() || '';
-    });
+    this.searchControl.valueChanges
+      .pipe(debounceTime(300), distinctUntilChanged())
+      .subscribe(() => this.applySearch());
   }
 
   ngOnInit(): void {
@@ -120,8 +120,23 @@ export class MainComponent implements OnInit {
       this.offset = 0;
     }
     this.code = value;
+    this.loadGoals(this.offset, (count) => this.totalItems = count, this.code);
+  };
+
+  applySearch(){
+    this.searchText = (this.searchControl.value || '').toString().trim().toLowerCase();
+    if (this.categoryTypeSelected === 1) {
+      this.offset = 0;
+      this.loadGoals(this.offset, (count) => this.totalItems = count, this.code);
+      return;
+    }
+    this.offsetGeneral = 0;
+    this.getGeneralGoals();
+  };
+
+  private loadGoals(offset: number, updateTotal: (count: number) => void, codeId?: string, setCategoryType?: number){
     this.isLoading = !this.isLoading;
-    this.planningSvc.getGoals(10, this.offset, this.code)
+    this.planningSvc.getGoals(10, offset, codeId, this.searchText || undefined)
         .subscribe({
           error:(err:any) =>{
             console.log(err);
@@ -130,7 +145,10 @@ export class MainComponent implements OnInit {
           next:(resp:any) => {
             console.log(resp)
             this.productGoals = resp.results;
-            this.totalItems = resp.count
+            updateTotal(resp.count);
+            if (setCategoryType !== undefined) {
+              this.categoryTypeSelected = setCategoryType;
+            }
             this.productGoal = undefined;
             this.isLoading = !this.isLoading;
           }
@@ -143,23 +161,7 @@ export class MainComponent implements OnInit {
   };
 
   getGeneralGoals(){
-    this.isLoading = !this.isLoading;
-
-    this.planningSvc.getGoals(10, this.offsetGeneral)
-        .subscribe({
-          error:(err:any) =>{
-            console.log(err);
-            this.isLoading = !this.isLoading;
-          },
-          next:(resp:any) => {
-            console.log(resp)
-            this.productGoals = resp.results;
-            this.totalItemsGeneral = resp.count;
-            this.categoryTypeSelected = 2;
-            this.productGoal = undefined
-            this.isLoading = !this.isLoading;
-          }
-        });
+    this.loadGoals(this.offsetGeneral, (count) => this.totalItemsGeneral = count, undefined, 2);
   };
 
   goToDetail(){
@@ -169,13 +171,13 @@ export class MainComponent implements OnInit {
 
   onPageChange(event:number){
     this.offset = event;
-    this.chooseCode(this.code);
+    this.loadGoals(this.offset, (count) => this.totalItems = count, this.code);
   };
 
 
   onPageChangeGeneral(event:number){
-    this.offset = event;
-    this.getGeneralGoals();
+    this.offsetGeneral = event;
+    this.loadGoals(this.offsetGeneral, (count) => this.totalItemsGeneral = count, undefined, 2);
   };
 
 
