@@ -15,32 +15,32 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
   styleUrl: './main.component.css'
 })
 export class MainComponent implements OnInit {
-  categoryTypeSelected:number = 1;
-  public strategicLine:string = '';
-  public productGoal!:ProductGoal | undefined;
-  public sector:string = '';
-  public code:string = '';
-  public filterByDpt:string = '';
+  categoryTypeSelected: number = 1;
+  public strategicLine: string = '';
+  public productGoal!: ProductGoal | undefined;
+  public sector: string = '';
+  public code: string = '';
+  public filterByDpt: string = '';
   public strategicLines: StrategicLine[] = [];
-  public productGoals:ProductGoal[] = [];
-  public sectors:Sector[] = [];
-  public  programCodes: ProgramCode[] = [];
-  public isLoading:boolean = false;
-  public developmentPlan:any;
-  public offset:number = 0;
-  public totalItems:number = 0;
-  public totalItemsGeneral:number = 0;
+  public productGoals: ProductGoal[] = [];
+  public sectors: Sector[] = [];
+  public programCodes: ProgramCode[] = [];
+  public isLoading: boolean = false;
+  public developmentPlan: any;
+  public offset: number = 0;
+  public totalItems: number = 0;
+  public totalItemsGeneral: number = 0;
   searchControl = new FormControl('');
-  public searchText: string  ='';
-  public offsetGeneral:number = 0;
-  constructor(private planningSvc:PlanningService, private router:Router, private activatedRoute:ActivatedRoute){
+  public searchText: string = '';
+  public offsetGeneral: number = 0;
+  constructor(private planningSvc: PlanningService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.searchControl.valueChanges
-      .pipe(debounceTime(300), distinctUntilChanged())
+      .pipe(debounceTime(3000), distinctUntilChanged())
       .subscribe(() => this.applySearch());
   }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe((params:any) =>{
+    this.activatedRoute.params.subscribe((params: any) => {
       console.log(params)
       this.filterByDpt = params.filterByDpt;
       this.getDevelopmentPlan(params.filterByDpt)
@@ -48,74 +48,74 @@ export class MainComponent implements OnInit {
 
   };
 
-  getDevelopmentPlan(filter:boolean){
+  getDevelopmentPlan(filter: boolean) {
     this.planningSvc.getDevelopmentPlan(filter)
-        .subscribe({
-          error:(err:any) => {
-            console.log(err);
-          },
-          next:(resp:any) => {
-            console.log(resp)
-            this.developmentPlan = resp;
-            this.getStrategicLines()
-          }
-        })
+      .subscribe({
+        error: (err: any) => {
+          console.log(err);
+        },
+        next: (resp: any) => {
+          console.log(resp)
+          this.developmentPlan = resp;
+          this.getStrategicLines()
+        }
+      })
   }
 
-  getStrategicLines(){
+  getStrategicLines() {
     this.isLoading = !this.isLoading;
     this.planningSvc.getStrategicLines(this.developmentPlan.id)
-        .subscribe({
-          error:(err:any) => {
-            console.log(err)
-            this.isLoading = !this.isLoading;
-          },
-          next:(resp:StrategicLine[]) => {
-            console.log(resp)
-            this.strategicLines = resp;
-            this.isLoading = !this.isLoading;
-            }
-          })
+      .subscribe({
+        error: (err: any) => {
+          console.log(err)
+          this.isLoading = !this.isLoading;
+        },
+        next: (resp: StrategicLine[]) => {
+          console.log(resp)
+          this.strategicLines = resp;
+          this.isLoading = !this.isLoading;
+        }
+      })
   }
 
-  chooseStrategicLine(value:string){
+  chooseStrategicLine(value: string) {
     this.isLoading = !this.isLoading;
     this.strategicLine = value;
     this.planningSvc.getSectors(this.strategicLine)
-          .subscribe({
-            error:(err:any) =>{
-              console.log(err)
-              this.isLoading = !this.isLoading;
-            },
-            next:(resp:Sector[]) => {
-              this.sectors = resp;
-              this.sector = '';
-              this.code = '';
-              this.productGoal = undefined;
-              this.isLoading = !this.isLoading;
-            }
-          })
+      .subscribe({
+        error: (err: any) => {
+          console.log(err)
+          this.isLoading = !this.isLoading;
+        },
+        next: (resp: Sector[]) => {
+          this.sectors = resp;
+          this.sector = '';
+          this.code = '';
+          this.productGoal = undefined;
+          this.isLoading = !this.isLoading;
+        }
+      })
   };
 
-  chooseSector(value:string){
+  chooseSector(value: string) {
     this.isLoading = !this.isLoading;
     this.sector = value;
     this.planningSvc.getCodeAndProgram(this.sector)
-        .subscribe({
-          error:(err:any) => {
-            console.log(err)
-            this.isLoading = !this.isLoading;
-          },
-          next:(resp:ProgramCode[]) => {
-            this.code = '';
-            this.programCodes = resp;
-            this.productGoal = undefined;
-            this.isLoading = !this.isLoading;
-            }
-          })
+      .subscribe({
+        error: (err: any) => {
+          console.log(err)
+          this.isLoading = !this.isLoading;
+        },
+        next: (resp: ProgramCode[]) => {
+          this.code = '';
+          this.programCodes = resp;
+          this.productGoal = undefined;
+          this.isLoading = !this.isLoading;
+        }
+      })
   };
 
-  chooseCode(value:string){
+  chooseCode(value: string) {
     if (value !== this.code) {
       this.offset = 0;
     }
@@ -123,7 +123,7 @@ export class MainComponent implements OnInit {
     this.loadGoals(this.offset, (count) => this.totalItems = count, this.code);
   };
 
-  applySearch(){
+  applySearch() {
     this.searchText = (this.searchControl.value || '').toString().trim().toLowerCase();
     if (this.categoryTypeSelected === 1) {
       this.offset = 0;
@@ -134,48 +134,48 @@ export class MainComponent implements OnInit {
     this.getGeneralGoals();
   };
 
-  private loadGoals(offset: number, updateTotal: (count: number) => void, codeId?: string, setCategoryType?: number){
+  private loadGoals(offset: number, updateTotal: (count: number) => void, codeId?: string, setCategoryType?: number) {
     this.isLoading = !this.isLoading;
     this.planningSvc.getGoals(10, offset, codeId, this.searchText || undefined)
-        .subscribe({
-          error:(err:any) =>{
-            console.log(err);
-            this.isLoading = !this.isLoading;
-          },
-          next:(resp:any) => {
-            console.log(resp)
-            this.productGoals = resp.results;
-            updateTotal(resp.count);
-            if (setCategoryType !== undefined) {
-              this.categoryTypeSelected = setCategoryType;
-            }
-            this.productGoal = undefined;
-            this.isLoading = !this.isLoading;
+      .subscribe({
+        error: (err: any) => {
+          console.log(err);
+          this.isLoading = !this.isLoading;
+        },
+        next: (resp: any) => {
+          console.log(resp)
+          this.productGoals = resp.results;
+          updateTotal(resp.count);
+          if (setCategoryType !== undefined) {
+            this.categoryTypeSelected = setCategoryType;
           }
-        });
+          this.productGoal = undefined;
+          this.isLoading = !this.isLoading;
+        }
+      });
   };
 
-  chooseProductGoal(goal:ProductGoal){
+  chooseProductGoal(goal: ProductGoal) {
     console.log(goal)
     this.productGoal = goal;
   };
 
-  getGeneralGoals(){
+  getGeneralGoals() {
     this.loadGoals(this.offsetGeneral, (count) => this.totalItemsGeneral = count, undefined, 2);
   };
 
-  goToDetail(){
+  goToDetail() {
     sessionStorage.setItem('productGoal', JSON.stringify(this.productGoal));
     this.router.navigateByUrl('/dashboard/planning/' + this.filterByDpt + '/detail/' + this.productGoal?.id);
   };
 
-  onPageChange(event:number){
+  onPageChange(event: number) {
     this.offset = event;
     this.loadGoals(this.offset, (count) => this.totalItems = count, this.code);
   };
 
 
-  onPageChangeGeneral(event:number){
+  onPageChangeGeneral(event: number) {
     this.offsetGeneral = event;
     this.loadGoals(this.offsetGeneral, (count) => this.totalItemsGeneral = count, undefined, 2);
   };
